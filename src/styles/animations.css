@@ -1,0 +1,421 @@
+/* ============================================
+   Animations — Keyframes & Micro-interactions
+   ============================================ */
+
+
+/* ---- Counter bounce ---- */
+@keyframes counterBounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.2); }
+  50% { transform: scale(0.95); }
+  70% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.counter-bounce {
+  animation: counterBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---- Fact card slide up ---- */
+@keyframes factCardSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.fact-card-enter {
+  animation: factCardSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ---- Microstate Radar Ping (Glows 1 time at the start) ---- */
+@keyframes microstateRadarPing {
+  0% {
+    r: 1.6;
+    filter: drop-shadow(0 0 0px rgba(184, 58, 46, 0));
+  }
+  35% {
+    r: 3.4;
+    filter: drop-shadow(0 0 10px rgba(226, 109, 92, 0.95)) drop-shadow(0 0 20px rgba(184, 58, 46, 0.70));
+  }
+  100% {
+    r: 2.2;
+    filter: drop-shadow(0 0 3px rgba(184, 58, 46, 0.30));
+  }
+}
+
+/* ---- Island / Small Territory Radar Pulse (Glows 1 time at the start) ---- */
+@keyframes islandRadarPulse {
+  0% {
+    stroke-width: 1.0px;
+    filter: drop-shadow(0 0 0px rgba(184, 58, 46, 0));
+  }
+  35% {
+    stroke-width: 2.0px;
+    stroke: #FFE5E0;
+    filter: drop-shadow(0 0 10px rgba(226, 109, 92, 0.95)) drop-shadow(0 0 20px rgba(184, 58, 46, 0.70));
+  }
+  100% {
+    stroke-width: 1.2px;
+    stroke: var(--reverse-highlight-light);
+    filter: drop-shadow(0 0 4px rgba(184, 58, 46, 0.35));
+  }
+}
+
+/* ---- Soft Mode-Aware Country Discovery Reveal ---- */
+@keyframes countryRevealCasual {
+  0% {
+    fill: #E8C15A;
+    stroke: #FFF0B8;
+    stroke-width: 1.5px;
+    filter: drop-shadow(0 0 8px rgba(197, 155, 39, 0.55));
+  }
+  100% {
+    fill: var(--casual-highlight);
+    stroke: var(--casual-highlight-light);
+    stroke-width: 0.95px;
+    filter: drop-shadow(0 0 2px rgba(197, 155, 39, 0.20));
+  }
+}
+
+@keyframes countryRevealSpeed {
+  0% {
+    fill: #5BB898;
+    stroke: #B5F0DB;
+    stroke-width: 1.5px;
+    filter: drop-shadow(0 0 8px rgba(45, 127, 103, 0.55));
+  }
+  100% {
+    fill: var(--speed-highlight);
+    stroke: var(--speed-highlight-light);
+    stroke-width: 0.95px;
+    filter: drop-shadow(0 0 2px rgba(45, 127, 103, 0.20));
+  }
+}
+
+@keyframes countryRevealReverse {
+  0% {
+    fill: #C94A3A;
+    stroke: #E26D5C;
+    stroke-width: 1.2px;
+    filter: drop-shadow(0 0 4px rgba(184, 58, 46, 0.35));
+  }
+  100% {
+    fill: var(--reverse-highlight);
+    stroke: var(--reverse-highlight-light);
+    stroke-width: 0.95px;
+    filter: drop-shadow(0 0 1px rgba(184, 58, 46, 0.15));
+  }
+}
+
+/* ---- Microstate Beacon Radar Ping ---- */
+@keyframes beaconPing {
+  0% {
+    r: 2px;
+    opacity: 1;
+    stroke-width: 2px;
+  }
+  50% {
+    r: 12px;
+    opacity: 0.8;
+    stroke-width: 1.5px;
+  }
+  100% {
+    r: 22px;
+    opacity: 0;
+    stroke-width: 0.5px;
+  }
+}
+
+/* ---- Discovery Ripple & Streak Pop ---- */
+@keyframes streakPop {
+  0% { transform: scale(0.85); opacity: 0; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ---- Glow pulse for active highlight ---- */
+@keyframes glowPulse {
+  0%, 100% { filter: drop-shadow(0 0 4px var(--active-glow-subtle)); }
+  50% { filter: drop-shadow(0 0 10px var(--active-glow)); }
+}
+
+/* ---- Fade in ---- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* ---- Fade in up ---- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+/* ---- Scale in ---- */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scale-in {
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ---- App reveal (after intro) ---- */
+@keyframes appReveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.app-reveal {
+  animation: appReveal 0.8s ease forwards;
+}
+
+/* ---- Correct guess flash ---- */
+@keyframes correctFlash {
+  0% { background: transparent; }
+  15% { background: var(--active-glow-subtle); }
+  100% { background: transparent; }
+}
+
+.input-correct {
+  animation: correctFlash 0.6s ease;
+}
+
+/* ---- Timer tick ---- */
+@keyframes timerTick {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* ---- Shimmer for loading states ---- */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--glass-bg) 0%,
+    var(--glass-bg-hover) 50%,
+    var(--glass-bg) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ---- Mode switch transition ---- */
+@keyframes modeSwitch {
+  0% { opacity: 0.6; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.mode-transition {
+  animation: modeSwitch 0.3s ease;
+}
+
+/* ---- Floating animation for continent labels ---- */
+@keyframes floatSubtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* ---- Victory Overlay & Themes ---- */
+.victory-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at center, rgba(14, 13, 11, 0.40) 0%, rgba(9, 8, 7, 0.72) 50%, rgba(5, 5, 8, 0.94) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+}
+
+.victory-card {
+  max-width: 520px;
+  width: 100%;
+  background: rgba(18, 18, 28, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 44px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Theme: Casual Golden Illumination */
+.victory-card.casual-theme {
+  border-color: rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 80px rgba(255, 215, 0, 0.15), 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+.victory-card.casual-theme .victory-badge {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+/* Theme: Speed Hyperdrive */
+.victory-card.speed-theme {
+  border-color: rgba(0, 245, 212, 0.3);
+  box-shadow: 0 0 80px rgba(0, 245, 212, 0.15), 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+.victory-card.speed-theme .victory-badge {
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.2), rgba(0, 180, 216, 0.2));
+  color: #00f5d4;
+  border: 1px solid rgba(0, 245, 212, 0.4);
+}
+
+/* Theme: Reverse Tactical Mastermind */
+.victory-card.reverse-theme {
+  border-color: rgba(255, 77, 109, 0.3);
+  box-shadow: 0 0 80px rgba(255, 77, 109, 0.15), 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+.victory-card.reverse-theme .victory-badge {
+  background: linear-gradient(135deg, rgba(255, 77, 109, 0.2), rgba(123, 44, 191, 0.2));
+  color: #ff4d6d;
+  border: 1px solid rgba(255, 77, 109, 0.4);
+}
+
+.victory-badge {
+  display: inline-block;
+  align-self: center;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.victory-icon {
+  font-size: 3.8rem;
+  margin-bottom: var(--space-xs);
+  display: block;
+  animation: floatSubtle 3s ease-in-out infinite;
+}
+
+.victory-card h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2rem;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.victory-quirky-text {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+}
+
+.victory-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.victory-next-btn {
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #00b4d8, #00f5d4);
+  color: #050508;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 15px rgba(0, 245, 212, 0.3);
+}
+
+.victory-next-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 245, 212, 0.5);
+}
+
+.victory-close-btn {
+  padding: 14px 24px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.victory-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* SVG Wave Animations */
+@keyframes goldenAuroraWave {
+  0% { fill: #ffd700; filter: drop-shadow(0 0 12px #ffd700); }
+  50% { fill: #00f5d4; filter: drop-shadow(0 0 20px #00f5d4); }
+  100% { fill: #00b4d8; filter: drop-shadow(0 0 8px #00b4d8); }
+}
+
+.aurora-wave-active {
+  animation: goldenAuroraWave 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes electricPulse {
+  0%, 100% { filter: drop-shadow(0 0 4px #00f5d4); }
+  50% { filter: drop-shadow(0 0 25px #00f5d4) drop-shadow(0 0 10px #ffffff); }
+}
+
+.electric-pulse-active {
+  animation: electricPulse 0.8s ease-in-out infinite;
+}
+

@@ -1,0 +1,154 @@
+/* ==========================================================================
+   Two Meridian — "Field Atlas" Stats / Records Dashboard Styles
+   ========================================================================== */
+
+.page-stats {
+  padding: var(--space-xl) var(--space-lg);
+  overflow-y: auto;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: var(--ink-950);
+}
+
+.stats-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.stats-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.stats-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--paper);
+  margin-top: var(--space-xs);
+}
+
+.stats-subtitle {
+  color: var(--paper-muted);
+  font-size: 1rem;
+  max-width: 480px;
+}
+
+.stats-empty {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-lg);
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  color: var(--paper-muted);
+}
+
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: var(--space-md);
+}
+
+.stat-card {
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color var(--transition-fast);
+}
+
+.stat-card:hover {
+  border-color: var(--brass-500);
+}
+
+.stat-card h3 {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--paper-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--brass-500);
+}
+
+.stats-table-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--paper);
+  margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: var(--space-xs);
+}
+
+.stats-table-container {
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.stats-table th {
+  background: var(--ink-950);
+  color: var(--paper-faint);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  padding: 10px 16px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.stats-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--paper);
+  font-size: 0.88rem;
+}
+
+.stats-table tr:last-child td {
+  border-bottom: none;
+}
+
+.stats-table tr:hover td {
+  background: var(--ink-800);
+}
+
+.mode-cell {
+  text-transform: capitalize;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.mode-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.70rem;
+  font-family: var(--font-mono);
+  border: 1px solid var(--hairline);
+  background: var(--ink-950);
+  color: var(--paper-muted);
+}

@@ -1,0 +1,264 @@
+/* ==========================================================================
+   Two Meridian — "Field Atlas" Design System & Tokens
+   Antique Brass, Engraved Ink, Fraunces Serifs & Precision Cartography
+   ========================================================================== */
+
+/* ---- Core CSS Custom Properties ---- */
+:root {
+  /* Backgrounds & Ink Surfaces */
+  --ink-950: #0A0908;   /* Primary canvas background */
+  --ink-900: #131110;   /* Raised panels & sidebar */
+  --ink-800: #1C1916;   /* Cards, unfound map fill, surface elevation */
+  --hairline: #2E2A24;  /* Precision 1px rules — no glow, no shadow */
+  --hairline-light: #3D3831; /* Subtle divider hover / active border */
+
+  /* Cartographic Paper Typography */
+  --paper: #EDE6D8;       /* Headlines, primary text — warm archival off-white */
+  --paper-muted: #A79E8E; /* Body copy, secondary text — warm legible stone */
+  --paper-faint: #6B6459; /* Telemetry labels, coordinates, disabled text */
+
+  /* Hero Accents (Used with strict discipline) */
+  --brass-400: #CBA55B; /* Slightly lighter brass hover/highlight */
+  --brass-500: #B8944F; /* Primary hero accent: single hero CTA, active states */
+  --brass-600: #9C7C3F; /* Brass hover / pressed state */
+  --brass-100: #E4CDA0; /* Subtle brass tint & text-on-brass */
+
+  /* Secondary Accents */
+  --teal-600: #3E6B63;  /* Found / verified states, milestone seals */
+  --teal-800: #22403B;  /* Found track / subtle success backings */
+  --brick-600: #8B4B4B; /* Alerts / locked states only */
+
+  /* Backward Compatibility Aliases for App Engine */
+  --bg-primary: var(--ink-950);
+  --bg-secondary: var(--ink-900);
+  --bg-tertiary: var(--ink-800);
+  --bg-sidebar: var(--ink-900);
+
+  --map-fill: #141210;
+  --map-fill-hover: #1E1B18;
+  --map-border: var(--hairline);
+  --map-border-hover: var(--brass-500);
+
+  --active-highlight: var(--brass-500);
+  --active-highlight-light: var(--brass-100);
+  --active-glow: rgba(197, 155, 39, 0.45);
+  --active-glow-subtle: rgba(197, 155, 39, 0.20);
+
+  /* Mode Specific Highlights (Archival Cartographic Accents) */
+  --casual-highlight: #C59B27;
+  --casual-highlight-light: #E8C15A;
+  --casual-glow: rgba(197, 155, 39, 0.35);
+  --casual-glow-subtle: rgba(197, 155, 39, 0.15);
+
+  --speed-highlight: #2D7F67;
+  --speed-highlight-light: #5BB898;
+  --speed-glow: rgba(45, 127, 103, 0.35);
+  --speed-glow-subtle: rgba(45, 127, 103, 0.15);
+
+  --reverse-highlight: #B83A2E;
+  --reverse-highlight-light: #E26D5C;
+  --reverse-glow: rgba(184, 58, 46, 0.35);
+  --reverse-glow-subtle: rgba(184, 58, 46, 0.15);
+
+  --text-primary: var(--paper);
+  --text-secondary: var(--paper-muted);
+  --text-tertiary: var(--paper-faint);
+  --text-accent: var(--brass-500);
+
+  /* Surfaces */
+  --glass-bg: rgba(28, 25, 22, 0.7);
+  --glass-bg-hover: rgba(46, 42, 36, 0.6);
+  --glass-border: var(--hairline);
+  --glass-border-hover: var(--hairline-light);
+
+  /* Typography Families */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Restrained Radius (Strict 6–8px max) */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --radius-full: 9999px;
+
+  /* Precision Borders & Hairlines (No diffuse glows) */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-glow: none;
+
+  /* Transitions — Color/opacity shift only, 150ms */
+  --transition-fast: 150ms ease;
+  --transition-base: 150ms ease;
+  --transition-slow: 250ms ease;
+  --transition-highlight: 200ms ease;
+
+  /* Z-index layers */
+  --z-map: 1;
+  --z-overlays: 10;
+  --z-sidebar: 20;
+  --z-nav: 30;
+  --z-modal: 40;
+  --z-intro: 100;
+}
+
+/* ---- Reset & Box Sizing ---- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: var(--ink-950);
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--ink-950);
+  color: var(--paper);
+  line-height: 1.6;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+/* ---- Procedural Zero-Asset Archival Paper Grain Texture ---- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+input {
+  border: none;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  outline: none;
+  font-size: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---- Typography Hierarchy ---- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-optical-sizing: auto;
+  line-height: 1.15;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+}
+
+p, span, div, label {
+  font-family: var(--font-body);
+}
+
+.mono, .status-mono, .timer-display, .counter-display, .metric-k, .cp-count {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.text-xs { font-size: 0.75rem; }
+.text-sm { font-size: 0.8125rem; }
+.text-base { font-size: 1rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-3xl { font-size: 2rem; }
+
+.font-heading { font-family: var(--font-display); }
+.font-body { font-family: var(--font-body); }
+.font-mono { font-family: var(--font-mono); }
+
+/* ---- Utility Classes ---- */
+.hidden {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* Hairline Engraved Rule */
+.hairline-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--hairline);
+  margin: var(--space-md) 0;
+}
+
+/* Scrollbar styling — thin precision rule, no OS pill */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ink-950);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--hairline-light);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brass-600);
+}
+
+/* Selection */
+::selection {
+  background: var(--brass-500);
+  color: var(--ink-950);
+}

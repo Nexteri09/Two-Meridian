@@ -1,0 +1,967 @@
+/* ==========================================================================
+   Two Meridian — "Field Atlas" Cartographic Landing Page Styles
+   Deep Ink, Hairline Rules, Fraunces Serifs & Archival Ledger Aesthetics
+   ========================================================================== */
+
+/* ── Global Container ─────────────────────────────────────────────────── */
+#page-landing {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--ink-950);
+  color: var(--paper);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  z-index: 1000;
+  -webkit-font-smoothing: antialiased;
+}
+
+#page-landing.hidden {
+  display: none !important;
+}
+
+/* ── Fixed 3D Globe Background Canvas ─────────────────────────────────── */
+.landing-globe-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.landing-globe-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 90% at 50% 50%,
+    transparent 50%,
+    rgba(10, 9, 8, 0.72) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   SECTION 1: HERO
+   ========================================================================== */
+.landing-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 24px 32px;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+/* Full-bleed centre scrim — spans entire viewport, fades at edges, no visible box */
+.landing-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 60% 55% at 50% 45%,
+    rgba(10, 9, 8, 0.62) 0%,
+    rgba(10, 9, 8, 0.28) 55%,
+    transparent 100%
+  );
+}
+
+/* Status Strip */
+.hero-status-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.status-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brass-500);
+  opacity: 0.9;
+}
+
+.status-mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--paper-faint);
+  text-transform: uppercase;
+}
+
+/* Hero Center Content — no background, sits above ::before scrim */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 860px;
+  margin: auto 0;
+  padding: 20px 0;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass-500);
+  margin-bottom: 16px;
+}
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+  font-weight: 500;
+  font-optical-sizing: auto;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  margin: 0 0 16px;
+  text-shadow:
+    0 0 40px rgba(10, 9, 8, 0.85),
+    0 2px 12px rgba(10, 9, 8, 0.60);
+}
+
+.hero-italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--paper);
+  padding-left: 2px;
+}
+
+.hero-divider-rule {
+  width: 80px;
+  height: 1px;
+  background: var(--hairline-light);
+  margin: 26px auto 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-sub {
+  font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--paper-muted);
+  max-width: 640px;
+  margin: 0 auto 34px;
+  text-shadow:
+    0 0 24px rgba(10, 9, 8, 0.90),
+    0 1px 8px rgba(10, 9, 8, 0.70);
+}
+
+/* Hero Actions */
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 34px;
+  background: var(--brass-500);
+  color: var(--ink-950);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--brass-600);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.hero-cta:hover {
+  background: var(--brass-600);
+  border-color: var(--brass-500);
+}
+
+.cta-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.15s ease;
+}
+
+.hero-cta:hover .cta-arrow {
+  transform: translateX(3px);
+}
+
+/* Hero Bottom Scroll Ticker */
+.hero-bottom-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.scroll-ticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.70rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--paper-faint);
+  text-transform: uppercase;
+}
+
+.ticker-cross {
+  color: var(--brass-500);
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   COMMON SECTION HEADERS
+   ========================================================================== */
+.section-header {
+  max-width: 860px;
+  margin: 0 auto 40px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass-500);
+  padding: 4px 12px;
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+}
+
+.badge-glyph {
+  font-size: 0.8rem;
+  color: var(--brass-500);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.2vw, 2.6rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--paper);
+  margin: 0 0 12px;
+  line-height: 1.18;
+}
+
+.section-desc {
+  font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--paper-muted);
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   SECTION 2: CORE DISCIPLINES
+   ========================================================================== */
+.landing-features {
+  position: relative;
+  padding: 90px 24px 80px;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 20px;
+}
+
+.feature-panel {
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  position: relative;
+}
+
+.panel-top-rule {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: var(--hairline-light);
+}
+
+.feature-panel:hover,
+.feature-panel:focus {
+  border-color: var(--brass-500);
+  background: var(--ink-800);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.panel-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--paper-faint);
+}
+
+.panel-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--ink-800);
+  border: 1px solid var(--hairline);
+  color: var(--brass-500);
+  text-transform: uppercase;
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--paper);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.panel-desc {
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--paper-muted);
+  margin: 0 0 20px;
+}
+
+.panel-meta-mono {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--paper-faint);
+  letter-spacing: 0.06em;
+  padding: 8px 10px;
+  background: var(--ink-950);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  margin-bottom: 18px;
+}
+
+.panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--hairline);
+}
+
+.panel-link {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--paper);
+  letter-spacing: 0.01em;
+}
+
+.panel-arrow {
+  font-size: 1.05rem;
+  color: var(--brass-500);
+  transition: transform 0.15s ease;
+}
+
+.feature-panel:hover .panel-arrow {
+  transform: translateX(3px);
+}
+
+/* Secondary Modes Ribbon */
+.secondary-modes-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+  padding: 10px 18px;
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+}
+
+.secondary-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--paper-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.secondary-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink-800);
+  border: 1px solid var(--hairline);
+  color: var(--paper-muted);
+  font-family: var(--font-body);
+  font-size: 0.80rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.secondary-pill:hover {
+  border-color: var(--brass-500);
+  color: var(--paper);
+}
+
+/* ==========================================================================
+   SECTION 3: FLANKING FIELD STUDY (Slim Index Cards)
+   ========================================================================== */
+.landing-dossiers {
+  position: relative;
+  padding: 40px 20px 60px;
+  z-index: 2;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+.landing-dossiers .section-header {
+  margin-bottom: 20px;
+}
+
+.landing-dossiers .section-title {
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  margin-bottom: 6px;
+}
+
+.landing-dossiers .section-desc {
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+/* Wings Container: Left & Right flanking columns with central globe stage */
+.dossier-wings-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.dossier-wing {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: clamp(210px, 17.5vw, 265px);
+  flex-shrink: 0;
+}
+
+/* Compact Slim Dossier Cards */
+.dossier-card {
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  text-align: left;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.dossier-card:hover,
+.dossier-card:focus,
+.dossier-card.active-focus {
+  border-color: var(--brass-500);
+  background: var(--ink-800);
+}
+
+.dossier-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.dossier-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--brass-500);
+  letter-spacing: 0.05em;
+}
+
+.dossier-coords {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--paper-faint);
+  letter-spacing: 0.02em;
+}
+
+.dossier-name {
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+  margin: 0 0 2px;
+  line-height: 1.1;
+}
+
+.dossier-tagline {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--brass-100);
+  margin: 0 0 4px;
+  line-height: 1.25;
+}
+
+.dossier-desc {
+  font-size: 0.76rem;
+  font-weight: 400;
+  line-height: 1.38;
+  color: var(--paper-muted);
+  margin: 0 0 6px;
+}
+
+.dossier-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 5px 6px;
+  background: var(--ink-950);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  margin-bottom: 6px;
+}
+
+.dossier-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.metric-k {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 500;
+  color: var(--paper-faint);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.metric-v {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dossier-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4px;
+  border-top: 1px solid var(--hairline);
+}
+
+.focus-hint {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--paper-faint);
+}
+
+.focus-arrow {
+  font-size: 0.80rem;
+  color: var(--brass-500);
+  transition: transform 0.15s ease;
+}
+
+.dossier-card:hover .focus-arrow,
+.dossier-card.active-focus .focus-arrow {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   SECTION 4: PHILOSOPHY / "BUILT FOR THE CURIOUS MIND" (Editorial)
+   ========================================================================== */
+.landing-about {
+  position: relative;
+  padding: 80px 24px 90px;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+.about-card {
+  padding-top: 24px;
+  position: relative;
+  text-align: left;
+}
+
+.about-top-rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.about-icon-wrap {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brass-500);
+}
+
+.about-card-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--paper);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.about-card-desc {
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.62;
+  color: var(--paper-muted);
+  margin: 0;
+}
+
+/* ==========================================================================
+   SECTION 5: EXPEDITION SUPPORT (Archival Ledger Receipt)
+   ========================================================================== */
+.landing-support {
+  position: relative;
+  padding: 80px 24px 100px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.ledger-card {
+  max-width: 680px;
+  width: 100%;
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  /* Break centered template — left-align to contrast with surrounding sections */
+  text-align: left;
+}
+
+.ledger-stamp {
+  width: 48px;
+  height: 48px;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--brass-500);
+}
+
+.ledger-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--brass-500);
+  text-transform: uppercase;
+}
+
+.ledger-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.3rem);
+  font-weight: 500;
+  color: var(--paper);
+  margin: 10px 0 12px;
+  letter-spacing: -0.015em;
+}
+
+.ledger-desc {
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.62;
+  color: var(--paper-muted);
+  max-width: 520px;
+  margin: 0 0 28px;
+}
+
+/* Ledger Receipt Table with Dotted Leaders */
+.ledger-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 28px;
+  background: var(--ink-950);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+}
+
+.ledger-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  text-align: left;
+}
+
+.ledger-row:hover {
+  background: var(--ink-900);
+}
+
+.ledger-row.active {
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-light);
+}
+
+.ledger-item {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+.ledger-dots {
+  flex: 1;
+  margin: 0 12px;
+  border-bottom: 1px dotted var(--hairline);
+  height: 1px;
+}
+
+.ledger-price {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--brass-500);
+  white-space: nowrap;
+}
+
+.ledger-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.ledger-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 32px;
+  background: var(--brass-500);
+  color: var(--ink-950);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--brass-600);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+  text-decoration: none;
+}
+
+.ledger-cta-btn:hover {
+  background: var(--brass-600);
+  border-color: var(--brass-500);
+  color: var(--ink-950);
+}
+
+/* ==========================================================================
+   SECTION 6: FINALE / EXPEDITION LAUNCH
+   ========================================================================== */
+.landing-finale {
+  position: relative;
+  padding: 70px 24px 120px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.finale-card {
+  max-width: 760px;
+  width: 100%;
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.finale-mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--paper-faint);
+  text-transform: uppercase;
+}
+
+.finale-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+  font-weight: 500;
+  color: var(--paper);
+  margin: 12px 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.finale-desc {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--paper-muted);
+  margin: 0 auto 30px;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.finale-mode-select {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.finale-mode-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--hairline);
+  background: var(--ink-950);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  outline: none;
+}
+
+.finale-mode-btn:hover {
+  border-color: var(--brass-500);
+  background: var(--ink-800);
+}
+
+.finale-mode-btn .btn-label {
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--paper);
+}
+
+.finale-mode-btn .btn-sub {
+  font-family: var(--font-mono);
+  font-size: 0.70rem;
+  font-weight: 400;
+  color: var(--paper-faint);
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .dossier-wings-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .dossier-wing {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-hero {
+    padding: 24px 16px 20px;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .ledger-card,
+  .finale-card {
+    padding: 28px 18px;
+  }
+}

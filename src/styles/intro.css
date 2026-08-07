@@ -1,0 +1,87 @@
+/* ============================================
+   Intro Animation — Cinematic overlay styles
+   ============================================ */
+
+/* ---- Intro Overlay ---- */
+.intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #0a0a0f;
+  z-index: var(--z-intro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ---- Particle Canvas ---- */
+.particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ---- Globe Canvas ---- */
+.globe-canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 55vh;
+  height: 55vh;
+  max-width: 55vw;
+  max-height: 55vh;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- Shockwave container (hidden during intro) ---- */
+.map-shockwave {
+  display: none;
+}
+
+/* ---- Radial Shockwave Pulse ---- */
+.intro-shockwave-pulse {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin-left: -100px;
+  margin-top: -100px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 180, 216, 0.2) 0%,
+    rgba(0, 180, 216, 0.08) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 50;
+  transform-origin: center center;
+}
+
+/* ---- Vignette overlay on map ---- */
+.intro-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(7, 7, 13, 0.25) 100%
+  );
+}

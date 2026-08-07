@@ -1,0 +1,150 @@
+/* ==========================================================================
+   Two Meridian — "Field Atlas" Support / Expedition Ledger Page
+   ========================================================================== */
+
+.donate-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: var(--space-xl);
+  background-color: var(--ink-950);
+}
+
+.donate-card {
+  width: 100%;
+  max-width: 600px;
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  text-align: center;
+}
+
+.donate-header .brand-icon.large {
+  font-size: 2.2rem;
+  color: var(--brass-500);
+  margin-bottom: var(--space-sm);
+  display: inline-flex;
+}
+
+.donate-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--paper);
+  margin-bottom: var(--space-xs);
+  letter-spacing: -0.015em;
+}
+
+.donate-subtitle {
+  font-size: 1rem;
+  color: var(--paper-muted);
+  line-height: 1.55;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.donate-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  text-align: left;
+}
+
+.donate-mission h3 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--brass-500);
+  margin-bottom: var(--space-xs);
+}
+
+.donate-mission p {
+  font-size: 0.90rem;
+  color: var(--paper-muted);
+  line-height: 1.6;
+}
+
+.donate-benefits {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.benefit-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--ink-950);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-fast);
+}
+
+.benefit-item:hover {
+  border-color: var(--hairline-light);
+}
+
+.benefit-icon {
+  font-size: 1.1rem;
+  color: var(--brass-500);
+  flex-shrink: 0;
+}
+
+.benefit-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.benefit-text strong {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--paper);
+}
+
+.benefit-text span {
+  font-size: 0.78rem;
+  color: var(--paper-faint);
+}
+
+.donate-footer {
+  margin-top: var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.donate-btn-primary {
+  padding: 14px 32px;
+  background: var(--brass-500);
+  color: var(--ink-950);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--brass-600);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+  text-decoration: none;
+}
+
+.donate-btn-primary:hover {
+  background: var(--brass-600);
+  color: var(--ink-950);
+}
+
+.donate-thanks {
+  font-family: var(--font-mono);
+  font-size: 0.70rem;
+  color: var(--paper-faint);
+}
