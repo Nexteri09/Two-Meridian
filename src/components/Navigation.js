@@ -9,6 +9,8 @@ export class Navigation {
     this.links = document.querySelectorAll('.nav-link[data-page]');
     this.pages = document.querySelectorAll('.page');
     this.components = {};
+    this.previousPage = 'world';
+    document.getElementById('app')?.setAttribute('data-page', 'world');
     this._bindBrandLogo();
     this.bind();
   }
@@ -77,6 +79,13 @@ export class Navigation {
   }
 
   navigateTo(page) {
+    if (this.app.currentPage && this.app.currentPage !== 'donate' && this.app.currentPage !== page) {
+      this.previousPage = this.app.currentPage;
+    }
+
+    // Set page attribute on root #app container for CSS page-aware layouts
+    document.getElementById('app')?.setAttribute('data-page', page);
+
     // Update nav links
     this.links.forEach(l => l.classList.remove('active'));
     const activeLink = document.querySelector(`.nav-link[data-page="${page}"]`);
@@ -98,8 +107,8 @@ export class Navigation {
           case 'stats': this.components[page] = new StatsPage(this.app); break;
         }
         this.components[page].init();
-      } else if (page === 'stats') {
-        this.components[page].init(); // Re-render to fetch latest history
+      } else if (page === 'stats' || page === 'donate') {
+        this.components[page].init(); // Re-render fresh state
       }
     }
 

@@ -52,12 +52,21 @@
   align-items: center;
   gap: var(--space-xs);
   position: absolute;
-  left: calc(50% + 160px);
+  left: 50%;
   transform: translateX(-50%);
+  transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* On World map page, center nav-links relative to the map area beside the 320px sidebar */
+#app[data-page="world"] .nav-links,
+#app:not([data-page]) .nav-links {
+  left: calc(50% + 160px);
 }
 
 @media (max-width: 900px) {
-  .nav-links {
+  .nav-links,
+  #app[data-page="world"] .nav-links,
+  #app:not([data-page]) .nav-links {
     position: static;
     transform: none;
   }
