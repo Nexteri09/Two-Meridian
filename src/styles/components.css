@@ -67,7 +67,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
   position: relative;
 }
 
@@ -87,7 +87,7 @@
   letter-spacing: 0.04em;
   color: var(--brass-500);
   font-variant-numeric: tabular-nums;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 /* ---- Sovereign Counter ---- */
@@ -215,7 +215,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 210px;
+  width: 220px;
   z-index: var(--z-overlays);
   pointer-events: none;
 }
@@ -224,7 +224,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  opacity: 0.55;
+  opacity: 0.85;
   transition: opacity 0.2s ease;
 }
 
@@ -233,7 +233,7 @@
 }
 
 .continent-row.cp-complete {
-  opacity: 0.30;
+  opacity: 0.45;
 }
 
 .continent-row-inner {
@@ -241,29 +241,36 @@
   justify-content: space-between;
   align-items: flex-end;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  font-size: 0.76rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 .cp-name {
-  color: var(--paper-faint);
+  color: var(--paper-muted);
+  font-weight: 650;
   transition: color 0.2s ease;
 }
 
 .cp-active .cp-name {
   color: var(--paper);
+  font-weight: 700;
 }
 
 .cp-count {
-  color: var(--paper-faint);
-  font-size: 0.65rem;
-  font-weight: 600;
+  color: var(--paper-muted);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
 }
 
 .cp-active .cp-count {
-  color: var(--brass-500);
+  color: var(--brass-400);
+  font-weight: 700;
 }
 
 .cp-bar-track {
@@ -661,11 +668,13 @@
 }
 
 /* ════════════════════════════════════════════════════════════════════════
-   Conclude Expedition & Streak Combos
+   Conclude / Begin Expedition & Streak Combos
    ════════════════════════════════════════════════════════════════════════ */
 .conclude-expedition-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
   margin: 4px 0 2px 0;
 }
 
@@ -724,6 +733,66 @@
   box-shadow: 0 0 14px rgba(184, 58, 46, 0.25);
 }
 
+/* Reverse "Begin Expedition" state styling */
+.sidebar[data-mode="reverse"] .conclude-expedition-btn.state-begin {
+  background: rgba(184, 58, 46, 0.18);
+  border-color: rgba(184, 58, 46, 0.50);
+  color: #FFF;
+  font-weight: 700;
+  box-shadow: 0 0 14px rgba(184, 58, 46, 0.25);
+}
+.sidebar[data-mode="reverse"] .conclude-expedition-btn.state-begin:hover {
+  background: rgba(184, 58, 46, 0.28);
+  border-color: #E87063;
+  box-shadow: 0 0 18px rgba(184, 58, 46, 0.45);
+}
+
+.sidebar[data-mode="reverse"] .conclude-expedition-btn.guide-open {
+  background: rgba(184, 58, 46, 0.25);
+  border-color: #E87063;
+  color: #FFF;
+}
+
+/* 3-Point Pre-Start Guide Panel */
+.expedition-guide {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(18, 17, 15, 0.95);
+  border: 1px solid rgba(184, 58, 46, 0.35);
+  border-radius: var(--radius-sm);
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.expedition-guide.hidden {
+  display: none !important;
+}
+
+.guide-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.4;
+}
+
+.guide-bullet {
+  font-size: 1.1rem;
+  color: var(--reverse-highlight-light);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.guide-text {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--paper);
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .streak-pill {
   display: inline-flex;
   align-items: center;
@@ -732,12 +801,25 @@
   font-size: 0.65rem;
   font-weight: 700;
   color: var(--brass-500);
-  background: rgba(184, 148, 79, 0.12);
-  border: 1px solid rgba(184, 148, 79, 0.30);
-  padding: 2px 7px;
+  background: rgba(184, 148, 79, 0.14);
+  border: 1px solid rgba(184, 148, 79, 0.35);
+  padding: 2px 8px;
   border-radius: var(--radius-sm);
   letter-spacing: 0.04em;
   white-space: nowrap;
+  transform: translateY(-2px);
+}
+
+.sidebar[data-mode="speed"] .streak-pill {
+  color: #7AD4B5;
+  background: rgba(91, 184, 152, 0.15);
+  border-color: rgba(91, 184, 152, 0.35);
+}
+
+.sidebar[data-mode="reverse"] .streak-pill {
+  color: #E87063;
+  background: rgba(184, 58, 46, 0.15);
+  border-color: rgba(184, 58, 46, 0.35);
 }
 
 .streak-pop {
@@ -1127,4 +1209,241 @@
   color: var(--brass-500);
   flex-shrink: 0;
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   Reverse Mode Briefing Frame (Expedition Orders Modal)
+   ════════════════════════════════════════════════════════════════════════ */
+.reverse-briefing-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 9, 8, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+.reverse-briefing-card {
+  max-width: 500px;
+  width: 100%;
+  background-color: var(--ink-900) !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E") !important;
+  border: 1px solid var(--reverse-highlight, #B83A2E) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: inset 0 0 0 3px var(--ink-900), inset 0 0 0 4px rgba(184, 58, 46, 0.30), 0 24px 70px rgba(0, 0, 0, 0.85) !important;
+  padding: 30px 28px 24px 28px !important;
+  text-align: center;
+  position: relative;
+}
+
+.reverse-briefing-card .debrief-corner {
+  color: var(--reverse-highlight, #B83A2E);
+}
+
+.reverse-briefing-radar-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px auto;
+}
+
+.reverse-briefing-radar-svg {
+  display: block;
+  animation: radarPulse 3s ease-in-out infinite;
+}
+
+@keyframes radarPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(184, 58, 46, 0.2)); }
+  50% { transform: scale(1.04); filter: drop-shadow(0 0 12px rgba(184, 58, 46, 0.45)); }
+}
+
+.reverse-briefing-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--reverse-highlight-light, #E87063);
+  background: rgba(184, 58, 46, 0.12);
+  border: 1px solid rgba(184, 58, 46, 0.32);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+}
+
+.reverse-briefing-title {
+  font-family: var(--font-display) !important;
+  font-size: 1.80rem !important;
+  font-weight: 600 !important;
+  color: var(--paper) !important;
+  letter-spacing: -0.01em !important;
+  margin: 2px 0 6px 0 !important;
+}
+
+.reverse-briefing-desc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--paper-muted);
+  line-height: 1.45;
+  margin: 0 auto 16px auto;
+  max-width: 420px;
+}
+
+/* Protocol Directives */
+.reverse-protocol-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--ink-950);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 0 0 2px var(--ink-950), inset 0 0 0 3px rgba(184, 58, 46, 0.15);
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.reverse-protocol-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.reverse-protocol-step:last-child {
+  border-bottom: none;
+}
+
+.reverse-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--reverse-highlight-light, #E87063);
+  background: rgba(184, 58, 46, 0.18);
+  border: 1px solid rgba(184, 58, 46, 0.35);
+  border-radius: var(--radius-sm);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.reverse-step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reverse-step-title {
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 650;
+  color: var(--paper);
+  letter-spacing: 0.01em;
+}
+
+.reverse-step-text {
+  font-family: var(--font-body);
+  font-size: 0.80rem;
+  color: var(--paper-muted);
+  line-height: 1.4;
+}
+
+.reverse-step-text strong {
+  color: var(--paper);
+  font-weight: 600;
+}
+
+.reverse-step-text em {
+  color: var(--paper);
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-color: rgba(184, 58, 46, 0.4);
+}
+
+/* Actions */
+.reverse-briefing-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.reverse-briefing-start-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #B83A2E;
+  color: #FFF !important;
+  font-family: var(--font-mono);
+  font-size: 0.80rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid #D04538;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(184, 58, 46, 0.35) !important;
+  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.reverse-briefing-start-btn:hover {
+  background: #C94336 !important;
+  border-color: #E87063 !important;
+  box-shadow: 0 0 24px rgba(184, 58, 46, 0.55) !important;
+  transform: translateY(-1px);
+}
+
+.reverse-briefing-start-btn svg {
+  stroke: #FFF !important;
+}
+
+.reverse-kbd-hint {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+  margin-left: 2px;
+}
+
+.reverse-briefing-cancel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background: transparent;
+  color: var(--paper-muted);
+  font-family: var(--font-body);
+  font-size: 0.80rem;
+  font-weight: 500;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.reverse-briefing-cancel-btn:hover {
+  color: var(--paper);
+  border-color: var(--hairline-light);
+  background: var(--ink-800);
+}
+
 

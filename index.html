@@ -102,16 +102,32 @@
             <div class="timer-display" id="timer-display">00:00.00</div>
           </div>
 
-          <!-- Conclude Expedition -->
+          <!-- Conclude / Begin Expedition -->
           <div class="conclude-expedition-container">
-            <button class="conclude-expedition-btn" id="btn-conclude-expedition" title="Conclude current session and record to stats">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;">
+            <button class="conclude-expedition-btn" id="btn-conclude-expedition" title="Expedition Action">
+              <svg class="expedition-btn-icon" id="expedition-btn-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;">
                 <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
                 <polyline points="17 21 17 13 7 13 7 21"/>
                 <polyline points="7 3 7 8 15 8"/>
               </svg>
-              <span>Conclude Expedition</span>
+              <span id="expedition-btn-text">Conclude Expedition</span>
             </button>
+
+            <!-- 3-point inline pre-start guide for Reverse Mode -->
+            <div class="expedition-guide hidden" id="expedition-guide">
+              <div class="guide-item">
+                <span class="guide-bullet">•</span>
+                <span class="guide-text">Guess the glowing country</span>
+              </div>
+              <div class="guide-item">
+                <span class="guide-bullet">•</span>
+                <span class="guide-text">Skip if you don't know</span>
+              </div>
+              <div class="guide-item">
+                <span class="guide-bullet">•</span>
+                <span class="guide-text">Click again to begin..</span>
+              </div>
+            </div>
           </div>
 
           <!-- Counter -->

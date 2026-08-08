@@ -125,10 +125,13 @@
   filter: drop-shadow(0 0 2px rgba(184, 58, 46, 0.25));
 }
 
-/* When Reverse Mode is active, reduce inactive world borders to 0.60 opacity */
-#map-container[data-mode="reverse"] .map-wrapper svg path:not(.reverse-active):not(.guessed-reverse),
-#map-container[data-mode="reverse"] .map-wrapper svg circle.country-marker:not(.reverse-active):not(.guessed-reverse) {
+/* When Reverse Mode expedition is actively running, reduce inactive world borders to 0.60 opacity */
+#map-container[data-reverse-active="true"] .map-wrapper svg path:not(.reverse-active):not(.guessed-reverse),
+#map-container[data-reverse-active="true"] .map-wrapper svg circle.country-marker:not(.reverse-active):not(.guessed-reverse),
+#map-container.reverse-active-game .map-wrapper svg path:not(.reverse-active):not(.guessed-reverse),
+#map-container.reverse-active-game .map-wrapper svg circle.country-marker:not(.reverse-active):not(.guessed-reverse) {
   stroke: rgba(228, 195, 115, 0.60);
+  transition: stroke 0.4s ease;
 }
 
 /* Active highlight in reverse mode (mystery territory) */

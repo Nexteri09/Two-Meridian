@@ -160,6 +160,20 @@ export class MapView {
   setMode(mode) {
     if (this.container) {
       this.container.setAttribute('data-mode', mode);
+      if (mode !== 'reverse') {
+        this.setReverseActiveState(false);
+      }
+    }
+  }
+
+  setReverseActiveState(isActive) {
+    if (!this.container) return;
+    if (isActive) {
+      this.container.setAttribute('data-reverse-active', 'true');
+      this.container.classList.add('reverse-active-game');
+    } else {
+      this.container.removeAttribute('data-reverse-active');
+      this.container.classList.remove('reverse-active-game');
     }
   }
 
@@ -220,16 +234,20 @@ export class MapView {
     const overlay = document.createElement('div');
     overlay.className = 'victory-overlay fade-in';
     overlay.innerHTML = `
-      <div class="victory-card">
-        <span class="victory-badge">Atlas Completed</span>
+      <div class="victory-card casual-theme">
+        <span class="victory-badge">Atlas Completed · 196 / 196</span>
         <span class="victory-icon">🏆</span>
-        <h1>Grand Cartographer</h1>
+        <h1>You charted the whole world!</h1>
         <div class="victory-quirky-text">
-          Every single sovereign state on Earth has been charted and verified in the Field Atlas.
+          All 196 nations found and accounted for. That was nice and peaceful...
+          <br><br>
+          <strong>But do you actually have the guts to take on Speed Mode?</strong>
+          <br>
+          <span style="color: var(--paper-muted); font-size: 0.88rem;">The clock doesn't stop. Let's see how fast that brain really works.</span>
         </div>
         <div class="victory-actions">
-          <button class="victory-next-btn" id="btn-victory-try-speed">Try Speed Mode ⚡</button>
-          <button class="victory-close-btn" id="btn-victory-close">Keep Exploring 🗺️</button>
+          <button class="victory-next-btn" id="btn-victory-try-speed">Take On Speed Mode ⚡</button>
+          <button class="victory-close-btn" id="btn-victory-close">Keep Admiring Map 🗺️</button>
         </div>
       </div>
     `;
@@ -258,15 +276,19 @@ export class MapView {
     overlay.className = 'victory-overlay fade-in';
     overlay.innerHTML = `
       <div class="victory-card speed-theme">
-        <span class="victory-badge">⚡ Expedition Record</span>
+        <span class="victory-badge">⚡ 196 Countries in ${timeStr}</span>
         <span class="victory-icon">⏱️</span>
-        <h1>Chronometer Master</h1>
+        <h1>Fast hands! Not bad at all.</h1>
         <div class="victory-quirky-text">
-          All 196 nations charted in <strong>${timeStr}</strong>!
+          You blazed through all 196 nations in <strong>${timeStr}</strong>. That's serious typing speed!
+          <br><br>
+          <strong>...But can you even recognize countries just by their shapes? 😂</strong>
+          <br>
+          <span style="color: var(--paper-muted); font-size: 0.88rem;">Try Reverse Mode if you think you're actually a geography god. Most people can't even get past 10 without skipping half the map!</span>
         </div>
         <div class="victory-actions">
-          <button class="victory-next-btn" id="btn-victory-try-reverse">Take On Reverse Mode 🎯</button>
-          <button class="victory-close-btn" id="btn-victory-close-speed">Replay Speed Mode ⏱️</button>
+          <button class="victory-next-btn" id="btn-victory-try-reverse">Dare Accepted: Try Reverse Mode 🎯</button>
+          <button class="victory-close-btn" id="btn-victory-close-speed">Beat My Time ⏱️</button>
         </div>
       </div>
     `;
@@ -301,11 +323,13 @@ export class MapView {
     overlay.className = 'victory-overlay fade-in';
     overlay.innerHTML = `
       <div class="victory-card reverse-theme">
-        <span class="victory-badge">🎯 Master Hydrographer</span>
+        <span class="victory-badge">👑 Elite Geographer</span>
         <span class="victory-icon">👑</span>
-        <h1>Global Radar Master</h1>
+        <h1>Okay, you're genuinely insane.</h1>
         <div class="victory-quirky-text">
-          You identified all highlighted territories with <strong>${accuracy}% accuracy</strong> in <strong>${timeStr}</strong>!
+          You just identified every random glowing country on Earth with <strong>${accuracy}% accuracy</strong> in <strong>${timeStr}</strong>!
+          <br><br>
+          You officially know this planet better than 99.9% of humans. Take a screenshot — you've earned ultimate bragging rights.
         </div>
         <div class="victory-actions">
           <button class="victory-next-btn" id="btn-victory-replay-reverse">Play Again 🏆</button>

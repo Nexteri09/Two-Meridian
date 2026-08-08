@@ -16,6 +16,8 @@ export class GameEngine {
     this.elapsedMs = 0;
     this.timerRunning = false;
     this.speedStreakTimeout = null;
+    this.reverseActive = false;
+    this.reverseGuideOpen = false;
     this.reverseCurrentCountry = null;
     this.reverseCorrect = 0;
     this.reverseSkipped = 0;
@@ -59,16 +61,39 @@ export class GameEngine {
       });
       // Keep focus
       revCountryInput.addEventListener('blur', () => {
-        if (this.mode === 'reverse') {
+        if (this.mode === 'reverse' && this.reverseActive) {
           setTimeout(() => revCountryInput.focus(), 50);
         }
       });
     }
 
-    // Conclude Expedition button
+    // Conclude / Begin Expedition button
     const concludeBtn = document.getElementById('btn-conclude-expedition');
     if (concludeBtn) {
-      concludeBtn.addEventListener('click', () => this.handleConcludeExpedition());
+      concludeBtn.addEventListener('click', () => this.handleExpeditionActionClick());
+    }
+  }
+
+  handleExpeditionActionClick() {
+    if (this.mode === 'reverse') {
+      if (!this.reverseActive) {
+        if (!this.reverseGuideOpen) {
+          // 1st click: expand the 3-points guide
+          this.reverseGuideOpen = true;
+          const guide = document.getElementById('expedition-guide');
+          if (guide) guide.classList.remove('hidden');
+          const btn = document.getElementById('btn-conclude-expedition');
+          if (btn) btn.classList.add('guide-open');
+        } else {
+          // 2nd click: start the game, timer and glowing country!
+          this.startReverseExpedition();
+        }
+      } else {
+        // Conclude expedition during active game
+        this.handleConcludeExpedition();
+      }
+    } else {
+      this.handleConcludeExpedition();
     }
   }
 
@@ -269,6 +294,45 @@ export class GameEngine {
 
   // --- Reverse Mode Logic ---
   startReverseMode() {
+    this.reverseActive = false;
+    this.reverseGuideOpen = false;
+    this.reverseQueue = null;
+    this.reverseCurrentCountry = null;
+    this.reverseCorrect = 0;
+    this.reverseSkipped = 0;
+    this.streakCount = 0;
+    this.app.sidebar.updateStreak(0);
+    this.resetTimer();
+    this.app.mapView.clearReverseHighlight();
+    if (this.app.mapView) {
+      this.app.mapView.setReverseActiveState(false);
+    }
+
+    const guide = document.getElementById('expedition-guide');
+    if (guide) guide.classList.add('hidden');
+
+    this.updateExpeditionButtonState('begin');
+
+    const countryInput = document.getElementById('reverse-country-input');
+    if (countryInput) {
+      countryInput.value = '';
+      countryInput.placeholder = "Click 'Begin Expedition' to start...";
+    }
+  }
+
+  startReverseExpedition() {
+    this.reverseActive = true;
+    this.reverseGuideOpen = false;
+
+    const guide = document.getElementById('expedition-guide');
+    if (guide) guide.classList.add('hidden');
+
+    this.updateExpeditionButtonState('conclude');
+
+    if (this.app.mapView) {
+      this.app.mapView.setReverseActiveState(true);
+    }
+
     this.reverseQueue = [...this.app.countriesData]
       .sort(() => Math.random() - 0.5)
       .map(c => c.id);
@@ -276,8 +340,44 @@ export class GameEngine {
     this.reverseSkipped = 0;
     this.streakCount = 0;
     this.app.sidebar.updateStreak(0);
+
     this.startTimer();
     this.nextReverseCountry();
+
+    setTimeout(() => {
+      const countryInput = document.getElementById('reverse-country-input');
+      if (countryInput) {
+        countryInput.placeholder = "Country name...";
+        countryInput.focus();
+      }
+    }, 100);
+  }
+
+  updateExpeditionButtonState(state) {
+    const btn = document.getElementById('btn-conclude-expedition');
+    const text = document.getElementById('expedition-btn-text');
+    const icon = document.getElementById('expedition-btn-icon');
+    if (!btn) return;
+
+    if (state === 'begin') {
+      btn.classList.add('state-begin');
+      btn.classList.remove('state-conclude', 'guide-open');
+      if (text) text.textContent = 'Begin Expedition';
+      if (icon) {
+        icon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"/>`;
+      }
+    } else {
+      btn.classList.remove('state-begin', 'guide-open');
+      btn.classList.add('state-conclude');
+      if (text) text.textContent = 'Conclude Expedition';
+      if (icon) {
+        icon.innerHTML = `
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+          <polyline points="17 21 17 13 7 13 7 21"/>
+          <polyline points="7 3 7 8 15 8"/>
+        `;
+      }
+    }
   }
 
   nextReverseCountry() {
@@ -301,12 +401,13 @@ export class GameEngine {
     const countryInput = document.getElementById('reverse-country-input');
     if (countryInput) {
       countryInput.value = '';
+      countryInput.placeholder = "Country name...";
       countryInput.focus();
     }
   }
 
   handleReverseSkip() {
-    if (!this.reverseCurrentCountry) return;
+    if (!this.reverseActive || !this.reverseCurrentCountry) return;
     this.reverseSkipped++;
     this.streakCount = 0;
     this.app.sidebar.updateStreak(0);
@@ -316,6 +417,11 @@ export class GameEngine {
   }
 
   handleReverseSubmit() {
+    if (!this.reverseActive) {
+      this.startReverseExpedition();
+      return;
+    }
+
     if (!this.reverseCurrentCountry) return;
 
     if (!this.timerRunning) {
@@ -338,15 +444,18 @@ export class GameEngine {
       this.app.sidebar.updateCounter(this.guessedCountries.size, this.totalCountries);
       this.updateContinentProgress(this.reverseCurrentCountry.continent);
       this.app.sidebar.addDiscoveryToLog(this.reverseCurrentCountry, this.guessedCountries.size);
-      this.app.playSound('correct');
-      this.app.sidebar.showInputFeedback(`✓ ${this.reverseCurrentCountry.name}`, 'correct');
 
-      this.reverseCurrentCountry = null;
-      setTimeout(() => {
-        this.app.mapView.clearReverseHighlight();
-        this.nextReverseCountry();
-      }, 600);
+      // Play success audio
+      this.app.playSound('correct');
+
+      this.app.sidebar.showInputFeedback(`✓ Correct: ${this.reverseCurrentCountry.name}`, 'correct');
+      countryInput.value = '';
+
+      // Clear previous country glow and get next
+      this.app.mapView.clearReverseHighlight();
+      this.nextReverseCountry();
     } else {
+      // Wrong guess
       this.app.playSound('wrong');
       this.streakCount = 0;
       this.app.sidebar.updateStreak(0);
@@ -385,10 +494,13 @@ export class GameEngine {
     }
 
     if (mode === 'reverse') {
-      this.reverseQueue = null;
-      this.reverseCorrect = 0;
-      this.reverseSkipped = 0;
       this.startReverseMode();
+    } else {
+      this.reverseActive = false;
+      this.reverseGuideOpen = false;
+      const guide = document.getElementById('expedition-guide');
+      if (guide) guide.classList.add('hidden');
+      this.updateExpeditionButtonState('conclude');
     }
 
     setTimeout(() => {
@@ -478,6 +590,11 @@ export class GameEngine {
 
   handleReverseCompletion() {
     this.stopTimer();
+    this.reverseActive = false;
+    this.updateExpeditionButtonState('begin');
+    if (this.app.mapView) {
+      this.app.mapView.setReverseActiveState(false);
+    }
 
     this.recordRun('reverse', this.reverseCorrect, this.totalCountries, this.elapsedMs);
 
