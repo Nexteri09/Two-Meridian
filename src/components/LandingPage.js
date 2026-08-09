@@ -654,6 +654,19 @@ export class LandingPage {
   //  SCROLL REVEAL ANIMATIONS
   // ================================================================
   _initScrollAnimations() {
+    const landing = document.getElementById('page-landing');
+    const header = document.getElementById('landing-header');
+    
+    if (landing && header) {
+      landing.addEventListener('scroll', () => {
+        if (landing.scrollTop > 20) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    }
+
     const anime = window.anime;
     if (!anime) return;
 
