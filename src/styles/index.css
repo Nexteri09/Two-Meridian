@@ -181,7 +181,8 @@
    View Transitions API (Theme Toggle Ripple)
    ────────────────────────────────────────────────────────────────────────── */
 ::view-transition-old(root),
-::view-transition-new(root) {
+::view-transition-new(root),
+::view-transition-group(root) {
   animation: none;
   mix-blend-mode: normal;
 }
