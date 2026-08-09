@@ -205,7 +205,7 @@ export class GlobeAnimation {
 
     this._activeBeacon   = null;
     this._currentHighlights = [];
-    this.svgBounds = { svgX: 25, svgY: 240, svgW: 835, svgH: 470 };
+    this.svgBounds = { svgX: 10, svgY: 248, svgW: 850, svgH: 455 };
 
     // Bound handlers
     this._onScroll = this._onScroll.bind(this);
@@ -282,19 +282,13 @@ export class GlobeAnimation {
     const { svgW, svgH, svgX, svgY } = this.svgBounds;
 
     if (cx !== null && cy !== null) {
-      const u = (cx - svgX) / svgW;
-      const vNorm = (cy - svgY) / svgH;
-      const shaderUvY = 1.0 - vNorm;
-      const latInShader = -1.08 + (1.43 - (-1.08)) * shaderUvY;
-
       this.focusRotY = (0.5 - u) * 2.0 * Math.PI;
-      this.focusRotX = latInShader;
+      this.focusRotX = 0; // Only spin on Y axis (no up/down tilt) to keep the globe looking natural
     } else {
       // Map SVG Equirectangular bounds: Lon -169.11 to 190.89, Lat -55.68 to 83.62
       const u = (lon - (-169.11)) / 360.0;
-      const shaderUvY = (lat - (-55.68)) / (83.62 - (-55.68));
       this.focusRotY = (0.5 - u) * 2.0 * Math.PI;
-      this.focusRotX = (shaderUvY - 0.5) * Math.PI; // Approximate sphere rotation
+      this.focusRotX = 0; // Only spin on Y axis
     }
 
     const highlights = [];
@@ -737,36 +731,16 @@ export class GlobeAnimation {
       if (bx !== undefined && by !== undefined) {
         ctx.save();
 
-        // Outer reticle ring
+        // Draw a clean, elegant pointer attached to the country
         ctx.beginPath();
-        ctx.arc(bx, by, 28, 0, Math.PI * 2);
-        ctx.strokeStyle = palette.pointer;
-        ctx.lineWidth = 2.0;
-        ctx.setLineDash([4, 4]);
-        ctx.stroke();
-
-        // Inner reticle circle
-        ctx.beginPath();
-        ctx.arc(bx, by, 14, 0, Math.PI * 2);
-        ctx.strokeStyle = palette.pointer;
-        ctx.lineWidth = 1.8;
-        ctx.setLineDash([]);
-        ctx.stroke();
-
-        // Center point
-        ctx.beginPath();
-        ctx.arc(bx, by, 4.5, 0, Math.PI * 2);
+        ctx.arc(bx, by, 5, 0, Math.PI * 2);
         ctx.fillStyle = palette.pointer;
         ctx.fill();
 
-        // Reticle ticks
-        ctx.strokeStyle = palette.pointer;
-        ctx.lineWidth = 1.5;
         ctx.beginPath();
-        ctx.moveTo(bx, by - 34); ctx.lineTo(bx, by - 16);
-        ctx.moveTo(bx, by + 16); ctx.lineTo(bx, by + 34);
-        ctx.moveTo(bx - 34, by); ctx.lineTo(bx - 16, by);
-        ctx.moveTo(bx + 16, by); ctx.lineTo(bx + 34, by);
+        ctx.arc(bx, by, 12, 0, Math.PI * 2);
+        ctx.strokeStyle = palette.pointer;
+        ctx.lineWidth = 2.0;
         ctx.stroke();
 
         // Archival Mono Callout
