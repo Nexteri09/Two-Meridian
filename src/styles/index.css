@@ -161,6 +161,7 @@
   --map-frame-shadow: inset 0 0 0 1px rgba(140, 110, 70, 0.30),
                       inset 0 0 16px rgba(90, 68, 38, 0.10),
                       0 4px 20px rgba(90, 68, 38, 0.18);
+  --vignette-color: transparent;
 
   /* Customized Light Mode Accents */
   --casual-highlight: #C28B1E;

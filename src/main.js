@@ -9,6 +9,7 @@ import { Navigation } from './components/Navigation.js';
 import { LandingPage } from './components/LandingPage.js';
 import { ThemeManager } from './components/ThemeManager.js';
 import { AuthManager } from './components/AuthManager.js';
+import { SessionManager } from './components/SessionManager.js';
 import { Storage } from './utils/storage.js';
 
 class App {
@@ -16,6 +17,7 @@ class App {
     this.storage = new Storage();
     this.themeManager = null;
     this.authManager = null;
+    this.sessionManager = null;
     this.currentPage = 'world';
     this.currentMode = 'casual';
     this.countriesData = null;
@@ -31,8 +33,9 @@ class App {
     // 0. Apply theme immediately — before any render to avoid flash
     this.themeManager = new ThemeManager(this.storage);
 
-    // Initialize authentication
+    // Initialize authentication & session management
     this.authManager = new AuthManager();
+    this.sessionManager = new SessionManager(this);
 
     // 1. Start landing page IMMEDIATELY — it needs nothing from the game
     this.landingPage = new LandingPage(this);

@@ -99,6 +99,12 @@ export class GameEngine {
 
   handleConcludeExpedition() {
     const score = this.mode === 'reverse' ? this.reverseCorrect : this.guessedCountries.size;
+    
+    // Abandon session on server if they conclude early
+    if (this.app.sessionManager) {
+      this.app.sessionManager.abandonSession();
+    }
+
     if (score === 0 && this.elapsedMs === 0) {
       this.app.sidebar.showInputFeedback('Chart territories before concluding!', 'incorrect');
       return;
@@ -136,6 +142,10 @@ export class GameEngine {
         this.app.storage.set('speedBestTime', this.elapsedMs);
         this.app.sidebar.updateBestTime(this.elapsedMs);
       }
+    }
+
+    if (this.mode !== 'casual' && this.app.sessionManager) {
+      this.app.sessionManager.completeSession(this.guessedCountries.size);
     }
 
     this.app.sidebar.showInputFeedback('Expedition archived to Stats! 📜', 'correct');
@@ -205,7 +215,15 @@ export class GameEngine {
 
     // Auto-start timer on first correct guess if not running
     if (!this.timerRunning) {
+      if (this.mode === 'speed' && this.app.sessionManager) {
+        this.app.sessionManager.startSession('speed');
+      }
       this.startTimer();
+    }
+    
+    // Log guess to server
+    if (this.mode === 'speed' && this.app.sessionManager) {
+      this.app.sessionManager.logGuess(countryId, true);
     }
 
     // Highlight on map with instant discovery flash
@@ -340,6 +358,10 @@ export class GameEngine {
     this.reverseSkipped = 0;
     this.streakCount = 0;
     this.app.sidebar.updateStreak(0);
+    
+    if (this.app.sessionManager) {
+      this.app.sessionManager.startSession('reverse');
+    }
 
     this.startTimer();
     this.nextReverseCountry();
@@ -413,6 +435,11 @@ export class GameEngine {
     this.app.sidebar.updateStreak(0);
     this.app.sidebar.showInputFeedback(`Skipped: ${this.reverseCurrentCountry.name}`, '');
     this.app.mapView.clearReverseHighlight();
+    
+    if (this.app.sessionManager) {
+      this.app.sessionManager.logGuess(this.reverseCurrentCountry.id, false);
+    }
+    
     this.nextReverseCountry();
   }
 
@@ -440,6 +467,10 @@ export class GameEngine {
       // In Reverse mode, no cooldown decay — streak simply increments on consecutive correct guesses
       this.streakCount++;
       this.app.sidebar.updateStreak(this.streakCount);
+      
+      if (this.app.sessionManager) {
+        this.app.sessionManager.logGuess(this.reverseCurrentCountry.id, true);
+      }
 
       this.app.sidebar.updateCounter(this.guessedCountries.size, this.totalCountries);
       this.updateContinentProgress(this.reverseCurrentCountry.continent);
@@ -460,6 +491,11 @@ export class GameEngine {
       this.streakCount = 0;
       this.app.sidebar.updateStreak(0);
       this.app.sidebar.showInputFeedback(`✗ Try again`, 'incorrect');
+
+      if (this.app.sessionManager && countryGuess) {
+        // Log wrong guess for the active highlighted country
+        this.app.sessionManager.logGuess(this.reverseCurrentCountry.id, false);
+      }
 
       countryInput.classList.add('input-error');
       setTimeout(() => countryInput.classList.remove('input-error'), 600);
