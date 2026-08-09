@@ -449,12 +449,18 @@ export class GlobeAnimation {
     }
 
     // Mount temporarily to DOM to compute bounding boxes for exact path centroids
-    // We must use importNode to bring the XML document node into the HTML document safely
-    const svgEl = document.importNode(docSvg, true);
-    svgEl.style.position = 'absolute';
-    svgEl.style.visibility = 'hidden';
-    svgEl.style.pointerEvents = 'none';
-    document.body.appendChild(svgEl);
+    const safeSvgText = svgText
+      .replace(/<\?xml[\s\S]*?\?>/i, '')
+      .replace(/<!DOCTYPE[\s\S]*?>/i, '');
+
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'absolute';
+    wrapper.style.visibility = 'hidden';
+    wrapper.style.pointerEvents = 'none';
+    wrapper.innerHTML = safeSvgText;
+    document.body.appendChild(wrapper);
+
+    const svgEl = wrapper.querySelector('svg');
 
     const pathEls = svgEl.querySelectorAll('path');
     const circleEls = svgEl.querySelectorAll('circle');
@@ -490,7 +496,7 @@ export class GlobeAnimation {
       }
     });
 
-    document.body.removeChild(svgEl);
+    document.body.removeChild(wrapper);
 
     let cleanSvg = svgText.replace(/<!DOCTYPE[\s\S]*?>/i, '');
 
