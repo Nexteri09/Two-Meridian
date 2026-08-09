@@ -124,6 +124,14 @@
   display: inline-block;
 }
 
+.sidebar[data-mode="speed"] .counter-current {
+  color: var(--speed-highlight);
+}
+
+.sidebar[data-mode="reverse"] .counter-current {
+  color: var(--reverse-highlight);
+}
+
 .counter-separator {
   color: var(--paper-faint);
   font-weight: 400;
@@ -150,6 +158,14 @@
   background: var(--brass-500);
   border-radius: var(--radius-full);
   transition: width 0.4s ease;
+}
+
+.sidebar[data-mode="speed"] .counter-bar-fill {
+  background: var(--speed-highlight);
+}
+
+.sidebar[data-mode="reverse"] .counter-bar-fill {
+  background: var(--reverse-highlight);
 }
 
 /* ---- Input Bar ---- */
@@ -1446,4 +1462,100 @@
   background: var(--ink-800);
 }
 
+/* ════════════════════════════════════════════════════════════════════════
+   Light Mode Component Overrides
+   Using html[data-theme="light"] to override default mode styles
+   ════════════════════════════════════════════════════════════════════════ */
 
+/* Timer & Count (High contrast ink tones) */
+html[data-theme="light"] .sidebar[data-mode="casual"] .timer-display,
+html[data-theme="light"] .sidebar[data-mode="casual"] .timer-label {
+  color: var(--casual-highlight-light);
+  text-shadow: none;
+}
+html[data-theme="light"] .sidebar[data-mode="speed"] .timer-display,
+html[data-theme="light"] .sidebar[data-mode="speed"] .timer-label {
+  color: var(--speed-highlight);
+  text-shadow: none;
+}
+html[data-theme="light"] .sidebar[data-mode="reverse"] .timer-display,
+html[data-theme="light"] .sidebar[data-mode="reverse"] .timer-label {
+  color: var(--reverse-highlight);
+  text-shadow: none;
+}
+
+/* Conclude / Begin Expedition Button (Solid fills with off-white text) */
+html[data-theme="light"] .sidebar[data-mode="casual"] .conclude-expedition-btn,
+html[data-theme="light"] .sidebar[data-mode="casual"] .conclude-expedition-btn.state-begin {
+  background: var(--casual-highlight);
+  color: #EDE6D8;
+  border-color: var(--casual-highlight);
+}
+html[data-theme="light"] .sidebar[data-mode="speed"] .conclude-expedition-btn,
+html[data-theme="light"] .sidebar[data-mode="speed"] .conclude-expedition-btn.state-begin {
+  background: var(--speed-highlight);
+  color: #EDE6D8;
+  border-color: var(--speed-highlight);
+}
+html[data-theme="light"] .sidebar[data-mode="reverse"] .conclude-expedition-btn,
+html[data-theme="light"] .sidebar[data-mode="reverse"] .conclude-expedition-btn.state-begin {
+  background: var(--reverse-highlight);
+  color: #EDE6D8;
+  border-color: var(--reverse-highlight);
+}
+
+/* Streak Pill (Solid fills with off-white text) */
+html[data-theme="light"] .sidebar[data-mode="casual"] .streak-pill {
+  background: var(--casual-highlight);
+  color: #EDE6D8;
+}
+html[data-theme="light"] .sidebar[data-mode="speed"] .streak-pill {
+  background: var(--speed-highlight);
+  color: #EDE6D8;
+}
+html[data-theme="light"] .sidebar[data-mode="reverse"] .streak-pill {
+  background: var(--reverse-highlight);
+  color: #EDE6D8;
+}
+
+/* Reverse Mode Specifics */
+html[data-theme="light"] .reverse-submit-btn {
+  background: var(--reverse-highlight);
+  color: #EDE6D8;
+  border-color: var(--reverse-highlight);
+}
+html[data-theme="light"] .expedition-guide {
+  background: var(--ink-900);
+  border-color: var(--reverse-highlight);
+  color: var(--paper);
+}
+html[data-theme="light"] .expedition-guide .guide-bullet {
+  color: var(--reverse-highlight);
+}
+
+/* Cartographer's Log Inherited Accents */
+.sidebar[data-mode="casual"] .discovery-log-header,
+.sidebar[data-mode="casual"] .log-count {
+  color: var(--casual-highlight);
+}
+.sidebar[data-mode="speed"] .discovery-log-header,
+.sidebar[data-mode="speed"] .log-count {
+  color: var(--speed-highlight);
+}
+.sidebar[data-mode="reverse"] .discovery-log-header,
+.sidebar[data-mode="reverse"] .log-count {
+  color: var(--reverse-highlight);
+}
+
+html[data-theme="light"] .sidebar[data-mode="casual"] .discovery-log-header,
+html[data-theme="light"] .sidebar[data-mode="casual"] .log-count {
+  color: var(--casual-highlight-light);
+}
+html[data-theme="light"] .sidebar[data-mode="speed"] .discovery-log-header,
+html[data-theme="light"] .sidebar[data-mode="speed"] .log-count {
+  color: var(--speed-highlight);
+}
+html[data-theme="light"] .sidebar[data-mode="reverse"] .discovery-log-header,
+html[data-theme="light"] .sidebar[data-mode="reverse"] .log-count {
+  color: var(--reverse-highlight);
+}
