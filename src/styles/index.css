@@ -198,10 +198,10 @@
 
 @keyframes theme-ripple {
   from {
-    clip-path: circle(0px at var(--theme-x, 50%) var(--theme-y, 50%));
+    clip-path: circle(0% at var(--theme-x, 50%) var(--theme-y, 50%));
   }
   to {
-    clip-path: circle(var(--theme-r, 100vw) at var(--theme-x, 50%) var(--theme-y, 50%));
+    clip-path: circle(150% at var(--theme-x, 50%) var(--theme-y, 50%));
   }
 }
 
