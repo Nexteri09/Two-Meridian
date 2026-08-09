@@ -440,18 +440,24 @@ export class GlobeAnimation {
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(svgText, 'image/svg+xml');
-    const svgEl = doc.querySelector('svg');
-    if (svgEl && svgEl.hasAttribute('viewBox')) {
-      const vb = svgEl.getAttribute('viewBox').trim().split(/\s+/).map(Number);
+    const docSvg = doc.querySelector('svg');
+    if (docSvg && docSvg.hasAttribute('viewBox')) {
+      const vb = docSvg.getAttribute('viewBox').trim().split(/\s+/).map(Number);
       if (vb.length === 4 && !vb.some(isNaN)) {
         this.svgBounds = { svgX: vb[0], svgY: vb[1], svgW: vb[2], svgH: vb[3] };
       }
     }
+
     // Mount temporarily to DOM to compute bounding boxes for exact path centroids
-    svgEl.style.position = 'absolute';
-    svgEl.style.visibility = 'hidden';
-    svgEl.style.pointerEvents = 'none';
-    document.body.appendChild(svgEl);
+    // Using a wrapper div and innerHTML ensures nodes are in the correct HTML document namespace
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'absolute';
+    wrapper.style.visibility = 'hidden';
+    wrapper.style.pointerEvents = 'none';
+    wrapper.innerHTML = svgText;
+    document.body.appendChild(wrapper);
+
+    const svgEl = wrapper.querySelector('svg');
 
     const pathEls = svgEl.querySelectorAll('path');
     const circleEls = svgEl.querySelectorAll('circle');
@@ -487,7 +493,7 @@ export class GlobeAnimation {
       }
     });
 
-    document.body.removeChild(svgEl);
+    document.body.removeChild(wrapper);
 
     let cleanSvg = svgText.replace(/<!DOCTYPE[\s\S]*?>/i, '');
 
