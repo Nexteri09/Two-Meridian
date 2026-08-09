@@ -305,7 +305,7 @@ export class GlobeAnimation {
         highlights.push({
           type: 'path',
           pathIdx,
-          color: { fill: 'rgba(255, 204, 0, 0.9)', stroke: '#FFD700' },
+          color: { fill: 'rgba(255, 204, 0, 0.9)', stroke: 'rgba(255, 215, 0, 0.5)' },
           alpha: 1.0
         });
       } else if (this.isoCircleMap.has(upperIso)) {
@@ -731,8 +731,8 @@ export class GlobeAnimation {
             const path2d = new Path2D(item.d);
             ctx.fillStyle = h.color?.fill || 'rgba(255, 204, 0, 0.9)';
             ctx.fill(path2d);
-            ctx.strokeStyle = h.color?.stroke || '#FFD700';
-            ctx.lineWidth = (1.8 * alpha) / scaleX;
+            ctx.strokeStyle = h.color?.stroke || 'rgba(255, 215, 0, 0.5)';
+            ctx.lineWidth = (0.8 * alpha) / scaleX;
             ctx.stroke(path2d);
             ctx.restore();
           }

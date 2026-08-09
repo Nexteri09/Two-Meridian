@@ -325,63 +325,7 @@ export class LandingPage {
         </div>
       </section>
 
-      <!-- ── SECTION 4: PHILOSOPHY / "BUILT FOR THE CURIOUS MIND" ── -->
-      <section class="landing-about" id="landing-about">
-        <div class="section-header">
-          <div class="header-badge">
-            <span class="badge-glyph">✦</span>
-            <span>PHILOSOPHY // CRAFT & INTEGRITY</span>
-          </div>
-          <h2 class="section-title">Built for the Curious Mind</h2>
-          <p class="section-desc">
-            Two Meridian was created as a clean, respectful digital atlas. No algorithmic clutter, no subscription walls.
-          </p>
-        </div>
 
-        <div class="about-grid">
-          <div class="about-card">
-            <div class="about-top-rule"></div>
-            <div class="about-icon-wrap">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="10"/>
-                <polygon points="12,2 15,9 22,12 15,15 12,22 9,15 2,12 9,9"/>
-                <circle cx="12" cy="12" r="2" fill="currentColor"/>
-              </svg>
-            </div>
-            <h3 class="about-card-title">Pure Cartographic Focus</h3>
-            <p class="about-card-desc">
-              Zero advertisements, zero user tracking, and no required accounts. Just an uninterrupted canvas for geographic exploration and spatial practice.
-            </p>
-          </div>
-
-          <div class="about-card">
-            <div class="about-top-rule"></div>
-            <div class="about-icon-wrap">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 2v20M12 5l-7 14M12 5l7 14M7 15h10M12 2l-3 4h6z"/>
-              </svg>
-            </div>
-            <h3 class="about-card-title">196 Sovereign Borders</h3>
-            <p class="about-card-desc">
-              Every nation is drafted through hand-curated, vector-optimized SVG geometry conforming to recognized sovereign state standards.
-            </p>
-          </div>
-
-          <div class="about-card">
-            <div class="about-top-rule"></div>
-            <div class="about-icon-wrap">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="13" r="8"/>
-                <path d="M12 9v4l2.5 2.5M12 5V2M10 2h4"/>
-              </svg>
-            </div>
-            <h3 class="about-card-title">Active Spatial Recall</h3>
-            <p class="about-card-desc">
-              Engineered with cognitive retrieval techniques — combining instant interactive typing, spatial feedback, and speed trials.
-            </p>
-          </div>
-        </div>
-      </section>
 
       <!-- ── SECTION 5: EXPEDITION SUPPORT (Archival Ledger) ─────── -->
       <section class="landing-support" id="landing-support">
