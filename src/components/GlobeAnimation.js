@@ -264,10 +264,16 @@ export class GlobeAnimation {
     const upperIso = iso ? iso.toUpperCase() : null;
 
     let cx = null, cy = null;
-    if (upperIso && this.isoCircleMap.has(upperIso)) {
+    if (upperIso) {
       const circleData = this.isoCircleMap.get(upperIso);
-      cx = circleData.cx;
-      cy = circleData.cy;
+      const pathData = this.isoPathMap.get(upperIso);
+      if (circleData) {
+        cx = circleData.cx;
+        cy = circleData.cy;
+      } else if (pathData) {
+        cx = pathData.cx;
+        cy = pathData.cy;
+      }
     }
 
     this._activeBeacon = { lon, lat, iso: upperIso, name, cx, cy };
@@ -441,8 +447,14 @@ export class GlobeAnimation {
         this.svgBounds = { svgX: vb[0], svgY: vb[1], svgW: vb[2], svgH: vb[3] };
       }
     }
-    const pathEls = doc.querySelectorAll('path');
-    const circleEls = doc.querySelectorAll('circle');
+    // Mount temporarily to DOM to compute bounding boxes for exact path centroids
+    svgEl.style.position = 'absolute';
+    svgEl.style.visibility = 'hidden';
+    svgEl.style.pointerEvents = 'none';
+    document.body.appendChild(svgEl);
+
+    const pathEls = svgEl.querySelectorAll('path');
+    const circleEls = svgEl.querySelectorAll('circle');
 
     this.svgPaths = [];
     this.svgCircles = [];
@@ -453,8 +465,14 @@ export class GlobeAnimation {
       const d = p.getAttribute('d');
       const id = (p.getAttribute('id') || p.getAttribute('data-id') || '').toUpperCase();
       if (d) {
-        this.svgPaths.push({ id, d });
-        if (id) this.isoPathMap.set(id, idx);
+        let cx = undefined, cy = undefined;
+        try {
+          const bbox = p.getBBox();
+          cx = bbox.x + bbox.width / 2;
+          cy = bbox.y + bbox.height / 2;
+        } catch (e) {}
+        this.svgPaths.push({ id, d, cx, cy });
+        if (id) this.isoPathMap.set(id, { idx, cx, cy });
       }
     });
 
@@ -468,6 +486,8 @@ export class GlobeAnimation {
         if (id) this.isoCircleMap.set(id, { cx, cy, r });
       }
     });
+
+    document.body.removeChild(svgEl);
 
     let cleanSvg = svgText.replace(/<!DOCTYPE[\s\S]*?>/i, '');
 
@@ -553,6 +573,27 @@ export class GlobeAnimation {
             glow: p.color.glow
           },
           alpha
+        });
+      }
+    }
+
+    if (code) {
+      const pathData = this.isoPathMap.get(code);
+      const circleData = this.isoCircleMap.get(code);
+      const p = pathData || circleData;
+      
+      if (p) {
+        highlights.push({
+          type: p.r !== undefined ? 'circle' : 'path',
+          pathIdx: pathData ? pathData.idx : undefined,
+          cx: p.cx,
+          cy: p.cy,
+          color: {
+            fill: 'rgba(226, 109, 92, 0.85)',
+            stroke: '#E26D5C',
+            glow: '#E26D5C'
+          },
+          alpha: 1.0
         });
       }
     }
