@@ -305,7 +305,7 @@ export class GlobeAnimation {
         highlights.push({
           type: 'path',
           pathIdx,
-          color: { fill: 'rgba(197, 155, 39, 0.85)', stroke: '#c59b27' },
+          color: { fill: 'rgba(255, 204, 0, 0.9)', stroke: '#FFD700' },
           alpha: 1.0
         });
       } else if (this.isoCircleMap.has(upperIso)) {
@@ -314,8 +314,24 @@ export class GlobeAnimation {
           type: 'circle',
           cx: circleData.cx,
           cy: circleData.cy,
-          color: { fill: '#ffffff', stroke: '#c59b27' },
-          alpha: 1.0
+          color: { fill: '#ffffff', stroke: '#FFD700' },
+          alpha: 1.0,
+          radius: 3.5
+        });
+      } else if (lon !== undefined && lat !== undefined) {
+        // Fallback for missing microstates (Tuvalu, Nauru)
+        const u = (lon - (-169.11)) / 360.0;
+        const shaderUvY = (lat - (-55.68)) / (83.62 - (-55.68));
+        const vNorm = 1.0 - shaderUvY;
+        const cx = u * svgW + svgX;
+        const cy = vNorm * svgH + svgY;
+        
+        highlights.push({
+          type: 'circle',
+          cx, cy,
+          color: { fill: '#ffffff', stroke: '#FFD700' },
+          alpha: 1.0,
+          radius: 4.0
         });
       }
     }
@@ -689,17 +705,19 @@ export class GlobeAnimation {
           const mx = (h.cx - svgX) * scaleX;
           const my = (h.cy - svgY) * scaleY;
 
+          const radius = h.radius || 3.5;
+
           ctx.save();
           // Hairline outer ring
           ctx.beginPath();
-          ctx.arc(mx, my, 8, 0, Math.PI * 2);
-          ctx.strokeStyle = h.color?.stroke || '#c59b27';
-          ctx.lineWidth = 1.6 * alpha;
+          ctx.arc(mx, my, radius * 2.5, 0, Math.PI * 2);
+          ctx.strokeStyle = h.color?.stroke || '#FFD700';
+          ctx.lineWidth = 2.0 * alpha;
           ctx.stroke();
 
           // Radiant brass/white core
           ctx.beginPath();
-          ctx.arc(mx, my, 3.5, 0, Math.PI * 2);
+          ctx.arc(mx, my, radius, 0, Math.PI * 2);
           ctx.fillStyle = h.color?.fill || '#ffffff';
           ctx.fill();
           ctx.restore();
@@ -711,10 +729,10 @@ export class GlobeAnimation {
             ctx.scale(scaleX, scaleY);
 
             const path2d = new Path2D(item.d);
-            ctx.fillStyle = h.color?.fill || 'rgba(197, 155, 39, 0.85)';
+            ctx.fillStyle = h.color?.fill || 'rgba(255, 204, 0, 0.9)';
             ctx.fill(path2d);
-            ctx.strokeStyle = h.color?.stroke || '#deb648';
-            ctx.lineWidth = (1.2 * alpha) / scaleX;
+            ctx.strokeStyle = h.color?.stroke || '#FFD700';
+            ctx.lineWidth = (1.8 * alpha) / scaleX;
             ctx.stroke(path2d);
             ctx.restore();
           }
