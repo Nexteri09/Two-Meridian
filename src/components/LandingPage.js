@@ -670,7 +670,6 @@ export class LandingPage {
     const anime = window.anime;
     if (!anime) return;
 
-    const landing = document.getElementById('page-landing');
     const observe = (selector, fn, threshold = 0.10) => {
       const els = Array.from(document.querySelectorAll(selector));
       if (!els.length) return;
