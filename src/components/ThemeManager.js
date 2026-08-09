@@ -28,10 +28,15 @@ export class ThemeManager {
       return;
     }
 
-    // Start from bottom center to expand upwards
-    const x = window.innerWidth / 2;
-    const y = window.innerHeight;
-    const maxRadius = Math.hypot(window.innerWidth / 2, window.innerHeight);
+    // Calculate transition origin from the click event (the button)
+    // If e is not provided, fallback to top-right
+    const x = e ? e.clientX : window.innerWidth - 50;
+    const y = e ? e.clientY : 50;
+    
+    // Calculate maximum radius to ensure the circle covers the entire viewport
+    const right = window.innerWidth - x;
+    const bottom = window.innerHeight - y;
+    const maxRadius = Math.hypot(Math.max(x, right), Math.max(y, bottom));
 
     // Pass coordinates and radius to CSS
     document.documentElement.style.setProperty('--theme-x', `${x}px`);
