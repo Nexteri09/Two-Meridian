@@ -43,14 +43,18 @@ export class ThemeManager {
       y = e.clientY;
     }
     
+    // Convert to percentages to fix browser zoom bugs with view-transition clip-paths
+    const xPct = (x / window.innerWidth) * 100;
+    const yPct = (y / window.innerHeight) * 100;
+    
     // Calculate maximum radius to ensure the circle covers the entire viewport
     const right = window.innerWidth - x;
     const bottom = window.innerHeight - y;
     const maxRadius = Math.hypot(Math.max(x, right), Math.max(y, bottom));
 
     // Pass coordinates and radius to CSS
-    document.documentElement.style.setProperty('--theme-x', `${x}px`);
-    document.documentElement.style.setProperty('--theme-y', `${y}px`);
+    document.documentElement.style.setProperty('--theme-x', `${xPct}%`);
+    document.documentElement.style.setProperty('--theme-y', `${yPct}%`);
     document.documentElement.style.setProperty('--theme-r', `${maxRadius}px`);
 
     // Trigger the view transition
