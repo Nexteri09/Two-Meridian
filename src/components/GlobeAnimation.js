@@ -259,21 +259,18 @@ export class GlobeAnimation {
    * Focuses the globe smoothly onto a country / microstate coordinates.
    * Tilts both X and Y axes precisely to bring the location to the exact center of the screen.
    */
-  focusLocation(lon, lat, iso = null, name = '') {
+  focusLocation(lon, lat, iso = null, name = '', manualCx = null, manualCy = null) {
     this.isFocused = true;
     const upperIso = iso ? iso.toUpperCase() : null;
 
-    let cx = null, cy = null;
-    if (upperIso) {
+    let cx = manualCx !== null ? manualCx : null;
+    let cy = manualCy !== null ? manualCy : null;
+
+    // Fallback to parsed circle coordinates if none provided
+    if (cx === null && upperIso && this.isoCircleMap.has(upperIso)) {
       const circleData = this.isoCircleMap.get(upperIso);
-      const pathData = this.isoPathMap.get(upperIso);
-      if (circleData) {
-        cx = circleData.cx;
-        cy = circleData.cy;
-      } else if (pathData) {
-        cx = pathData.cx;
-        cy = pathData.cy;
-      }
+      cx = circleData.cx;
+      cy = circleData.cy;
     }
 
     this._activeBeacon = { lon, lat, iso: upperIso, name, cx, cy };
@@ -448,22 +445,8 @@ export class GlobeAnimation {
       }
     }
 
-    // Mount temporarily to DOM to compute bounding boxes for exact path centroids
-    const safeSvgText = svgText
-      .replace(/<\?xml[\s\S]*?\?>/i, '')
-      .replace(/<!DOCTYPE[\s\S]*?>/i, '');
-
-    const wrapper = document.createElement('div');
-    wrapper.style.position = 'absolute';
-    wrapper.style.visibility = 'hidden';
-    wrapper.style.pointerEvents = 'none';
-    wrapper.innerHTML = safeSvgText;
-    document.body.appendChild(wrapper);
-
-    const svgEl = wrapper.querySelector('svg');
-
-    const pathEls = svgEl.querySelectorAll('path');
-    const circleEls = svgEl.querySelectorAll('circle');
+    const pathEls = doc.querySelectorAll('path');
+    const circleEls = doc.querySelectorAll('circle');
 
     this.svgPaths = [];
     this.svgCircles = [];
@@ -474,14 +457,8 @@ export class GlobeAnimation {
       const d = p.getAttribute('d');
       const id = (p.getAttribute('id') || p.getAttribute('data-id') || '').toUpperCase();
       if (d) {
-        let cx = undefined, cy = undefined;
-        try {
-          const bbox = p.getBBox();
-          cx = bbox.x + bbox.width / 2;
-          cy = bbox.y + bbox.height / 2;
-        } catch (e) {}
-        this.svgPaths.push({ id, d, cx, cy });
-        if (id) this.isoPathMap.set(id, { idx, cx, cy });
+        this.svgPaths.push({ id, d });
+        if (id) this.isoPathMap.set(id, idx);
       }
     });
 
@@ -495,8 +472,6 @@ export class GlobeAnimation {
         if (id) this.isoCircleMap.set(id, { cx, cy, r });
       }
     });
-
-    document.body.removeChild(wrapper);
 
     let cleanSvg = svgText.replace(/<!DOCTYPE[\s\S]*?>/i, '');
 
@@ -587,16 +562,14 @@ export class GlobeAnimation {
     }
 
     if (code) {
-      const pathData = this.isoPathMap.get(code);
-      const circleData = this.isoCircleMap.get(code);
-      const p = pathData || circleData;
-      
-      if (p) {
+      const p = this.isoPathMap.get(code) || this.isoCircleMap.get(code);
+      if (p !== undefined) {
+        const isCircle = typeof p === 'object' && p.r !== undefined;
         highlights.push({
-          type: p.r !== undefined ? 'circle' : 'path',
-          pathIdx: pathData ? pathData.idx : undefined,
-          cx: p.cx,
-          cy: p.cy,
+          type: isCircle ? 'circle' : 'path',
+          pathIdx: isCircle ? undefined : p,
+          cx: isCircle ? p.cx : undefined,
+          cy: isCircle ? p.cy : undefined,
           color: {
             fill: 'rgba(226, 109, 92, 0.85)',
             stroke: '#E26D5C',

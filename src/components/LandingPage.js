@@ -262,6 +262,8 @@ export class LandingPage {
               coords: '29°35′ S · 28°14′ E',
               lon: 28.23,
               lat: -29.58,
+              cx: 234.052,
+              cy: 302.398,
               tagline: 'The Kingdom in the Sky',
               desc: 'A high-altitude enclave entirely surrounded by South Africa, with its lowest point at 1,400 meters.',
               stats: [
@@ -313,6 +315,8 @@ export class LandingPage {
               coords: '27°30′ N · 90°30′ E',
               lon: 90.50,
               lat: 27.50,
+              cx: 307.825,
+              cy: 225.527,
               tagline: 'Carbon Negative Kingdom',
               desc: 'A Himalayan nation that measures Gross National Happiness and absorbs more carbon than it emits.',
               stats: [
@@ -469,6 +473,8 @@ export class LandingPage {
                data-lat="${d.lat}"
                data-iso="${d.iso}"
                data-name="${d.name}"
+               data-cx="${d.cx !== undefined ? d.cx : ''}"
+               data-cy="${d.cy !== undefined ? d.cy : ''}"
                tabindex="0"
                role="button"
                aria-label="View dossier for ${d.name}">
@@ -513,12 +519,16 @@ export class LandingPage {
         const lat = parseFloat(card.dataset.lat);
         const iso = card.dataset.iso;
         const name = card.dataset.name;
+        const cxRaw = card.dataset.cx;
+        const cyRaw = card.dataset.cy;
+        const cx = cxRaw ? parseFloat(cxRaw) : null;
+        const cy = cyRaw ? parseFloat(cyRaw) : null;
 
         const triggerFocus = () => {
           cards.forEach(c => c.classList.remove('active-focus'));
           card.classList.add('active-focus');
           if (this._globe && !isNaN(lon) && !isNaN(lat)) {
-            this._globe.focusLocation(lon, lat, iso, name);
+            this._globe.focusLocation(lon, lat, iso, name, cx, cy);
           }
         };
 
