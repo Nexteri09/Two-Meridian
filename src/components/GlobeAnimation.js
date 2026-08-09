@@ -283,10 +283,11 @@ export class GlobeAnimation {
       this.focusRotY = (0.5 - u) * 2.0 * Math.PI;
       this.focusRotX = latInShader;
     } else {
-      const u = (lon + 180) / 360;
-      const latRad = (lat * Math.PI) / 180;
+      // Map SVG Equirectangular bounds: Lon -169.11 to 190.89, Lat -55.68 to 83.62
+      const u = (lon - (-169.11)) / 360.0;
+      const shaderUvY = (lat - (-55.68)) / (83.62 - (-55.68));
       this.focusRotY = (0.5 - u) * 2.0 * Math.PI;
-      this.focusRotX = latRad;
+      this.focusRotX = (shaderUvY - 0.5) * Math.PI; // Approximate sphere rotation
     }
 
     const highlights = [];
@@ -384,6 +385,8 @@ export class GlobeAnimation {
       svgBackground: '#0a0908',
       beaconCore: '#c59b27',
       beaconStroke: 'rgba(197, 155, 39, 0.60)',
+      pointer: '#E26D5C',
+      text: '#DFB755',
       pulses: [
         { name: 'casual', fillRgb: '197, 155, 39', stroke: '#deb648', glow: '#c59b27' },
         { name: 'speed', fillRgb: '45, 127, 103', stroke: '#5bb898', glow: '#2d7f67' },
@@ -400,6 +403,8 @@ export class GlobeAnimation {
       svgBackground: '#EBE4D5',
       beaconCore: '#644e30',
       beaconStroke: 'rgba(100, 78, 48, 0.60)',
+      pointer: '#8B2C24',
+      text: '#1C160E',
       pulses: [
         { name: 'casual', fillRgb: '194, 139, 30', stroke: '#C28B1E', glow: '#AD7813' },
         { name: 'speed', fillRgb: '42, 104, 140', stroke: '#2A688C', glow: '#215473' },
@@ -569,7 +574,12 @@ export class GlobeAnimation {
 
     // Draw base cartography
     if (this.svgImage) {
+      if (beacon) {
+        // Dim the base map when a dossier is hovered
+        ctx.globalAlpha = 0.35;
+      }
       ctx.drawImage(this.svgImage, 0, 0, W, H);
+      ctx.globalAlpha = 1.0;
     }
 
     // Draw Field Atlas Hairline Graticules (Equator, Prime Meridian)
@@ -657,10 +667,8 @@ export class GlobeAnimation {
         bx = (beacon.cx - svgX) * scaleX;
         by = (beacon.cy - svgY) * scaleY;
       } else if (typeof beacon.lon === 'number' && typeof beacon.lat === 'number') {
-        const u = (beacon.lon + 180) / 360;
-        const latRad = (beacon.lat * Math.PI) / 180;
-        const shaderUvY = (latRad - (-1.08)) / (1.43 - (-1.08));
-        const v = 1.0 - shaderUvY;
+        const u = (beacon.lon - (-169.11)) / 360.0;
+        const v = (beacon.lat - 83.62) / (-55.68 - 83.62);
         bx = u * W;
         by = v * H;
       }
@@ -671,7 +679,7 @@ export class GlobeAnimation {
         // Outer reticle ring
         ctx.beginPath();
         ctx.arc(bx, by, 28, 0, Math.PI * 2);
-        ctx.strokeStyle = palette.beaconStroke || 'rgba(197, 155, 39, 0.60)';
+        ctx.strokeStyle = palette.pointer;
         ctx.lineWidth = 2.0;
         ctx.setLineDash([4, 4]);
         ctx.stroke();
@@ -679,7 +687,7 @@ export class GlobeAnimation {
         // Inner reticle circle
         ctx.beginPath();
         ctx.arc(bx, by, 14, 0, Math.PI * 2);
-        ctx.strokeStyle = palette.beaconCore || '#c59b27';
+        ctx.strokeStyle = palette.pointer;
         ctx.lineWidth = 1.8;
         ctx.setLineDash([]);
         ctx.stroke();
@@ -687,11 +695,11 @@ export class GlobeAnimation {
         // Center point
         ctx.beginPath();
         ctx.arc(bx, by, 4.5, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = palette.pointer;
         ctx.fill();
 
         // Reticle ticks
-        ctx.strokeStyle = palette.beaconCore || '#c59b27';
+        ctx.strokeStyle = palette.pointer;
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(bx, by - 34); ctx.lineTo(bx, by - 16);
