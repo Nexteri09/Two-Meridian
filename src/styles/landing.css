@@ -1063,9 +1063,6 @@ html[data-theme="light"] .landing-dossiers::before {
 
 /* ── Landing Theme Toggle ─────────────────────────────────────────────── */
 .landing-theme-toggle {
-  position: absolute;
-  top: 32px;
-  right: 32px;
   width: 40px;
   height: 40px;
   display: flex;
@@ -1089,7 +1086,7 @@ html[data-theme="light"] .landing-dossiers::before {
 
 @media (max-width: 768px) {
   .landing-theme-toggle {
-    top: 24px;
-    right: 24px;
+    width: 36px;
+    height: 36px;
   }
 }

@@ -28,12 +28,10 @@ export class ThemeManager {
       return;
     }
 
-    // Calculate maximum radius to ensure the circle covers the entire viewport
-    const x = e.clientX;
-    const y = e.clientY;
-    const right = window.innerWidth - x;
-    const bottom = window.innerHeight - y;
-    const maxRadius = Math.hypot(Math.max(x, right), Math.max(y, bottom));
+    // Start from bottom center to expand upwards
+    const x = window.innerWidth / 2;
+    const y = window.innerHeight;
+    const maxRadius = Math.hypot(window.innerWidth / 2, window.innerHeight);
 
     // Pass coordinates and radius to CSS
     document.documentElement.style.setProperty('--theme-x', `${x}px`);

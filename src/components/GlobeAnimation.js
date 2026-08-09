@@ -658,7 +658,9 @@ export class GlobeAnimation {
         by = (beacon.cy - svgY) * scaleY;
       } else if (typeof beacon.lon === 'number' && typeof beacon.lat === 'number') {
         const u = (beacon.lon + 180) / 360;
-        const v = (90 - beacon.lat) / 180;
+        const latRad = (beacon.lat * Math.PI) / 180;
+        const shaderUvY = (latRad - (-1.08)) / (1.43 - (-1.08));
+        const v = 1.0 - shaderUvY;
         bx = u * W;
         by = v * H;
       }
