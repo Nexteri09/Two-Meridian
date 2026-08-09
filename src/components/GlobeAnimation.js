@@ -382,6 +382,8 @@ export class GlobeAnimation {
       graticule: 'rgba(197, 155, 39, 0.12)',
       markerStroke: 'rgba(197, 155, 39, 0.42)',
       svgBackground: '#0a0908',
+      beaconCore: '#c59b27',
+      beaconStroke: 'rgba(197, 155, 39, 0.60)',
       pulses: [
         { name: 'casual', fillRgb: '197, 155, 39', stroke: '#deb648', glow: '#c59b27' },
         { name: 'speed', fillRgb: '45, 127, 103', stroke: '#5bb898', glow: '#2d7f67' },
@@ -396,6 +398,8 @@ export class GlobeAnimation {
       graticule: 'rgba(100, 78, 48, 0.14)',
       markerStroke: 'rgba(100, 78, 48, 0.45)',
       svgBackground: '#EBE4D5',
+      beaconCore: '#644e30',
+      beaconStroke: 'rgba(100, 78, 48, 0.60)',
       pulses: [
         { name: 'casual', fillRgb: '194, 139, 30', stroke: '#C28B1E', glow: '#AD7813' },
         { name: 'speed', fillRgb: '42, 104, 140', stroke: '#2A688C', glow: '#215473' },
@@ -665,7 +669,7 @@ export class GlobeAnimation {
         // Outer reticle ring
         ctx.beginPath();
         ctx.arc(bx, by, 28, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(197, 155, 39, 0.60)';
+        ctx.strokeStyle = palette.beaconStroke || 'rgba(197, 155, 39, 0.60)';
         ctx.lineWidth = 2.0;
         ctx.setLineDash([4, 4]);
         ctx.stroke();
@@ -673,7 +677,7 @@ export class GlobeAnimation {
         // Inner reticle circle
         ctx.beginPath();
         ctx.arc(bx, by, 14, 0, Math.PI * 2);
-        ctx.strokeStyle = '#c59b27';
+        ctx.strokeStyle = palette.beaconCore || '#c59b27';
         ctx.lineWidth = 1.8;
         ctx.setLineDash([]);
         ctx.stroke();
@@ -685,7 +689,7 @@ export class GlobeAnimation {
         ctx.fill();
 
         // Reticle ticks
-        ctx.strokeStyle = '#c59b27';
+        ctx.strokeStyle = palette.beaconCore || '#c59b27';
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(bx, by - 34); ctx.lineTo(bx, by - 16);
@@ -697,7 +701,7 @@ export class GlobeAnimation {
         // Archival Mono Callout
         if (beacon.name) {
           ctx.font = '600 20px "IBM Plex Mono", monospace';
-          ctx.fillStyle = '#c59b27';
+          ctx.fillStyle = palette.beaconCore || '#c59b27';
 
           const text = `⌖ ${beacon.name.toUpperCase()}`;
           const textWidth = ctx.measureText(text).width;

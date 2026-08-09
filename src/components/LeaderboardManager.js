@@ -5,7 +5,12 @@ export class LeaderboardManager {
     this.app = app;
     this.overlay = document.getElementById('leaderboard-overlay');
     this.closeBtn = document.getElementById('leaderboard-close');
-    this.triggerBtn = document.getElementById('nav-leaderboard-btn');
+    this.triggerBtns = [
+      document.getElementById('nav-leaderboard-btn'),
+      document.getElementById('landing-leaderboard-btn'),
+      document.getElementById('in-game-leaderboard-btn')
+    ].filter(Boolean); // Only keep buttons that exist
+    
     this.tabs = document.querySelectorAll('.lb-tab');
     this.contentSpeed = document.getElementById('lb-content-speed');
     this.contentReverse = document.getElementById('lb-content-reverse');
@@ -17,9 +22,10 @@ export class LeaderboardManager {
   }
 
   _bindEvents() {
-    if (this.triggerBtn) {
-      this.triggerBtn.addEventListener('click', () => this.open());
-    }
+    this.triggerBtns.forEach(btn => {
+      btn.addEventListener('click', () => this.open());
+    });
+    
     if (this.closeBtn) {
       this.closeBtn.addEventListener('click', () => this.close());
     }

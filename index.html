@@ -4,9 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Two Meridian — Explore the World</title>
+  <title>Two Meridian — Guess the Country, Map Quiz & Geography Game</title>
   <meta name="description"
-    content="A precision cartographic geography platform indexing 196 sovereign nations. Explore borders, light up the map, and test geographic recall. No ads, no login, just play.">
+    content="Test your world geography with Two Meridian. Guess all 196 countries on an interactive map. Daily leaderboards, speed mode & more. Free, no signup needed.">
+
+  <!-- SEO Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Two Meridian",
+    "url": "https://twomeridian.in",
+    "description": "An interactive global geography game to test your knowledge of all 196 sovereign nations.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "All",
+    "genre": "Geography Quiz"
+  }
+  </script>
 
   <!-- Fonts: Field Atlas System (Fraunces + IBM Plex Sans + IBM Plex Mono) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -263,6 +277,14 @@
           <div class="map-wrapper" id="map-wrapper">
             <!-- SVG map injected here -->
           </div>
+
+          <!-- In-Game Leaderboard Chip -->
+          <button id="in-game-leaderboard-btn" class="in-game-leaderboard-chip" title="Daily Leaderboards">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 21h8m-4-4v4m0-4V3m0 14a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/>
+            </svg>
+            <span>Today's Top</span>
+          </button>
 
           <!-- Continent Progress Panel (bottom-left of map) -->
           <div class="continent-panel" id="continent-panel">

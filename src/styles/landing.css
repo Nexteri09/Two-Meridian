@@ -48,6 +48,49 @@
 }
 
 /* ==========================================================================
+   LANDING HEADER (Sticky)
+   ========================================================================== */
+.landing-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  z-index: 100;
+  transition: background var(--transition-medium), backdrop-filter var(--transition-medium), border-bottom var(--transition-medium);
+  box-sizing: border-box;
+  border-bottom: 1px solid transparent;
+}
+
+.landing-header.scrolled {
+  background: rgba(10, 9, 8, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--hairline);
+}
+
+html[data-theme="light"] .landing-header.scrolled {
+  background: rgba(237, 230, 216, 0.85);
+  border-bottom: 1px solid var(--hairline-light);
+}
+
+.landing-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+}
+
+.landing-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
    SECTION 1: HERO
    ========================================================================== */
 .landing-hero {
@@ -296,10 +339,39 @@
   margin: 0 auto;
 }
 
+.landing-features::before,
+.landing-dossiers::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(10, 9, 8, 0.6) 20%,
+    rgba(10, 9, 8, 0.6) 80%,
+    transparent 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+html[data-theme="light"] .landing-features::before,
+html[data-theme="light"] .landing-dossiers::before {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(242, 236, 226, 0.7) 20%,
+    rgba(242, 236, 226, 0.7) 80%,
+    transparent 100%
+  );
+}
+
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
   gap: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .feature-panel {

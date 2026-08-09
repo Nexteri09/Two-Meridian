@@ -54,36 +54,54 @@ export class LandingPage {
       <!-- Fixed 3D Globe Canvas Layer -->
       <div class="landing-globe-bg" id="landing-globe-bg"></div>
 
+      <!-- Sticky Landing Header -->
+      <header class="landing-header" id="landing-header">
+        <div class="landing-logo">Two Meridian</div>
+        <div class="landing-nav-actions">
+          <button id="landing-leaderboard-btn" class="nav-icon-btn" title="Daily Leaderboards" aria-label="Leaderboards">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M8 21h8m-4-4v4m0-4V3m0 14a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/>
+            </svg>
+          </button>
+          
+          <button id="landing-theme-toggle" class="nav-icon-btn landing-theme-toggle" title="Toggle light/dark mode" aria-label="Toggle theme">
+            <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <line x1="12" y1="2" x2="12" y2="5"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+              <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+              <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+              <line x1="2" y1="12" x2="5" y2="12"/>
+              <line x1="19" y1="12" x2="22" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+              <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+            </svg>
+            <svg class="theme-icon-moon hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+
+          <!-- Auth Controls for Landing Page -->
+          <button id="landing-auth-btn" class="nav-link auth-btn">Sign In</button>
+          <div id="landing-auth-user" class="auth-user-menu hidden">
+            <span id="landing-auth-alias" class="auth-alias">Alias</span>
+            <button id="landing-auth-logout" class="nav-icon-btn" title="Sign Out">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
       <!-- ── SECTION 1: HERO ────────────────────────────────────── -->
       <section class="landing-hero" id="landing-hero">
-        <!-- Landing Page Theme Toggle -->
-        <button id="landing-theme-toggle" class="landing-theme-toggle" title="Toggle light/dark mode" aria-label="Toggle light or dark theme">
-          <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4"/>
-            <line x1="12" y1="2" x2="12" y2="5"/>
-            <line x1="12" y1="19" x2="12" y2="22"/>
-            <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
-            <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
-            <line x1="2" y1="12" x2="5" y2="12"/>
-            <line x1="19" y1="12" x2="22" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
-            <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
-          </svg>
-          <svg class="theme-icon-moon hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </button>
-
-        <div class="hero-status-strip">
-          <span class="status-indicator"></span>
-          <span class="status-mono">TWO MERIDIAN // 196 SOVEREIGN NATIONS INDEXED</span>
-        </div>
-
         <div class="hero-content">
-          <p class="hero-eyebrow" id="hero-eyebrow">Interactive Global Geography</p>
-          <h1 class="hero-headline" id="hero-headline">
+          <h2 class="hero-headline" id="hero-headline">
             The World Is Yours <span class="hero-italic">to Master</span>
-          </h1>
+          </h2>
           <div class="hero-divider-rule"></div>
           <p class="hero-sub" id="hero-sub">
             A precision cartographic study of sovereign borders, political territories, and rapid global recall.
@@ -94,14 +112,6 @@ export class LandingPage {
               <span>Explore the Atlas</span>
               <span class="cta-arrow">→</span>
             </button>
-          </div>
-        </div>
-
-        <div class="hero-bottom-bar" id="hero-scroll-hint">
-          <div class="scroll-ticker">
-            <span class="ticker-cross">+</span>
-            <span class="ticker-text">SCROLL TO CRUMPLE MAP INTO 3D GLOBE</span>
-            <span class="ticker-cross">+</span>
           </div>
         </div>
       </section>
@@ -215,17 +225,17 @@ export class LandingPage {
           <div class="dossier-wing wing-left" id="wing-left">
             ${this._renderDossierCard({
               num: '01',
-              name: 'Nauru',
-              iso: 'NR',
-              coords: '0°32′ S · 166°55′ E',
-              lon: 166.93,
-              lat: -0.52,
-              tagline: 'Republic Without an Official Capital',
-              desc: 'At 21 km², Nauru is the world’s smallest island republic. Governance convenes in Yaren District.',
+              name: 'Vatican City',
+              iso: 'VA',
+              coords: '41°54′ N · 12°27′ E',
+              lon: 12.45,
+              lat: 41.90,
+              tagline: 'Smallest Independent State on Earth',
+              desc: 'Encompasses 0.49 km² inside Rome with ~800 citizens and historic St. Peter’s Basilica.',
               stats: [
-                { k: 'AREA', v: '21 km²' },
-                { k: 'POP', v: '~10.8k' },
-                { k: 'YEAR', v: '1968' }
+                { k: 'AREA', v: '0.49 km²' },
+                { k: 'SEAT', v: 'Holy See' },
+                { k: 'POP', v: '~800' }
               ]
             })}
 
@@ -247,17 +257,17 @@ export class LandingPage {
 
             ${this._renderDossierCard({
               num: '03',
-              name: 'Kiribati',
-              iso: 'KI',
-              coords: '1°52′ N · 157°21′ W',
-              lon: -157.36,
-              lat: 1.87,
-              tagline: 'Sole Nation in All 4 Hemispheres',
-              desc: 'Straddles Equator & 180th meridian. In 1995 it shifted the Date Line 1,000km east to unify its days.',
+              name: 'Lesotho',
+              iso: 'LS',
+              coords: '29°35′ S · 28°14′ E',
+              lon: 28.23,
+              lat: -29.58,
+              tagline: 'The Kingdom in the Sky',
+              desc: 'A high-altitude enclave entirely surrounded by South Africa, with its lowest point at 1,400 meters.',
               stats: [
-                { k: 'UTC ZONE', v: '+14:00' },
-                { k: 'SPAN', v: '3,500 km' },
-                { k: 'ATOLLS', v: '33' }
+                { k: 'BASE ELEV', v: '1,400 m' },
+                { k: 'TYPE', v: 'Enclave' },
+                { k: 'CAPITAL', v: 'Maseru' }
               ]
             })}
           </div>
@@ -266,49 +276,49 @@ export class LandingPage {
           <div class="dossier-wing wing-right" id="wing-right">
             ${this._renderDossierCard({
               num: '04',
-              name: 'Liechtenstein',
-              iso: 'LI',
-              coords: '47°08′ N · 9°31′ E',
-              lon: 9.55,
-              lat: 47.16,
-              tagline: 'Doubly Landlocked Alpine Principality',
-              desc: 'Bordered strictly by Switzerland and Austria. In 1886, 80 soldiers returned 81 after making a friend.',
+              name: 'St. Vincent & Grenadines',
+              iso: 'VC',
+              coords: '13°15′ N · 61°12′ W',
+              lon: -61.20,
+              lat: 13.25,
+              tagline: 'Volcanic Island Archipelago',
+              desc: 'Comprises a volcanic main island (St. Vincent) and a chain of 32 smaller islands in the Caribbean Sea.',
               stats: [
-                { k: 'TYPE', v: 'Principality' },
-                { k: 'BORDERS', v: 'CH / AT' },
-                { k: 'CAPITAL', v: 'Vaduz' }
+                { k: 'ISLANDS', v: '32' },
+                { k: 'VOLCANO', v: 'La Soufrière' },
+                { k: 'CAPITAL', v: 'Kingstown' }
               ]
             })}
 
             ${this._renderDossierCard({
               num: '05',
-              name: 'Palau',
-              iso: 'PW',
-              coords: '7°30′ N · 134°37′ E',
-              lon: 134.58,
-              lat: 7.51,
-              tagline: 'Pioneering Ecological Sanctuary',
-              desc: 'First nation requiring a signed environmental pledge in passports and banning reef-toxic sunscreens.',
+              name: 'Nauru',
+              iso: 'NR',
+              coords: '0°32′ S · 166°55′ E',
+              lon: 166.93,
+              lat: -0.52,
+              tagline: 'Republic Without an Official Capital',
+              desc: 'At 21 km², Nauru is the world’s smallest island republic. Governance convenes in Yaren District.',
               stats: [
-                { k: 'SANCTUARY', v: '80% EEZ' },
-                { k: 'ISLANDS', v: '340+' },
-                { k: 'CAPITAL', v: 'Ngerulmud' }
+                { k: 'AREA', v: '21 km²' },
+                { k: 'POP', v: '~10.8k' },
+                { k: 'YEAR', v: '1968' }
               ]
             })}
 
             ${this._renderDossierCard({
               num: '06',
-              name: 'Vatican City',
-              iso: 'VA',
-              coords: '41°54′ N · 12°27′ E',
-              lon: 12.45,
-              lat: 41.90,
-              tagline: 'Smallest Independent State on Earth',
-              desc: 'Encompasses 0.49 km² inside Rome with ~800 citizens and historic St. Peter’s Basilica.',
+              name: 'Bhutan',
+              iso: 'BT',
+              coords: '27°30′ N · 90°30′ E',
+              lon: 90.50,
+              lat: 27.50,
+              tagline: 'Carbon Negative Kingdom',
+              desc: 'A Himalayan nation that measures Gross National Happiness and absorbs more carbon than it emits.',
               stats: [
-                { k: 'AREA', v: '0.49 km²' },
-                { k: 'SEAT', v: 'Holy See' },
-                { k: 'POP', v: '~800' }
+                { k: 'PHILOSOPHY', v: 'GNH' },
+                { k: 'FORESTS', v: '71%' },
+                { k: 'CAPITAL', v: 'Thimphu' }
               ]
             })}
           </div>
@@ -622,29 +632,11 @@ export class LandingPage {
     if (!anime) return;
 
     anime({
-      targets: '.hero-status-strip',
-      opacity: [0, 1],
-      translateY: [-10, 0],
-      duration: 600,
-      delay: 100,
-      easing: 'easeOutCubic'
-    });
-
-    anime({
-      targets: '#hero-eyebrow',
-      opacity: [0, 1],
-      translateY: [12, 0],
-      duration: 600,
-      delay: 250,
-      easing: 'easeOutCubic'
-    });
-
-    anime({
       targets: '#hero-headline',
       opacity: [0, 1],
       translateY: [24, 0],
       duration: 750,
-      delay: 400,
+      delay: 200,
       easing: 'easeOutCubic'
     });
 
@@ -653,15 +645,7 @@ export class LandingPage {
       opacity: [0, 1],
       translateY: [18, 0],
       duration: 600,
-      delay: anime.stagger(120, { start: 550 }),
-      easing: 'easeOutCubic'
-    });
-
-    anime({
-      targets: '#hero-scroll-hint',
-      opacity: [0, 1],
-      duration: 800,
-      delay: 950,
+      delay: anime.stagger(120, { start: 350 }),
       easing: 'easeOutCubic'
     });
   }
