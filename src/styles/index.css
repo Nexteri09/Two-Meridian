@@ -177,6 +177,33 @@
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
+   View Transitions API (Theme Toggle Ripple)
+   ────────────────────────────────────────────────────────────────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  animation: theme-ripple 0.6s ease-in-out;
+}
+
+@keyframes theme-ripple {
+  from {
+    clip-path: circle(0px at var(--theme-x, 50%) var(--theme-y, 50%));
+  }
+  to {
+    clip-path: circle(var(--theme-r, 100vw) at var(--theme-x, 50%) var(--theme-y, 50%));
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
    Theme Transition — smooth color crossfade when toggling (350ms)
    Only applies during the toggle animation, class is removed immediately after.
    ────────────────────────────────────────────────────────────────────────── */

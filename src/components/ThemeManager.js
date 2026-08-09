@@ -19,8 +19,32 @@ export class ThemeManager {
     return this.current === 'dark';
   }
 
-  toggle() {
-    this._apply(this.current === 'dark' ? 'light' : 'dark');
+  toggle(e) {
+    const newTheme = this.current === 'dark' ? 'light' : 'dark';
+
+    // If View Transitions API is not supported or no click event, fallback to standard CSS crossfade
+    if (!document.startViewTransition || !e) {
+      this._apply(newTheme);
+      return;
+    }
+
+    // Calculate maximum radius to ensure the circle covers the entire viewport
+    const x = e.clientX;
+    const y = e.clientY;
+    const right = window.innerWidth - x;
+    const bottom = window.innerHeight - y;
+    const maxRadius = Math.hypot(Math.max(x, right), Math.max(y, bottom));
+
+    // Pass coordinates and radius to CSS
+    document.documentElement.style.setProperty('--theme-x', `${x}px`);
+    document.documentElement.style.setProperty('--theme-y', `${y}px`);
+    document.documentElement.style.setProperty('--theme-r', `${maxRadius}px`);
+
+    // Trigger the view transition
+    document.startViewTransition(() => {
+      this._applyImmediate(newTheme);
+      window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: newTheme } }));
+    });
   }
 
   // Call this from the globe when it needs to know what palette to use
@@ -75,7 +99,7 @@ export class ThemeManager {
 
   _bindToggle() {
     const btn = document.getElementById('theme-toggle');
-    if (btn) btn.addEventListener('click', () => this.toggle());
+    if (btn) btn.addEventListener('click', (e) => this.toggle(e));
   }
 
   _updateIcon(theme) {

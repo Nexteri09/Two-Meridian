@@ -590,9 +590,9 @@ export class LandingPage {
   _bindThemeToggle() {
     const themeBtn = this.el.querySelector('#landing-theme-toggle');
     if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
+      themeBtn.addEventListener('click', (e) => {
         if (this.app.themeManager) {
-          this.app.themeManager.toggle();
+          this.app.themeManager.toggle(e);
           this._updateThemeIcon();
         }
       });

@@ -142,8 +142,35 @@
 }
 
 .nav-donate:hover {
-  border-color: var(--brass-500);
+  background: rgba(197, 155, 39, 0.1);
+  color: var(--brass-500);
+}
+
+.auth-btn {
+  color: var(--paper);
   background: var(--ink-800);
+  border: 1px solid var(--hairline-light);
+}
+
+.auth-btn:hover {
+  background: var(--ink-700);
+}
+
+.auth-user-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.auth-alias {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--brass-500);
+  padding: 4px 10px;
+  background: rgba(197, 155, 39, 0.1);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(197, 155, 39, 0.2);
 }
 
 /* ---- Page Container ---- */
