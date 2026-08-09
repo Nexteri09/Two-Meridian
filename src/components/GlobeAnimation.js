@@ -259,18 +259,22 @@ export class GlobeAnimation {
    * Focuses the globe smoothly onto a country / microstate coordinates.
    * Tilts both X and Y axes precisely to bring the location to the exact center of the screen.
    */
-  focusLocation(lon, lat, iso = null, name = '', manualCx = null, manualCy = null) {
+  focusLocation(lon, lat, iso = null, name = '') {
     this.isFocused = true;
     const upperIso = iso ? iso.toUpperCase() : null;
 
-    let cx = manualCx !== null ? manualCx : null;
-    let cy = manualCy !== null ? manualCy : null;
-
-    // Fallback to parsed circle coordinates if none provided
-    if (cx === null && upperIso && this.isoCircleMap.has(upperIso)) {
+    let cx = null, cy = null;
+    if (upperIso && this.isoCircleMap.has(upperIso)) {
       const circleData = this.isoCircleMap.get(upperIso);
       cx = circleData.cx;
       cy = circleData.cy;
+    } else if (upperIso && this.isoPathMap.has(upperIso)) {
+      const pathIdx = this.isoPathMap.get(upperIso);
+      const pathData = this.svgPaths[pathIdx];
+      if (pathData && pathData.cx !== undefined) {
+        cx = pathData.cx;
+        cy = pathData.cy;
+      }
     }
 
     this._activeBeacon = { lon, lat, iso: upperIso, name, cx, cy };
@@ -416,6 +420,60 @@ export class GlobeAnimation {
     };
   }
 
+  _extractMapData() {
+    this.isoPathMap = new Map();
+    this.isoCircleMap = new Map();
+    this.svgPaths = [];
+    this.svgCircles = [];
+
+    // Temporarily mount the SVG to the DOM to calculate exact bounding boxes for paths
+    const container = document.createElement('div');
+    container.style.position = 'absolute';
+    container.style.visibility = 'hidden';
+    container.style.width = '0';
+    container.style.height = '0';
+    container.style.pointerEvents = 'none';
+    container.innerHTML = this.mapSvgString;
+    document.body.appendChild(container);
+
+    const doc = container.querySelector('svg');
+    if (!doc) {
+      document.body.removeChild(container);
+      return;
+    }
+
+    doc.querySelectorAll('path').forEach(p => {
+      const id = (p.getAttribute('id') || p.getAttribute('data-id') || '').toUpperCase();
+      const d = p.getAttribute('d');
+      if (d) {
+        let cx = 0, cy = 0;
+        try {
+          const bbox = p.getBBox();
+          cx = bbox.x + bbox.width / 2;
+          cy = bbox.y + bbox.height / 2;
+        } catch (e) {}
+
+        this.svgPaths.push({ id, d, cx, cy, color: this._parseColor(p) });
+        if (id && id.length === 2) {
+          this.isoPathMap.set(id, this.svgPaths.length - 1);
+        }
+      }
+    });
+
+    doc.querySelectorAll('circle').forEach(c => {
+      const id = (c.getAttribute('id') || c.getAttribute('data-id') || '').toUpperCase();
+      const cx = parseFloat(c.getAttribute('cx') || '0');
+      const cy = parseFloat(c.getAttribute('cy') || '0');
+      if (id && id.length === 2) {
+        this.isoCircleMap.set(id, { cx, cy });
+      } else {
+        this.svgCircles.push({ cx, cy });
+      }
+    });
+
+    document.body.removeChild(container);
+  }
+
   async _buildTexture() {
     const svgText = await fetch(this.svgUrl).then(r => r.text());
     this._rawSvgText = svgText; // cache for theme rebuilds
@@ -437,14 +495,13 @@ export class GlobeAnimation {
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(svgText, 'image/svg+xml');
-    const docSvg = doc.querySelector('svg');
-    if (docSvg && docSvg.hasAttribute('viewBox')) {
-      const vb = docSvg.getAttribute('viewBox').trim().split(/\s+/).map(Number);
+    const svgEl = doc.querySelector('svg');
+    if (svgEl && svgEl.hasAttribute('viewBox')) {
+      const vb = svgEl.getAttribute('viewBox').trim().split(/\s+/).map(Number);
       if (vb.length === 4 && !vb.some(isNaN)) {
         this.svgBounds = { svgX: vb[0], svgY: vb[1], svgW: vb[2], svgH: vb[3] };
       }
     }
-
     const pathEls = doc.querySelectorAll('path');
     const circleEls = doc.querySelectorAll('circle');
 
@@ -557,25 +614,6 @@ export class GlobeAnimation {
             glow: p.color.glow
           },
           alpha
-        });
-      }
-    }
-
-    if (code) {
-      const p = this.isoPathMap.get(code) || this.isoCircleMap.get(code);
-      if (p !== undefined) {
-        const isCircle = typeof p === 'object' && p.r !== undefined;
-        highlights.push({
-          type: isCircle ? 'circle' : 'path',
-          pathIdx: isCircle ? undefined : p,
-          cx: isCircle ? p.cx : undefined,
-          cy: isCircle ? p.cy : undefined,
-          color: {
-            fill: 'rgba(226, 109, 92, 0.85)',
-            stroke: '#E26D5C',
-            glow: '#E26D5C'
-          },
-          alpha: 1.0
         });
       }
     }
