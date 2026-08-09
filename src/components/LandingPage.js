@@ -17,7 +17,9 @@ export class LandingPage {
     this._bindCTA();
     this._bindDossierInteractions();
     this._bindCoffeeTipOptions();
+    this._bindThemeToggle();
     this._initGlobe();
+    this._updateThemeIcon();
     await this._waitForAnime();
     this._animateHero();
     this._initScrollAnimations();
@@ -54,6 +56,24 @@ export class LandingPage {
 
       <!-- ── SECTION 1: HERO ────────────────────────────────────── -->
       <section class="landing-hero" id="landing-hero">
+        <!-- Landing Page Theme Toggle -->
+        <button id="landing-theme-toggle" class="landing-theme-toggle" title="Toggle light/dark mode" aria-label="Toggle light or dark theme">
+          <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2" x2="12" y2="5"/>
+            <line x1="12" y1="19" x2="12" y2="22"/>
+            <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+            <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+            <line x1="2" y1="12" x2="5" y2="12"/>
+            <line x1="19" y1="12" x2="22" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+            <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="theme-icon-moon hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+
         <div class="hero-status-strip">
           <span class="status-indicator"></span>
           <span class="status-mono">TWO MERIDIAN // 196 SOVEREIGN NATIONS INDEXED</span>
@@ -530,6 +550,68 @@ export class LandingPage {
         });
       });
     }, 0);
+  }
+
+  _bindCTA() {
+    // Bind Hero CTA
+    const cta = this.el.querySelector('#landing-cta');
+    if (cta) {
+      cta.addEventListener('click', () => {
+        this.app.startMode('casual');
+      });
+    }
+
+    // Bind Feature Panels
+    const panels = this.el.querySelectorAll('.feature-panel');
+    panels.forEach(p => {
+      p.addEventListener('click', () => {
+        const mode = p.getAttribute('data-mode');
+        this.app.startMode(mode);
+      });
+      p.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const mode = p.getAttribute('data-mode');
+          this.app.startMode(mode);
+        }
+      });
+    });
+
+    // Bind Secondary Mode Pills
+    const pills = this.el.querySelectorAll('.secondary-pill');
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const page = pill.getAttribute('data-page');
+        if (page) this.app.startMode(page);
+      });
+    });
+  }
+
+  _bindThemeToggle() {
+    const themeBtn = this.el.querySelector('#landing-theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        if (this.app.themeManager) {
+          this.app.themeManager.toggle();
+          this._updateThemeIcon();
+        }
+      });
+    }
+  }
+
+  _updateThemeIcon() {
+    const btn = this.el.querySelector('#landing-theme-toggle');
+    if (!btn || !this.app.themeManager) return;
+    
+    const sun = btn.querySelector('.theme-icon-sun');
+    const moon = btn.querySelector('.theme-icon-moon');
+    if (this.app.themeManager.isDark()) {
+      sun.classList.remove('hidden');
+      moon.classList.add('hidden');
+    } else {
+      sun.classList.add('hidden');
+      moon.classList.remove('hidden');
+    }
   }
 
   // ================================================================

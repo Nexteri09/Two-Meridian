@@ -162,10 +162,18 @@
                       inset 0 0 16px rgba(90, 68, 38, 0.10),
                       0 4px 20px rgba(90, 68, 38, 0.18);
 
-  /* Mode highlights stay the same — they're vivid on parchment too */
-  --casual-glow: rgba(197, 155, 39, 0.30);
-  --speed-glow: rgba(45, 127, 103, 0.28);
-  --reverse-glow: rgba(184, 58, 46, 0.28);
+  /* Customized Light Mode Accents */
+  --casual-highlight: #C28B1E;
+  --casual-highlight-light: #AD7813;
+  --casual-glow: rgba(194, 139, 30, 0.30);
+  
+  --speed-highlight: #2A688C;
+  --speed-highlight-light: #215473;
+  --speed-glow: rgba(42, 104, 140, 0.28);
+  
+  --reverse-highlight: #CC4030;
+  --reverse-highlight-light: #B33729;
+  --reverse-glow: rgba(204, 64, 48, 0.28);
 }
 
 /* ──────────────────────────────────────────────────────────────────────────

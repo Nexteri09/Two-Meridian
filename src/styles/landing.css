@@ -988,3 +988,36 @@
     transparent 100%
   );
 }
+
+/* ── Landing Theme Toggle ─────────────────────────────────────────────── */
+.landing-theme-toggle {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--paper-faint);
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  z-index: 100;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.landing-theme-toggle:hover {
+  color: var(--brass-500);
+  border-color: var(--brass-500);
+  background: var(--ink-800);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .landing-theme-toggle {
+    top: 24px;
+    right: 24px;
+  }
+}

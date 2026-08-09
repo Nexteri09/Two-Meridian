@@ -149,29 +149,7 @@ const atmosphereFragmentShader = `
   }
 `;
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  FIELD ATLAS PULSE PALETTE (Brass / Cobalt / Terra Cotta)
-// ─────────────────────────────────────────────────────────────────────────────
-const PULSE_PALETTE = [
-  { // Casual Mode (Archival Warm Brass)
-    name: 'casual',
-    fillRgb: '197, 155, 39',
-    stroke: '#deb648',
-    glow: '#c59b27'
-  },
-  { // Speed Mode (Antique Malachite / Verdigris)
-    name: 'speed',
-    fillRgb: '45, 127, 103',
-    stroke: '#5bb898',
-    glow: '#2d7f67'
-  },
-  { // Reverse Mode (Cartographic Terra Cotta)
-    name: 'reverse',
-    fillRgb: '201, 74, 58',
-    stroke: '#e07667',
-    glow: '#c94a3a'
-  }
-];
+// Pulse colors moved to dynamic theme palette
 
 // Curated diverse pool of countries across all world regions
 const PULSE_COUNTRY_POOL = [
@@ -404,6 +382,11 @@ export class GlobeAnimation {
       graticule: 'rgba(197, 155, 39, 0.12)',
       markerStroke: 'rgba(197, 155, 39, 0.42)',
       svgBackground: '#0a0908',
+      pulses: [
+        { name: 'casual', fillRgb: '197, 155, 39', stroke: '#deb648', glow: '#c59b27' },
+        { name: 'speed', fillRgb: '45, 127, 103', stroke: '#5bb898', glow: '#2d7f67' },
+        { name: 'reverse', fillRgb: '201, 74, 58', stroke: '#e07667', glow: '#c94a3a' }
+      ]
     } : {
       background: '#EBE4D5',
       pathFill:   'rgba(210,198,178,0.97)',
@@ -413,6 +396,11 @@ export class GlobeAnimation {
       graticule: 'rgba(100, 78, 48, 0.14)',
       markerStroke: 'rgba(100, 78, 48, 0.45)',
       svgBackground: '#EBE4D5',
+      pulses: [
+        { name: 'casual', fillRgb: '194, 139, 30', stroke: '#C28B1E', glow: '#AD7813' },
+        { name: 'speed', fillRgb: '42, 104, 140', stroke: '#2A688C', glow: '#215473' },
+        { name: 'reverse', fillRgb: '204, 64, 48', stroke: '#CC4030', glow: '#B33729' }
+      ]
     };
   }
 
@@ -508,7 +496,8 @@ export class GlobeAnimation {
       const iso = PULSE_COUNTRY_POOL[this._countryPoolIdx % PULSE_COUNTRY_POOL.length];
       this._countryPoolIdx++;
 
-      const colorScheme = PULSE_PALETTE[this._colorIdx % PULSE_PALETTE.length];
+      const palette = this._getPalette();
+      const colorScheme = palette.pulses[this._colorIdx % palette.pulses.length];
       this._colorIdx++;
 
       if (this.isoPathMap.has(iso)) {
