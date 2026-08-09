@@ -113,9 +113,9 @@ html[data-theme="light"] .landing-header.scrolled {
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(
-    ellipse 60% 55% at 50% 45%,
-    rgba(10, 9, 8, 0.62) 0%,
-    rgba(10, 9, 8, 0.28) 55%,
+    circle at 90% 10%,
+    rgba(10, 9, 8, 0.65) 0%,
+    rgba(10, 9, 8, 0.25) 50%,
     transparent 100%
   );
 }
@@ -1054,9 +1054,9 @@ html[data-theme="light"] .landing-dossiers::before {
 /* Hero centre scrim — warm cream instead of dark ink */
 [data-theme="light"] .landing-hero::before {
   background: radial-gradient(
-    ellipse 60% 55% at 50% 45%,
-    rgba(235, 227, 210, 0.55) 0%,
-    rgba(235, 227, 210, 0.20) 55%,
+    circle at 90% 10%,
+    rgba(235, 227, 210, 0.65) 0%,
+    rgba(235, 227, 210, 0.15) 50%,
     transparent 100%
   );
 }

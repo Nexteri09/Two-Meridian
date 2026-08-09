@@ -28,10 +28,20 @@ export class ThemeManager {
       return;
     }
 
-    // Calculate transition origin from the click event (the button)
-    // If e is not provided, fallback to top-right
-    const x = e ? e.clientX : window.innerWidth - 50;
-    const y = e ? e.clientY : 50;
+    // Calculate transition origin from the button itself
+    let x = window.innerWidth - 50;
+    let y = 50;
+    
+    // Attempt to get exact coordinates from the button
+    const btn = e && e.currentTarget ? e.currentTarget : null;
+    if (btn && btn.getBoundingClientRect) {
+      const rect = btn.getBoundingClientRect();
+      x = rect.left + rect.width / 2;
+      y = rect.top + rect.height / 2;
+    } else if (e && e.clientX) {
+      x = e.clientX;
+      y = e.clientY;
+    }
     
     // Calculate maximum radius to ensure the circle covers the entire viewport
     const right = window.innerWidth - x;
