@@ -186,9 +186,10 @@ const PULSE_COUNTRY_POOL = [
 // ─────────────────────────────────────────────────────────────────────────────
 export class GlobeAnimation {
 
-  constructor(container, svgUrl = './src/assets/world-map.svg') {
+  constructor(container, svgUrl = './src/assets/world-map.svg', getThemePalette = null) {
     this.container = container;
     this.svgUrl    = svgUrl;
+    this.getThemePalette = getThemePalette;
 
     // Three.js objects
     this.scene      = null;
@@ -199,13 +200,13 @@ export class GlobeAnimation {
     this.uniforms   = null;
 
     // State
-    this.progress       = 0;     // current (lerped)
-    this.targetProgress = 0;     // goal (set by scroll)
-    this.scrollRotY     = 0;     // rotation Y derived strictly from scroll
-    this.currentRotY    = 0;     // lerped rotation Y
-    this.currentRotX    = 0;     // lerped rotation X
-    this.focusRotY      = null;  // target rotation Y when focusing country
-    this.focusRotX      = null;  // target rotation X when focusing country
+    this.progress       = 0;
+    this.targetProgress = 0;
+    this.scrollRotY     = 0;
+    this.currentRotY    = 0;
+    this.currentRotX    = 0;
+    this.focusRotY      = null;
+    this.focusRotX      = null;
     this.isFocused      = false;
     this._rafId         = null;
 
@@ -224,7 +225,7 @@ export class GlobeAnimation {
     this._colorIdx       = 0;
     this._countryPoolIdx = 0;
 
-    this._activeBeacon   = null; // { lon, lat, name, iso, cx, cy }
+    this._activeBeacon   = null;
     this._currentHighlights = [];
     this.svgBounds = { svgX: 25, svgY: 240, svgW: 835, svgH: 470 };
 
@@ -232,6 +233,7 @@ export class GlobeAnimation {
     this._onScroll = this._onScroll.bind(this);
     this._onResize = this._onResize.bind(this);
     this._loop     = this._loop.bind(this);
+    this._onThemeChange = this._onThemeChange.bind(this);
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -247,6 +249,21 @@ export class GlobeAnimation {
     this._bindEvents();
     this._onScroll();
     this._rafId = requestAnimationFrame(this._loop);
+
+    // Listen for theme changes to rebuild the globe texture
+    window.addEventListener('themechange', this._onThemeChange);
+  }
+
+  _onThemeChange() {
+    // Rebuild SVG texture with new palette, then update Three.js texture
+    this._rebuildTextureForTheme();
+  }
+
+  async _rebuildTextureForTheme() {
+    // Re-apply style overrides to clean SVG and redraw
+    await this._applyThemeToSvg();
+    this._redrawMap(this._currentHighlights, this._activeBeacon);
+    if (this.texture) this.texture.needsUpdate = true;
   }
 
   async _ensureThree() {
@@ -359,6 +376,7 @@ export class GlobeAnimation {
 
   destroy() {
     cancelAnimationFrame(this._rafId);
+    window.removeEventListener('themechange', this._onThemeChange);
     const canvas = this.renderer?.domElement;
     if (canvas?.parentNode) canvas.parentNode.removeChild(canvas);
     this.renderer?.dispose();
@@ -373,8 +391,49 @@ export class GlobeAnimation {
   //  TEXTURE BUILDING — SVG → 2048×1024 canvas
   // ─────────────────────────────────────────────────────────────────────────
 
+  _getPalette() {
+    if (this.getThemePalette) return this.getThemePalette();
+    // Fallback: read data-theme from html element directly
+    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+    return isDark ? {
+      background: '#0a0908',
+      pathFill:   'rgba(22,20,18,0.96)',
+      pathStroke: 'rgba(197,155,39,0.85)',
+      circleFill: 'none',
+      circleStroke: 'rgba(197,155,39,0.80)',
+      graticule: 'rgba(197, 155, 39, 0.12)',
+      markerStroke: 'rgba(197, 155, 39, 0.42)',
+      svgBackground: '#0a0908',
+    } : {
+      background: '#EBE4D5',
+      pathFill:   'rgba(210,198,178,0.97)',
+      pathStroke: 'rgba(100,78,48,0.80)',
+      circleFill: 'none',
+      circleStroke: 'rgba(100,78,48,0.75)',
+      graticule: 'rgba(100, 78, 48, 0.14)',
+      markerStroke: 'rgba(100, 78, 48, 0.45)',
+      svgBackground: '#EBE4D5',
+    };
+  }
+
   async _buildTexture() {
     const svgText = await fetch(this.svgUrl).then(r => r.text());
+    this._rawSvgText = svgText; // cache for theme rebuilds
+    await this._applyThemeToSvg();
+
+    this.mapCanvas = document.createElement('canvas');
+    this.mapCanvas.width  = 2048;
+    this.mapCanvas.height = 1024;
+    this._redrawMap();
+
+    this.texture = new THREE.CanvasTexture(this.mapCanvas);
+    if (THREE.sRGBEncoding) this.texture.encoding = THREE.sRGBEncoding;
+    if (THREE.SRGBColorSpace) this.texture.colorSpace = THREE.SRGBColorSpace;
+  }
+
+  async _applyThemeToSvg() {
+    const svgText = this._rawSvgText;
+    const palette = this._getPalette();
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(svgText, 'image/svg+xml');
@@ -415,14 +474,14 @@ export class GlobeAnimation {
 
     let cleanSvg = svgText.replace(/<!DOCTYPE[\s\S]*?>/i, '');
 
-    // Field Atlas ink background and restrained brass boundaries
+    // Apply theme-aware palette
     cleanSvg = cleanSvg
-      .replace(/<svg\b([^>]*)>/i, '<svg $1 style="background:#0a0908;">')
+      .replace(/<svg\b([^>]*)>/i, `<svg $1 style="background:${palette.svgBackground};">`)
       .replace(/<path\b/gi,
-        '<path style="fill:rgba(22,20,18,0.96);stroke:rgba(197,155,39,0.85);stroke-width:0.70;stroke-linejoin:round;" '
+        `<path style="fill:${palette.pathFill};stroke:${palette.pathStroke};stroke-width:0.70;stroke-linejoin:round;" `
       )
       .replace(/<circle\b/gi,
-        '<circle style="fill:none;stroke:rgba(197,155,39,0.80);stroke-width:0.75;" '
+        `<circle style="fill:${palette.circleFill};stroke:${palette.circleStroke};stroke-width:0.75;" `
       );
 
     const blob = new Blob([cleanSvg], { type: 'image/svg+xml;charset=utf-8' });
@@ -434,15 +493,6 @@ export class GlobeAnimation {
       img.onerror = (e) => { URL.revokeObjectURL(url); reject(e); };
       img.src = url;
     });
-
-    this.mapCanvas = document.createElement('canvas');
-    this.mapCanvas.width  = 2048;
-    this.mapCanvas.height = 1024;
-    this._redrawMap();
-
-    this.texture = new THREE.CanvasTexture(this.mapCanvas);
-    if (THREE.sRGBEncoding) this.texture.encoding = THREE.sRGBEncoding;
-    if (THREE.SRGBColorSpace) this.texture.colorSpace = THREE.SRGBColorSpace;
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -519,8 +569,9 @@ export class GlobeAnimation {
     const W = 2048, H = 1024;
     const { svgW, svgH, svgX, svgY } = this.svgBounds;
     const scaleX = W / svgW, scaleY = H / svgH;
+    const palette = this._getPalette();
 
-    ctx.fillStyle = '#0a0908';
+    ctx.fillStyle = palette.background;
     ctx.fillRect(0, 0, W, H);
 
     // Draw base cartography
@@ -528,20 +579,20 @@ export class GlobeAnimation {
       ctx.drawImage(this.svgImage, 0, 0, W, H);
     }
 
-    // Draw Field Atlas Hairline Graticules (Equator, Prime Meridian, Tropics)
+    // Draw Field Atlas Hairline Graticules (Equator, Prime Meridian)
     ctx.save();
-    ctx.strokeStyle = 'rgba(197, 155, 39, 0.12)';
+    ctx.strokeStyle = palette.graticule;
     ctx.lineWidth = 1;
     ctx.setLineDash([4, 6]);
 
-    // Equator (cy ≈ 470.9 in SVG coordinate space)
+    // Equator
     const eqY = (470.9 - svgY) * scaleY;
     ctx.beginPath();
     ctx.moveTo(0, eqY);
     ctx.lineTo(W, eqY);
     ctx.stroke();
 
-    // Prime Meridian (cx ≈ 442.5 in SVG coordinate space)
+    // Prime Meridian
     const pmX = (442.5 - svgX) * scaleX;
     ctx.beginPath();
     ctx.moveTo(pmX, 0);
@@ -557,7 +608,7 @@ export class GlobeAnimation {
 
         ctx.beginPath();
         ctx.arc(mx, my, 1.5, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(197, 155, 39, 0.42)';
+        ctx.strokeStyle = palette.markerStroke;
         ctx.lineWidth = 0.9;
         ctx.stroke();
       });

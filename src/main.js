@@ -7,11 +7,13 @@ import { MapView } from './components/MapView.js';
 import { Sidebar } from './components/Sidebar.js';
 import { Navigation } from './components/Navigation.js';
 import { LandingPage } from './components/LandingPage.js';
+import { ThemeManager } from './components/ThemeManager.js';
 import { Storage } from './utils/storage.js';
 
 class App {
   constructor() {
     this.storage = new Storage();
+    this.themeManager = null;
     this.currentPage = 'world';
     this.currentMode = 'casual';
     this.countriesData = null;
@@ -24,6 +26,9 @@ class App {
   }
 
   async init() {
+    // 0. Apply theme immediately — before any render to avoid flash
+    this.themeManager = new ThemeManager(this.storage);
+
     // 1. Start landing page IMMEDIATELY — it needs nothing from the game
     this.landingPage = new LandingPage(this);
     this.landingPage.init();

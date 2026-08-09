@@ -111,6 +111,77 @@
   --z-nav: 30;
   --z-modal: 40;
   --z-intro: 100;
+
+  /* Map canvas stroke — extracted for theme override */
+  --map-stroke: rgba(238, 206, 126, 0.75);
+  --map-stroke-hover: #FFF0C2;
+  --map-frame-shadow: inset 0 0 0 1px rgba(197, 155, 39, 0.25), inset 0 0 24px rgba(0, 0, 0, 0.80), 0 4px 20px rgba(0, 0, 0, 0.60);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   ☀️ Light Mode — "Antique Atlas" (Archival Paper Edition)
+   Applied via [data-theme="light"] on <html>. All dark tokens remain in
+   :root; this block only overrides what changes. Warm parchment, inked
+   borders, sepia map fills. The brass accents stay — they read on both.
+   ════════════════════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  /* Backgrounds — warm archival paper */
+  --ink-950: #F4EFE4;
+  --ink-900: #EBE3D2;
+  --ink-800: #DFD4BF;
+  --hairline: #C0AF96;
+  --hairline-light: #A89880;
+
+  /* Text — dark ink on paper */
+  --paper: #1C160E;
+  --paper-muted: #4B4035;
+  --paper-faint: #7A6E5E;
+
+  /* Alias surfaces */
+  --bg-primary: var(--ink-950);
+  --bg-secondary: var(--ink-900);
+  --bg-tertiary: var(--ink-800);
+  --bg-sidebar: var(--ink-900);
+
+  /* Map fills — sepia parchment */
+  --map-fill: #D4C8AE;
+  --map-fill-hover: #C9BC9E;
+  --map-stroke: rgba(100, 78, 48, 0.78);
+  --map-stroke-hover: #3D2D18;
+  --map-border: var(--hairline);
+
+  /* Glass surfaces */
+  --glass-bg: rgba(235, 227, 210, 0.82);
+  --glass-bg-hover: rgba(222, 212, 192, 0.75);
+  --glass-border: var(--hairline);
+  --glass-border-hover: var(--hairline-light);
+
+  /* Shadows — warm instead of black */
+  --shadow-lg: 0 4px 20px rgba(90, 68, 38, 0.18);
+  --map-frame-shadow: inset 0 0 0 1px rgba(140, 110, 70, 0.30),
+                      inset 0 0 16px rgba(90, 68, 38, 0.10),
+                      0 4px 20px rgba(90, 68, 38, 0.18);
+
+  /* Mode highlights stay the same — they're vivid on parchment too */
+  --casual-glow: rgba(197, 155, 39, 0.30);
+  --speed-glow: rgba(45, 127, 103, 0.28);
+  --reverse-glow: rgba(184, 58, 46, 0.28);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Theme Transition — smooth color crossfade when toggling (350ms)
+   Only applies during the toggle animation, class is removed immediately after.
+   ────────────────────────────────────────────────────────────────────────── */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 200ms ease,
+    fill 300ms ease,
+    stroke 300ms ease !important;
 }
 
 /* ---- Reset & Box Sizing ---- */
@@ -261,4 +332,26 @@ p, span, div, label {
 ::selection {
   background: var(--brass-500);
   color: var(--ink-950);
+}
+
+/* ──── Light mode specific overrides ──────────────────────────────────── */
+
+/* Reduce paper grain opacity on light — it's subtle on dark but too visible on cream */
+[data-theme="light"] body::before {
+  opacity: 0.018;
+}
+
+/* Scrollbar adapts to light bg */
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: var(--ink-900);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: var(--hairline);
+}
+
+/* Continent blur needs slightly higher opacity on parchment */
+[data-theme="light"] .map-wrapper svg path.continent-blurred,
+[data-theme="light"] .map-wrapper svg g.continent-blurred path {
+  opacity: 0.30;
 }
