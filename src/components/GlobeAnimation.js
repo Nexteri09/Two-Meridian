@@ -282,13 +282,20 @@ export class GlobeAnimation {
     const { svgW, svgH, svgX, svgY } = this.svgBounds;
 
     if (cx !== null && cy !== null) {
+      const u = (cx - svgX) / svgW;
+      const vNorm = (cy - svgY) / svgH;
+      const shaderUvY = 1.0 - vNorm;
+      const latInShader = -1.08 + (1.43 - (-1.08)) * shaderUvY;
+
       this.focusRotY = (0.5 - u) * 2.0 * Math.PI;
-      this.focusRotX = 0; // Only spin on Y axis (no up/down tilt) to keep the globe looking natural
+      // Cap X rotation so it tilts naturally but doesn't spin wildly vertically
+      this.focusRotX = Math.max(-0.35, Math.min(0.35, latInShader)); 
     } else {
       // Map SVG Equirectangular bounds: Lon -169.11 to 190.89, Lat -55.68 to 83.62
       const u = (lon - (-169.11)) / 360.0;
+      const shaderUvY = (lat - (-55.68)) / (83.62 - (-55.68));
       this.focusRotY = (0.5 - u) * 2.0 * Math.PI;
-      this.focusRotX = 0; // Only spin on Y axis
+      this.focusRotX = Math.max(-0.35, Math.min(0.35, (shaderUvY - 0.5) * Math.PI));
     }
 
     const highlights = [];
@@ -715,64 +722,8 @@ export class GlobeAnimation {
       });
     }
 
-    // 3. Draw Archival Telemetry Reticle
-    if (beacon) {
-      let bx, by;
-      if (typeof beacon.cx === 'number' && typeof beacon.cy === 'number') {
-        bx = (beacon.cx - svgX) * scaleX;
-        by = (beacon.cy - svgY) * scaleY;
-      } else if (typeof beacon.lon === 'number' && typeof beacon.lat === 'number') {
-        const u = (beacon.lon - (-169.11)) / 360.0;
-        const v = (beacon.lat - 83.62) / (-55.68 - 83.62);
-        bx = u * W;
-        by = v * H;
-      }
-
-      if (bx !== undefined && by !== undefined) {
-        ctx.save();
-
-        // Draw a clean, elegant pointer attached to the country
-        ctx.beginPath();
-        ctx.arc(bx, by, 5, 0, Math.PI * 2);
-        ctx.fillStyle = palette.pointer;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(bx, by, 12, 0, Math.PI * 2);
-        ctx.strokeStyle = palette.pointer;
-        ctx.lineWidth = 2.0;
-        ctx.stroke();
-
-        // Archival Mono Callout
-        if (beacon.name) {
-          ctx.font = '600 20px "IBM Plex Mono", monospace';
-          ctx.fillStyle = palette.beaconCore || '#c59b27';
-
-          const text = `⌖ ${beacon.name.toUpperCase()}`;
-          const textWidth = ctx.measureText(text).width;
-
-          let tx, ty, align;
-          if (bx > W - textWidth - 50) {
-            tx = bx - 36;
-            ty = by + 6;
-            align = 'right';
-          } else if (bx < textWidth + 50) {
-            tx = bx + 36;
-            ty = by + 6;
-            align = 'left';
-          } else {
-            tx = bx;
-            ty = (by > H - 50) ? (by - 40) : (by + 44);
-            align = 'center';
-          }
-
-          ctx.textAlign = align;
-          ctx.fillText(text, tx, ty);
-        }
-
-        ctx.restore();
-      }
-    }
+    // No explicit pointer marker needed - the highlighted SVG path/circle
+    // serves as the perfectly accurate visual indicator.
 
     if (this.texture) {
       this.texture.needsUpdate = true;
