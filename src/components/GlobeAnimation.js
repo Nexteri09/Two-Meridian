@@ -399,14 +399,14 @@ export class GlobeAnimation {
     // Fallback: read data-theme from html element directly
     const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
     return isDark ? {
-      background: '#0a0908',
-      pathFill:   'rgba(22,20,18,0.96)',
+      background: '#0b0e12',
+      pathFill:   'rgba(25,30,37,0.96)',
       pathStroke: 'rgba(197,155,39,0.85)',
       circleFill: 'none',
       circleStroke: 'rgba(197,155,39,0.80)',
       graticule: 'rgba(197, 155, 39, 0.12)',
       markerStroke: 'rgba(197, 155, 39, 0.42)',
-      svgBackground: '#0a0908',
+      svgBackground: '#0b0e12',
       beaconCore: '#c59b27',
       beaconStroke: 'rgba(197, 155, 39, 0.60)',
       pointer: '#E26D5C',
@@ -763,7 +763,7 @@ export class GlobeAnimation {
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     this.renderer.setSize(w, h);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.setClearColor(0x0a0908, 0);
+    this.renderer.setClearColor(0x0b0e12, 0);
 
     const canvas = this.renderer.domElement;
     canvas.style.position = 'absolute';
