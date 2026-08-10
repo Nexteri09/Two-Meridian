@@ -24,6 +24,7 @@ export class MapNavigator {
     this.MAX_SCALE = 20.0;
     this.ZOOM_SPEED = 0.0012;   // < smaller = gentler wheel zoom
     this.LOD_THRESHOLD = 3.0;    // 3× min triggers LOD (island fade-in)
+    this._dpr = window.devicePixelRatio || 1;
 
     // ── Pan state ─────────────────────────────────────────────────────────
     this.isPanning = false;
@@ -132,24 +133,33 @@ export class MapNavigator {
   }
 
   _runWheelGlide() {
-    const GLIDE_FACTOR = 0.32; // Smooth cubic sub-frame step
+    // Frame-rate-independent exponential decay: reaches 99% of target in ~200ms
+    // at 60fps. DECAY is per-frame coefficient = 1 - e^(-16.67/TAU)
+    // TAU = 80ms  → smooth but responsive
+    const TAU = 80;
+    let lastTime = performance.now();
 
-    const tick = () => {
+    const tick = (now) => {
+      const dt = Math.min(now - lastTime, 64); // cap at 64ms to avoid jump after tab switch
+      lastTime = now;
+      const alpha = 1 - Math.exp(-dt / TAU);
       const diff = this._wheelTargetScale - this.scale;
 
-      if (Math.abs(diff) < 0.0006) {
+      if (Math.abs(diff) < 0.0004) {
         this.scale = this._wheelTargetScale;
         this._zoomToward(this._wheelCx, this._wheelCy, this.scale);
         this._wheelAnimId = null;
+        this._setWillChange(false);
         return;
       }
 
-      const nextScale = this.scale + diff * GLIDE_FACTOR;
+      const nextScale = this.scale + diff * alpha;
       this._zoomToward(this._wheelCx, this._wheelCy, nextScale);
 
       this._wheelAnimId = requestAnimationFrame(tick);
     };
 
+    this._setWillChange(true);
     this._wheelAnimId = requestAnimationFrame(tick);
   }
 
@@ -473,7 +483,7 @@ export class MapNavigator {
     this.ty = ty;
 
     this.panLayer.style.transform =
-      `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
+      `translate3d(${tx.toFixed(3)}px, ${ty.toFixed(3)}px, 0) scale(${scale.toFixed(5)})`;
 
     // Update telemetry display if present
     const scaleEl = document.getElementById('map-scale-readout');
@@ -514,9 +524,16 @@ export class MapNavigator {
   }
 
   _setWillChange(active) {
-    // Keep willChange unset for SVG rendering so the browser's vector rasterizer
-    // calculates sharp geometry at native display resolution rather than scaling a low-res GPU texture
-    this.panLayer.style.willChange = '';
+    if (active) {
+      // GPU-composite the pan layer during animation for silky rendering
+      this.panLayer.style.willChange = 'transform';
+    } else {
+      // Release compositor layer after animation to free GPU memory
+      // Use rAF to avoid releasing prematurely on rapid successive events
+      requestAnimationFrame(() => {
+        this.panLayer.style.willChange = '';
+      });
+    }
   }
 
   _pinchDist() {
