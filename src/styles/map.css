@@ -125,13 +125,13 @@
   filter: var(--reverse-filter-strong);
 }
 
-/* When Reverse Mode expedition is actively running, reduce inactive world borders to 0.60 opacity */
+/* When Reverse Mode expedition is actively running, push inactive world back by reducing opacity */
 #map-container[data-reverse-active="true"] .map-wrapper svg path:not(.reverse-active):not(.guessed-reverse),
 #map-container[data-reverse-active="true"] .map-wrapper svg circle.country-marker:not(.reverse-active):not(.guessed-reverse),
 #map-container.reverse-active-game .map-wrapper svg path:not(.reverse-active):not(.guessed-reverse),
 #map-container.reverse-active-game .map-wrapper svg circle.country-marker:not(.reverse-active):not(.guessed-reverse) {
-  stroke: rgba(228, 195, 115, 0.60);
-  transition: stroke 0.4s ease;
+  opacity: 0.65;
+  transition: opacity 0.4s ease, stroke 0.4s ease, fill 0.4s ease;
 }
 
 /* Active highlight in reverse mode (mystery territory) */
