@@ -16,7 +16,7 @@
 .map-wrapper svg circle.country-marker {
   fill: var(--map-fill, #141210);
   stroke: var(--map-stroke, rgba(238, 206, 126, 0.75));
-  stroke-width: 0.8px;
+  stroke-width: var(--map-stroke-width, 0.8px);
   stroke-linejoin: round;
   stroke-linecap: round;
   paint-order: stroke fill;

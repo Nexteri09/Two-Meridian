@@ -128,6 +128,7 @@
   /* Map canvas stroke — quiet borders, let fills carry shape */
   --map-stroke: rgba(238, 206, 126, 0.36);
   --map-stroke-hover: rgba(255, 240, 194, 0.85);
+  --map-stroke-width: 0.92px; /* 15% thicker in dark mode */
   --map-frame-shadow: inset 0 0 0 1px rgba(197, 155, 39, 0.20), inset 0 0 24px rgba(0, 0, 0, 0.70), 0 4px 20px rgba(0, 0, 0, 0.55);
 }
 
@@ -161,6 +162,7 @@
   --map-fill-hover: #C9BC9E;
   --map-stroke: rgba(100, 78, 48, 0.78);
   --map-stroke-hover: #3D2D18;
+  --map-stroke-width: 0.8px; /* Standard thickness in light mode */
   --map-border: var(--hairline);
 
   /* Glass surfaces */
