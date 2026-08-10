@@ -56,7 +56,7 @@ const vertexShader = `
     vec3 flatNormal = vec3(0.0, 0.0, 1.0);
 
     // ── 2. TRUE SPHERE WITH BALANCED POLAR LATITUDES ──────────────────────
-    float R = 0.90;
+    float R = 0.765; // Reduced globe size by 15% from 0.90
     // Map SVG vertical span (-62° to +82°) to natural spherical latitude
     float lat = mix(-1.08, 1.43, uv.y);
     float phi = PI * 0.5 - lat;
@@ -798,7 +798,8 @@ export class GlobeAnimation {
   }
 
   _setupAtmosphere() {
-    const geo = new THREE.SphereGeometry(0.93, 48, 48);
+    // Atmosphere radius reduced by 15% from 0.93
+    const geo = new THREE.SphereGeometry(0.79, 48, 48);
     const mat = new THREE.ShaderMaterial({
       vertexShader:   atmosphereVertexShader,
       fragmentShader: atmosphereFragmentShader,
