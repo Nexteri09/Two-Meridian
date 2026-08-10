@@ -339,32 +339,7 @@ html[data-theme="light"] .landing-header.scrolled {
   margin: 0 auto;
 }
 
-.landing-features::before,
-.landing-dossiers::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(10, 9, 8, 0.6) 20%,
-    rgba(10, 9, 8, 0.6) 80%,
-    transparent 100%
-  );
-  z-index: 0;
-  pointer-events: none;
-}
 
-html[data-theme="light"] .landing-features::before,
-html[data-theme="light"] .landing-dossiers::before {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(242, 236, 226, 0.7) 20%,
-    rgba(242, 236, 226, 0.7) 80%,
-    transparent 100%
-  );
-}
 
 .features-grid {
   display: grid;
