@@ -153,20 +153,25 @@
   animation: microstateRadarPing 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Already-guessed countries hover states */
+/* Guessed & Active countries hover states (Only highlight borders, do not muddy the fill) */
 .map-wrapper svg g.guessed-casual path:hover,
-.map-wrapper svg path.guessed-casual:hover {
-  fill: var(--casual-highlight-light);
+.map-wrapper svg path.guessed-casual:hover,
+.map-wrapper svg g.passive-active path:hover,
+.map-wrapper svg path.passive-active:hover {
+  stroke: var(--map-stroke-hover);
+  stroke-width: 1.2px;
 }
 
 .map-wrapper svg g.guessed-speed path:hover,
 .map-wrapper svg path.guessed-speed:hover {
-  fill: var(--speed-highlight-light);
+  stroke: var(--map-stroke-hover);
+  stroke-width: 1.2px;
 }
 
 .map-wrapper svg g.guessed-reverse path:hover,
 .map-wrapper svg path.guessed-reverse:hover {
-  fill: var(--reverse-highlight-light);
+  stroke: var(--map-stroke-hover);
+  stroke-width: 1.2px;
 }
 
 /* Completed Continent Blur */
