@@ -524,16 +524,9 @@ export class MapNavigator {
   }
 
   _setWillChange(active) {
-    if (active) {
-      // GPU-composite the pan layer during animation for silky rendering
-      this.panLayer.style.willChange = 'transform';
-    } else {
-      // Release compositor layer after animation to free GPU memory
-      // Use rAF to avoid releasing prematurely on rapid successive events
-      requestAnimationFrame(() => {
-        this.panLayer.style.willChange = '';
-      });
-    }
+    // Keep willChange unset for SVG rendering so the browser's vector rasterizer
+    // calculates sharp geometry at native display resolution rather than scaling a low-res GPU texture
+    this.panLayer.style.willChange = '';
   }
 
   _pinchDist() {
