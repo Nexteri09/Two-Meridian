@@ -92,14 +92,14 @@
 /* Speed mode (Antique Malachite / Verdigris) */
 .map-wrapper svg path.guessed-speed,
 .map-wrapper svg g.guessed-speed path {
-  fill: var(--speed-highlight);
+  fill: var(--speed-fill-guessed);
   stroke: var(--speed-highlight-light);
   stroke-width: 1.0px;
   filter: drop-shadow(0 0 2px rgba(45, 127, 103, 0.20));
 }
 
 .map-wrapper svg circle.guessed-speed {
-  fill: var(--speed-highlight);
+  fill: var(--speed-fill-guessed);
   stroke: #B5F0DB;
   stroke-width: 1.1px;
   r: 2.2;
@@ -110,14 +110,14 @@
 /* Reverse mode (Terracotta / Crimson) */
 .map-wrapper svg path.guessed-reverse,
 .map-wrapper svg g.guessed-reverse path {
-  fill: var(--reverse-highlight);
+  fill: var(--reverse-fill-guessed);
   stroke: var(--reverse-highlight-light);
   stroke-width: 0.95px;
   filter: drop-shadow(0 0 1px rgba(184, 58, 46, 0.15));
 }
 
 .map-wrapper svg circle.guessed-reverse {
-  fill: var(--reverse-highlight);
+  fill: var(--reverse-fill-guessed);
   stroke: #FFC0B5;
   stroke-width: 1.0px;
   r: 2.0;
@@ -137,7 +137,7 @@
 /* Active highlight in reverse mode (mystery territory) */
 .map-wrapper svg path.reverse-active,
 .map-wrapper svg g.reverse-active path {
-  fill: var(--reverse-highlight);
+  fill: var(--reverse-fill-active);
   stroke: var(--reverse-highlight-light);
   stroke-width: 1.2px;
   filter: drop-shadow(0 0 4px rgba(184, 58, 46, 0.35));
@@ -145,7 +145,7 @@
 }
 
 .map-wrapper svg circle.reverse-active {
-  fill: var(--reverse-highlight);
+  fill: var(--reverse-fill-active);
   stroke: #FFC0B5;
   stroke-width: 1.1px;
   r: 2.2;

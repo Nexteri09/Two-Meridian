@@ -54,11 +54,15 @@
 
   --speed-highlight: #2D7F67;
   --speed-highlight-light: #5BB898;
+  --speed-fill-guessed: #1E5A48; /* Solid deep teal for dark mode guessed */
+  --speed-fill-active: #10362B;  /* Solid subtle teal for dark mode active */
   --speed-glow: rgba(45, 127, 103, 0.35);
   --speed-glow-subtle: rgba(45, 127, 103, 0.15);
 
   --reverse-highlight: #B83A2E;
   --reverse-highlight-light: #E26D5C;
+  --reverse-fill-guessed: #812820; /* Solid deep crimson for dark mode guessed */
+  --reverse-fill-active: #4A1712;  /* Solid subtle crimson for dark mode active */
   --reverse-glow: rgba(184, 58, 46, 0.35);
   --reverse-glow-subtle: rgba(184, 58, 46, 0.15);
 
@@ -174,10 +178,14 @@
   
   --speed-highlight: #2A688C;
   --speed-highlight-light: #215473;
+  --speed-fill-guessed: rgba(42, 104, 140, 0.65); /* Beautiful translucent blue blend */
+  --speed-fill-active: rgba(42, 104, 140, 0.25);  /* Beautiful translucent blue blend */
   --speed-glow: rgba(42, 104, 140, 0.28);
   
   --reverse-highlight: #CC4030;
   --reverse-highlight-light: #B33729;
+  --reverse-fill-guessed: rgba(204, 64, 48, 0.65); /* Beautiful translucent crimson blend */
+  --reverse-fill-active: rgba(204, 64, 48, 0.25);  /* Beautiful translucent crimson blend */
   --reverse-glow: rgba(204, 64, 48, 0.28);
 }
 
