@@ -527,6 +527,10 @@ export class MapNavigator {
     // Keep willChange unset for SVG rendering so the browser's vector rasterizer
     // calculates sharp geometry at native display resolution rather than scaling a low-res GPU texture
     this.panLayer.style.willChange = '';
+    
+    // Disable pointer events on the SVG during animation to prevent expensive hit-testing
+    // against complex polygons on every frame
+    this.panLayer.style.pointerEvents = active ? 'none' : '';
   }
 
   _pinchDist() {
