@@ -56,13 +56,15 @@ export class LandingPage {
 
       <!-- Sticky Landing Header -->
       <header class="landing-header" id="landing-header">
-        <div class="landing-logo">Two Meridian</div>
+        <div class="nav-brand" style="cursor: pointer;">
+          <svg class="brand-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--brass-500);">
+            <circle cx="12" cy="12" r="9.5" stroke-dasharray="1.5 2"/>
+            <polygon points="12,2 14.5,9.5 22,12 14.5,14.5 12,22 9.5,14.5 2,12 9.5,9.5" fill="none"/>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+          </svg>
+          <span class="brand-name">Two Meridian</span>
+        </div>
         <div class="landing-nav-actions">
-          <button id="landing-leaderboard-btn" class="nav-icon-btn" title="Daily Leaderboards" aria-label="Leaderboards">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M8 21h8m-4-4v4m0-4V3m0 14a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/>
-            </svg>
-          </button>
           
           <button id="landing-theme-toggle" class="nav-icon-btn landing-theme-toggle" title="Toggle light/dark mode" aria-label="Toggle theme">
             <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">

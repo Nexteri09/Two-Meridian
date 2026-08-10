@@ -58,7 +58,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 12px 24px;
   z-index: 100;
   transition: background var(--transition-medium), backdrop-filter var(--transition-medium), border-bottom var(--transition-medium);
   box-sizing: border-box;
