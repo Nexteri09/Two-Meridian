@@ -5,12 +5,12 @@
 
 /* ---- Core CSS Custom Properties ---- */
 :root {
-  /* Backgrounds & Ink Surfaces */
-  --ink-950: #0A0908;   /* Primary canvas background */
-  --ink-900: #131110;   /* Raised panels & sidebar */
-  --ink-800: #1C1916;   /* Cards, unfound map fill, surface elevation */
-  --hairline: #2E2A24;  /* Precision 1px rules — no glow, no shadow */
-  --hairline-light: #3D3831; /* Subtle divider hover / active border */
+  /* Backgrounds & Ink Surfaces — warm near-black (aged atlas family) */
+  --ink-950: #12100C;   /* Primary canvas background — warm olive-black */
+  --ink-900: #1C1A16;   /* Raised panels & sidebar — one step above page */
+  --ink-800: #252119;   /* Cards, surface elevation — two steps above page */
+  --hairline: #332F28;  /* Precision 1px rules — warm charcoal */
+  --hairline-light: #423D35; /* Subtle divider hover / active border */
 
   /* Cartographic Paper Typography */
   --paper: #EDE6D8;       /* Headlines, primary text — warm archival off-white */
@@ -34,8 +34,8 @@
   --bg-tertiary: var(--ink-800);
   --bg-sidebar: var(--ink-900);
 
-  --map-fill: #141210;
-  --map-fill-hover: #1E1B18;
+  --map-fill: #1E1C18;   /* Visible charcoal land fill — reads as map, not wireframe */
+  --map-fill-hover: #2A2720; /* Hover: one step lighter than fill */
   --map-border: var(--hairline);
   --map-border-hover: var(--brass-500);
 
@@ -52,12 +52,13 @@
   --casual-glow: rgba(197, 155, 39, 0.35);
   --casual-glow-subtle: rgba(197, 155, 39, 0.15);
 
-  --speed-highlight: #2D7F67;
-  --speed-highlight-light: #5BB898;
-  --speed-fill-guessed: #1E5A48; /* Solid deep teal for dark mode guessed */
-  --speed-fill-active: #10362B;  /* Solid subtle teal for dark mode active */
-  --speed-glow: rgba(45, 127, 103, 0.35);
-  --speed-glow-subtle: rgba(45, 127, 103, 0.15);
+  /* Fix 5: Align speed mode to blue (same as light mode) */
+  --speed-highlight: #2A688C;
+  --speed-highlight-light: #4D9CC0;
+  --speed-fill-guessed: #1A4060; /* Solid deep blue for dark mode guessed */
+  --speed-fill-active: #0F2538;  /* Solid subtle blue for dark mode active */
+  --speed-glow: rgba(42, 104, 140, 0.35);
+  --speed-glow-subtle: rgba(42, 104, 140, 0.15);
 
   --reverse-highlight: #B83A2E;
   --reverse-highlight-light: #E26D5C;
@@ -118,10 +119,10 @@
   --z-modal: 40;
   --z-intro: 100;
 
-  /* Map canvas stroke — extracted for theme override */
-  --map-stroke: rgba(238, 206, 126, 0.75);
-  --map-stroke-hover: #FFF0C2;
-  --map-frame-shadow: inset 0 0 0 1px rgba(197, 155, 39, 0.25), inset 0 0 24px rgba(0, 0, 0, 0.80), 0 4px 20px rgba(0, 0, 0, 0.60);
+  /* Map canvas stroke — quiet borders, let fills carry shape */
+  --map-stroke: rgba(238, 206, 126, 0.36);
+  --map-stroke-hover: rgba(255, 240, 194, 0.85);
+  --map-frame-shadow: inset 0 0 0 1px rgba(197, 155, 39, 0.20), inset 0 0 24px rgba(0, 0, 0, 0.70), 0 4px 20px rgba(0, 0, 0, 0.55);
 }
 
 /* ════════════════════════════════════════════════════════════════════════
