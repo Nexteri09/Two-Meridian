@@ -47,6 +47,8 @@
   /* Mode Specific Highlights (Archival Cartographic Accents) */
   --casual-highlight: #C59B27;
   --casual-highlight-light: #E8C15A;
+  --casual-fill-guessed: #8A6C1C; /* Solid rich dark gold for dark mode guessed */
+  --casual-fill-active: #544211;  /* Solid deep soft gold for dark mode active */
   --casual-glow: rgba(197, 155, 39, 0.35);
   --casual-glow-subtle: rgba(197, 155, 39, 0.15);
 
@@ -166,6 +168,8 @@
   /* Customized Light Mode Accents */
   --casual-highlight: #C28B1E;
   --casual-highlight-light: #AD7813;
+  --casual-fill-guessed: rgba(197, 155, 39, 0.65); /* Beautiful translucent blend in light mode */
+  --casual-fill-active: rgba(197, 155, 39, 0.25);  /* Beautiful translucent blend in light mode */
   --casual-glow: rgba(194, 139, 30, 0.30);
   
   --speed-highlight: #2A688C;
