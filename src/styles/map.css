@@ -62,7 +62,7 @@
   fill: var(--casual-fill-guessed);
   stroke: var(--casual-highlight-light);
   stroke-width: 1.0px;
-  filter: drop-shadow(0 0 2px rgba(197, 155, 39, 0.20));
+  filter: var(--casual-filter);
 }
 
 .map-wrapper svg circle.guessed-casual {
@@ -71,7 +71,7 @@
   stroke-width: 1.1px;
   r: 2.2;
   opacity: 1;
-  filter: drop-shadow(0 0 3px rgba(197, 155, 39, 0.45));
+  filter: var(--casual-filter-strong);
 }
 
 /* Passive highlight for clicked countries in Casual Mode */
@@ -95,7 +95,7 @@
   fill: var(--speed-fill-guessed);
   stroke: var(--speed-highlight-light);
   stroke-width: 1.0px;
-  filter: drop-shadow(0 0 2px rgba(45, 127, 103, 0.20));
+  filter: var(--speed-filter);
 }
 
 .map-wrapper svg circle.guessed-speed {
@@ -104,7 +104,7 @@
   stroke-width: 1.1px;
   r: 2.2;
   opacity: 1;
-  filter: drop-shadow(0 0 3px rgba(45, 127, 103, 0.45));
+  filter: var(--speed-filter-strong);
 }
 
 /* Reverse mode (Terracotta / Crimson) */
@@ -113,7 +113,7 @@
   fill: var(--reverse-fill-guessed);
   stroke: var(--reverse-highlight-light);
   stroke-width: 0.95px;
-  filter: drop-shadow(0 0 1px rgba(184, 58, 46, 0.15));
+  filter: var(--reverse-filter);
 }
 
 .map-wrapper svg circle.guessed-reverse {
@@ -122,7 +122,7 @@
   stroke-width: 1.0px;
   r: 2.0;
   opacity: 1;
-  filter: drop-shadow(0 0 2px rgba(184, 58, 46, 0.25));
+  filter: var(--reverse-filter-strong);
 }
 
 /* When Reverse Mode expedition is actively running, reduce inactive world borders to 0.60 opacity */

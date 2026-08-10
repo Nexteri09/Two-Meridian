@@ -5,12 +5,12 @@
 
 /* ---- Core CSS Custom Properties ---- */
 :root {
-  /* Backgrounds & Ink Surfaces — warm near-black (aged atlas family) */
-  --ink-950: #12100C;   /* Primary canvas background — warm olive-black */
-  --ink-900: #1C1A16;   /* Raised panels & sidebar — one step above page */
-  --ink-800: #252119;   /* Cards, surface elevation — two steps above page */
-  --hairline: #332F28;  /* Precision 1px rules — warm charcoal */
-  --hairline-light: #423D35; /* Subtle divider hover / active border */
+  /* Backgrounds & Ink Surfaces — deep premium oceanic slate for dark mode */
+  --ink-950: #0B0E12;   /* Deep abyss blue/slate ocean */
+  --ink-900: #14181E;   /* Raised panels & sidebar */
+  --ink-800: #1C222A;   /* Cards, surface elevation */
+  --hairline: #262D38;  /* Precision 1px rules */
+  --hairline-light: #323A47; /* Subtle divider hover / active border */
 
   /* Cartographic Paper Typography */
   --paper: #EDE6D8;       /* Headlines, primary text — warm archival off-white */
@@ -34,8 +34,8 @@
   --bg-tertiary: var(--ink-800);
   --bg-sidebar: var(--ink-900);
 
-  --map-fill: #1E1C18;   /* Visible charcoal land fill — reads as map, not wireframe */
-  --map-fill-hover: #2A2720; /* Hover: one step lighter than fill */
+  --map-fill: #191E25;   /* Visible slate land fill — reads as map, not wireframe */
+  --map-fill-hover: #232A34; /* Hover: one step lighter than fill */
   --map-border: var(--hairline);
   --map-border-hover: var(--brass-500);
 
@@ -47,23 +47,29 @@
   /* Mode Specific Highlights (Archival Cartographic Accents) */
   --casual-highlight: #C59B27;
   --casual-highlight-light: #E8C15A;
-  --casual-fill-guessed: #8A6C1C; /* Solid rich dark gold for dark mode guessed */
-  --casual-fill-active: #544211;  /* Solid deep soft gold for dark mode active */
+  --casual-fill-guessed: #685116; /* Reduced intensity gold for dark mode guessed */
+  --casual-fill-active: #3A2D0C;  /* Even softer gold for dark mode active */
+  --casual-filter: none; /* No glow in dark mode */
+  --casual-filter-strong: none;
   --casual-glow: rgba(197, 155, 39, 0.35);
   --casual-glow-subtle: rgba(197, 155, 39, 0.15);
 
   /* Fix 5: Align speed mode to blue (same as light mode) */
   --speed-highlight: #2A688C;
   --speed-highlight-light: #4D9CC0;
-  --speed-fill-guessed: #1A4060; /* Solid deep blue for dark mode guessed */
-  --speed-fill-active: #0F2538;  /* Solid subtle blue for dark mode active */
+  --speed-fill-guessed: #133048; /* Reduced intensity blue for dark mode guessed */
+  --speed-fill-active: #0A1B28;  /* Solid subtle blue for dark mode active */
+  --speed-filter: none;
+  --speed-filter-strong: none;
   --speed-glow: rgba(42, 104, 140, 0.35);
   --speed-glow-subtle: rgba(42, 104, 140, 0.15);
 
   --reverse-highlight: #B83A2E;
   --reverse-highlight-light: #E26D5C;
-  --reverse-fill-guessed: #812820; /* Solid deep crimson for dark mode guessed */
-  --reverse-fill-active: #4A1712;  /* Solid subtle crimson for dark mode active */
+  --reverse-fill-guessed: #5B1C16; /* Reduced intensity crimson for dark mode guessed */
+  --reverse-fill-active: #330F0C;  /* Solid subtle crimson for dark mode active */
+  --reverse-filter: none;
+  --reverse-filter-strong: none;
   --reverse-glow: rgba(184, 58, 46, 0.35);
   --reverse-glow-subtle: rgba(184, 58, 46, 0.15);
 
@@ -175,18 +181,24 @@
   --casual-highlight-light: #AD7813;
   --casual-fill-guessed: rgba(197, 155, 39, 0.65); /* Beautiful translucent blend in light mode */
   --casual-fill-active: rgba(197, 155, 39, 0.25);  /* Beautiful translucent blend in light mode */
+  --casual-filter: drop-shadow(0 0 2px rgba(197, 155, 39, 0.20));
+  --casual-filter-strong: drop-shadow(0 0 3px rgba(197, 155, 39, 0.45));
   --casual-glow: rgba(194, 139, 30, 0.30);
   
   --speed-highlight: #2A688C;
   --speed-highlight-light: #215473;
   --speed-fill-guessed: rgba(42, 104, 140, 0.65); /* Beautiful translucent blue blend */
   --speed-fill-active: rgba(42, 104, 140, 0.25);  /* Beautiful translucent blue blend */
+  --speed-filter: drop-shadow(0 0 2px rgba(45, 127, 103, 0.20));
+  --speed-filter-strong: drop-shadow(0 0 3px rgba(45, 127, 103, 0.45));
   --speed-glow: rgba(42, 104, 140, 0.28);
   
   --reverse-highlight: #CC4030;
   --reverse-highlight-light: #B33729;
   --reverse-fill-guessed: rgba(204, 64, 48, 0.65); /* Beautiful translucent crimson blend */
   --reverse-fill-active: rgba(204, 64, 48, 0.25);  /* Beautiful translucent crimson blend */
+  --reverse-filter: drop-shadow(0 0 1px rgba(184, 58, 46, 0.15));
+  --reverse-filter-strong: drop-shadow(0 0 2px rgba(184, 58, 46, 0.25));
   --reverse-glow: rgba(204, 64, 48, 0.28);
 }
 
