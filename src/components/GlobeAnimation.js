@@ -444,12 +444,15 @@ export class GlobeAnimation {
     this.svgPaths = [];
     this.svgCircles = [];
 
-    // Temporarily mount the SVG to the DOM to calculate exact bounding boxes for paths
+    // Temporarily mount the SVG to the DOM to calculate exact bounding boxes for paths.
+    // CRITICAL: The container must have real pixel dimensions (not 0) or getBBox() returns 0.
     const container = document.createElement('div');
-    container.style.position = 'absolute';
-    container.style.visibility = 'hidden';
-    container.style.width = '0';
-    container.style.height = '0';
+    container.style.position = 'fixed';
+    container.style.top = '-9999px';
+    container.style.left = '-9999px';
+    container.style.width = '850px';
+    container.style.height = '455px';
+    container.style.overflow = 'hidden';
     container.style.pointerEvents = 'none';
     container.innerHTML = this.mapSvgString;
     document.body.appendChild(container);
@@ -459,6 +462,9 @@ export class GlobeAnimation {
       document.body.removeChild(container);
       return;
     }
+    // Force SVG to match the container so coordinates are measured correctly
+    doc.setAttribute('width', '850');
+    doc.setAttribute('height', '455');
 
     doc.querySelectorAll('path').forEach(p => {
       let id = (p.getAttribute('id') || p.getAttribute('data-id') || '').toUpperCase();
@@ -510,7 +516,9 @@ export class GlobeAnimation {
   async _buildTexture() {
     const svgText = await fetch(this.svgUrl).then(r => r.text());
     this._rawSvgText = svgText; // cache for theme rebuilds
+    this.mapSvgString = svgText; // make raw SVG available to _extractMapData
     await this._applyThemeToSvg();
+    this._extractMapData(); // populate isoPathMap / isoCircleMap with real bbox coords
 
     this.mapCanvas = document.createElement('canvas');
     this.mapCanvas.width  = 2048;
@@ -726,12 +734,23 @@ export class GlobeAnimation {
             ctx.translate(-svgX * scaleX, -svgY * scaleY);
             ctx.scale(scaleX, scaleY);
 
-            const path2d = new Path2D(item.d);
-            ctx.fillStyle = h.color?.fill || 'rgba(255, 204, 0, 0.9)';
-            ctx.fill(path2d);
-            ctx.strokeStyle = h.color?.stroke || 'rgba(255, 215, 0, 0.5)';
-            ctx.lineWidth = (0.8 * alpha) / scaleX;
-            ctx.stroke(path2d);
+            // Draw all paths that share the same id (multi-piece countries like US, VC)
+            const targetId = item.id;
+            const matchingPaths = targetId
+              ? this.svgPaths.filter(p => p.id === targetId)
+              : [item];
+
+            for (const mp of matchingPaths) {
+              const path2d = new Path2D(mp.d);
+              ctx.shadowColor = h.color?.fill || 'rgba(255, 204, 0, 0.9)';
+              ctx.shadowBlur = 20 / scaleX;
+              ctx.fillStyle = h.color?.fill || 'rgba(255, 204, 0, 0.9)';
+              ctx.fill(path2d);
+              ctx.shadowBlur = 0;
+              ctx.strokeStyle = h.color?.stroke || 'rgba(255, 215, 0, 0.5)';
+              ctx.lineWidth = (1.2 * alpha) / scaleX;
+              ctx.stroke(path2d);
+            }
             ctx.restore();
           }
         }
