@@ -502,6 +502,7 @@ export class GlobeAnimation {
       } else {
         this.svgCircles.push({ cx, cy });
       }
+    });
     } finally {
       if (document.body.contains(container)) {
         document.body.removeChild(container);
