@@ -419,9 +419,9 @@ export class GlobeAnimation {
     } : {
       background: '#EBE4D5',
       pathFill:   'rgba(210,198,178,0.97)',
-      pathStroke: 'rgba(100,78,48,0.45)',
+      pathStroke: '#866d4d',
       circleFill: 'none',
-      circleStroke: 'rgba(100,78,48,0.45)',
+      circleStroke: '#866d4d',
       graticule: 'rgba(100, 78, 48, 0.14)',
       markerStroke: 'rgba(100, 78, 48, 0.45)',
       svgBackground: '#EBE4D5',
