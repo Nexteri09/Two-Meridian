@@ -885,10 +885,15 @@ export class GlobeAnimation {
       const targetY = (this.isFocused && this.focusRotY !== null) ? this.focusRotY : this.scrollRotY;
       const targetX = (this.isFocused && this.focusRotX !== null) ? this.focusRotX : 0.0;
 
-      // 1. Shortest angular distance for Y rotation (prevents full 360 spins)
-      let diffY = (targetY - this.currentRotY) % (Math.PI * 2);
-      if (diffY > Math.PI) diffY -= Math.PI * 2;
-      if (diffY < -Math.PI) diffY += Math.PI * 2;
+      // 1. Calculate difference.
+      // If focusing on a dossier, use shortest angular distance to prevent wild full spins.
+      // If just scrolling, use linear distance so fast scrolling doesn't make it spin backwards.
+      let diffY = targetY - this.currentRotY;
+      if (this.isFocused && this.focusRotY !== null) {
+        diffY = diffY % (Math.PI * 2);
+        if (diffY > Math.PI) diffY -= Math.PI * 2;
+        if (diffY < -Math.PI) diffY += Math.PI * 2;
+      }
 
       // 2. Velocity clamping: smooth, calm, gentle glide (max 0.024 rad/frame)
       const maxSpeedY = 0.024;
