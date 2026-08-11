@@ -412,9 +412,9 @@ export class GlobeAnimation {
       pointer: '#E26D5C',
       text: '#DFB755',
       pulses: [
-        { name: 'casual', fillRgb: '197, 155, 39', stroke: '#deb648', glow: '#c59b27' },
-        { name: 'speed', fillRgb: '45, 127, 103', stroke: '#5bb898', glow: '#2d7f67' },
-        { name: 'reverse', fillRgb: '201, 74, 58', stroke: '#e07667', glow: '#c94a3a' }
+        { name: 'casual', fillRgb: '197, 155, 39', stroke: '#C59B27', glow: '#C59B27' },
+        { name: 'speed', fillRgb: '42, 104, 140', stroke: '#2A688C', glow: '#2A688C' },
+        { name: 'reverse', fillRgb: '184, 58, 46', stroke: '#B83A2E', glow: '#B83A2E' }
       ]
     } : {
       background: '#EBE4D5',
@@ -580,8 +580,8 @@ export class GlobeAnimation {
     if (now - this._lastSpawnTime > 400 && this.activePulses.length < 6) {
       this._lastSpawnTime = now;
 
-      const iso = PULSE_COUNTRY_POOL[this._countryPoolIdx % PULSE_COUNTRY_POOL.length];
-      this._countryPoolIdx++;
+      const randIdx = Math.floor(Math.random() * PULSE_COUNTRY_POOL.length);
+      const iso = PULSE_COUNTRY_POOL[randIdx];
 
       const palette = this._getPalette();
       const colorScheme = palette.pulses[this._colorIdx % palette.pulses.length];
