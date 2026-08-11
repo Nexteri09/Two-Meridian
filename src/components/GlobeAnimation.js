@@ -580,8 +580,13 @@ export class GlobeAnimation {
     if (now - this._lastSpawnTime > 400 && this.activePulses.length < 6) {
       this._lastSpawnTime = now;
 
-      const randIdx = Math.floor(Math.random() * PULSE_COUNTRY_POOL.length);
-      const iso = PULSE_COUNTRY_POOL[randIdx];
+      if (!this._fullCountryPool) {
+        this._fullCountryPool = [...this.isoPathMap.keys(), ...this.isoCircleMap.keys()];
+      }
+      if (this._fullCountryPool.length === 0) return;
+
+      const randIdx = Math.floor(Math.random() * this._fullCountryPool.length);
+      const iso = this._fullCountryPool[randIdx];
 
       const palette = this._getPalette();
       const colorScheme = palette.pulses[this._colorIdx % palette.pulses.length];
