@@ -535,33 +535,7 @@ export class GlobeAnimation {
         this.svgBounds = { svgX: vb[0], svgY: vb[1], svgW: vb[2], svgH: vb[3] };
       }
     }
-    const pathEls = doc.querySelectorAll('path');
-    const circleEls = doc.querySelectorAll('circle');
 
-    this.svgPaths = [];
-    this.svgCircles = [];
-    this.isoPathMap.clear();
-    this.isoCircleMap.clear();
-
-    pathEls.forEach((p, idx) => {
-      const d = p.getAttribute('d');
-      const id = (p.getAttribute('id') || p.getAttribute('data-id') || '').toUpperCase();
-      if (d) {
-        this.svgPaths.push({ id, d });
-        if (id) this.isoPathMap.set(id, idx);
-      }
-    });
-
-    circleEls.forEach((c) => {
-      const id = (c.getAttribute('id') || c.getAttribute('data-id') || '').toUpperCase();
-      const cx = parseFloat(c.getAttribute('cx'));
-      const cy = parseFloat(c.getAttribute('cy'));
-      const r = parseFloat(c.getAttribute('r') || '1.5');
-      if (!isNaN(cx) && !isNaN(cy)) {
-        this.svgCircles.push({ id, cx, cy, r });
-        if (id) this.isoCircleMap.set(id, { cx, cy, r });
-      }
-    });
 
     let cleanSvg = svgText.replace(/<!DOCTYPE[\s\S]*?>/i, '');
 
