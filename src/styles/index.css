@@ -47,8 +47,8 @@
   /* Mode Specific Highlights (Archival Cartographic Accents) */
   --casual-highlight: #C59B27;
   --casual-highlight-light: #E8C15A;
-  --casual-fill-guessed: #685116; /* Reduced intensity gold for dark mode guessed */
-  --casual-fill-active: #3A2D0C;  /* Even softer gold for dark mode active */
+  --casual-fill-guessed: #A37B14; /* Vibrant solid gold for dark mode guessed */
+  --casual-fill-active: #7A5B0F;  /* Bright solid gold for dark mode active */
   --casual-filter: none; /* No glow in dark mode */
   --casual-filter-strong: none;
   --casual-glow: rgba(197, 155, 39, 0.35);
@@ -57,8 +57,8 @@
   /* Fix 5: Align speed mode to blue (same as light mode) */
   --speed-highlight: #2A688C;
   --speed-highlight-light: #4D9CC0;
-  --speed-fill-guessed: #133048; /* Reduced intensity blue for dark mode guessed */
-  --speed-fill-active: #0A1B28;  /* Solid subtle blue for dark mode active */
+  --speed-fill-guessed: #1F5C80; /* Vibrant solid blue for dark mode guessed */
+  --speed-fill-active: #154561;  /* Bright solid blue for dark mode active */
   --speed-filter: none;
   --speed-filter-strong: none;
   --speed-glow: rgba(42, 104, 140, 0.35);
@@ -66,8 +66,8 @@
 
   --reverse-highlight: #B83A2E;
   --reverse-highlight-light: #E26D5C;
-  --reverse-fill-guessed: #5B1C16; /* Reduced intensity crimson for dark mode guessed */
-  --reverse-fill-active: #330F0C;  /* Solid subtle crimson for dark mode active */
+  --reverse-fill-guessed: #9E2F25; /* Vibrant solid crimson for dark mode guessed */
+  --reverse-fill-active: #751F17;  /* Bright solid crimson for dark mode active */
   --reverse-filter: none;
   --reverse-filter-strong: none;
   --reverse-glow: rgba(184, 58, 46, 0.35);
