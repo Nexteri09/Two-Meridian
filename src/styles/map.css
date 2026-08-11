@@ -30,11 +30,11 @@
   r: 1.6;
 }
 
-/* Hover state â clean hairline brightening */
-.map-wrapper svg path:hover,
-.map-wrapper svg g path:hover,
-.map-wrapper svg polygon:hover,
-.map-wrapper svg circle.country-marker:hover {
+/* Hover state — clean hairline brightening (Exclude already discovered regions) */
+.map-wrapper svg path:not([class*="guessed"]):not(.passive-active):hover,
+.map-wrapper svg g:not([class*="guessed"]):not(.passive-active) path:hover,
+.map-wrapper svg polygon:not([class*="guessed"]):not(.passive-active):hover,
+.map-wrapper svg circle.country-marker:not([class*="guessed"]):not(.passive-active):hover {
   fill: var(--map-fill-hover, #1E1B18);
   stroke: var(--map-stroke-hover, #FFF0C2);
   stroke-width: 1.2px;
@@ -153,29 +153,7 @@
   animation: microstateRadarPing 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Guessed & Active countries hover states (Only highlight borders, do not muddy the fill) */
-.map-wrapper svg g.guessed-casual path:hover,
-.map-wrapper svg path.guessed-casual:hover,
-.map-wrapper svg g.passive-active path:hover,
-.map-wrapper svg path.passive-active:hover {
-  fill: var(--casual-fill-guessed);
-  stroke: var(--map-stroke-hover);
-  stroke-width: 1.2px;
-}
-
-.map-wrapper svg g.guessed-speed path:hover,
-.map-wrapper svg path.guessed-speed:hover {
-  fill: var(--speed-fill-guessed);
-  stroke: var(--map-stroke-hover);
-  stroke-width: 1.2px;
-}
-
-#map-container .map-wrapper svg g.guessed-reverse path:hover,
-#map-container .map-wrapper svg path.guessed-reverse:hover {
-  fill: var(--reverse-fill-guessed);
-  stroke: var(--map-stroke-hover);
-  stroke-width: 1.2px;
-}
+/* Guessed countries maintain their exact visual state on hover; no extra glow or stroke changes */
 
 /* Completed Continent Blur */
 .map-wrapper svg path.continent-blurred,
