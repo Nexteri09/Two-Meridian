@@ -151,14 +151,6 @@ const atmosphereFragmentShader = `
 
 // Pulse colors moved to dynamic theme palette
 
-// Curated diverse pool of countries across all world regions
-const PULSE_COUNTRY_POOL = [
-  'BR', 'FR', 'JP', 'AU', 'EG', 'IN', 'US', 'ZA', 'CA', 'DE',
-  'AR', 'NO', 'MX', 'NZ', 'KE', 'CL', 'TH', 'ES', 'IS', 'ID',
-  'IT', 'VN', 'GR', 'PE', 'KR', 'MA', 'FI', 'SE', 'CO', 'TR',
-  'DZ', 'MN', 'KZ', 'SA', 'GL', 'MG', 'NG', 'TZ', 'PH', 'GB'
-];
-
 // ─────────────────────────────────────────────────────────────────────────────
 //  CLASS
 // ─────────────────────────────────────────────────────────────────────────────
@@ -446,25 +438,27 @@ export class GlobeAnimation {
 
     // Temporarily mount the SVG to the DOM to calculate exact bounding boxes for paths.
     // CRITICAL: The container must have real pixel dimensions (not 0) or getBBox() returns 0.
+    const svgW = this.svgBounds?.svgW || 850;
+    const svgH = this.svgBounds?.svgH || 455;
+
     const container = document.createElement('div');
     container.style.position = 'fixed';
     container.style.top = '-9999px';
     container.style.left = '-9999px';
-    container.style.width = '850px';
-    container.style.height = '455px';
+    container.style.width = `${svgW}px`;
+    container.style.height = `${svgH}px`;
     container.style.overflow = 'hidden';
     container.style.pointerEvents = 'none';
     container.innerHTML = this.mapSvgString;
     document.body.appendChild(container);
 
-    const doc = container.querySelector('svg');
-    if (!doc) {
-      document.body.removeChild(container);
-      return;
-    }
-    // Force SVG to match the container so coordinates are measured correctly
-    doc.setAttribute('width', '850');
-    doc.setAttribute('height', '455');
+    try {
+      const doc = container.querySelector('svg');
+      if (!doc) return;
+      
+      // Force SVG to match the container so coordinates are measured correctly
+      doc.setAttribute('width', svgW);
+      doc.setAttribute('height', svgH);
 
     doc.querySelectorAll('path').forEach(p => {
       let id = (p.getAttribute('id') || p.getAttribute('data-id') || '').toUpperCase();
@@ -508,9 +502,11 @@ export class GlobeAnimation {
       } else {
         this.svgCircles.push({ cx, cy });
       }
-    });
-
-    document.body.removeChild(container);
+    } finally {
+      if (document.body.contains(container)) {
+        document.body.removeChild(container);
+      }
+    }
   }
 
   async _buildTexture() {

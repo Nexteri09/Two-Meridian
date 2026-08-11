@@ -5,11 +5,90 @@
 
 import { GlobeAnimation } from './GlobeAnimation.js';
 
+const FEATURED_DOSSIERS = [
+  {
+    num: '01', name: 'Vatican City', iso: 'VA', coords: '41°54′ N · 12°27′ E', lon: 12.45, lat: 41.90,
+    tagline: 'Smallest Independent State on Earth',
+    desc: 'Encompasses 0.49 km² inside Rome with ~800 citizens and historic St. Peter’s Basilica.',
+    stats: [ { k: 'AREA', v: '0.49 km²' }, { k: 'SEAT', v: 'Holy See' }, { k: 'POP', v: '~800' } ]
+  },
+  {
+    num: '02', name: 'Tuvalu', iso: 'TV', coords: '8°31′ S · 179°11′ E', lon: 179.19, lat: -8.52,
+    tagline: 'Pacific Atoll of Virtual Sovereignty',
+    desc: 'Nine reef islands under 4.6m elevation. Leasing its .tv domain powers key national revenue.',
+    stats: [ { k: 'MAX ELEV', v: '4.6 m' }, { k: 'TLD', v: '.tv' }, { k: 'POP', v: '~11.2k' } ]
+  },
+  {
+    num: '03', name: 'Lesotho', iso: 'LS', coords: '29°35′ S · 28°14′ E', lon: 28.23, lat: -29.58,
+    tagline: 'The Kingdom in the Sky',
+    desc: 'A high-altitude enclave entirely surrounded by South Africa, with its lowest point at 1,400 meters.',
+    stats: [ { k: 'BASE ELEV', v: '1,400 m' }, { k: 'TYPE', v: 'Enclave' }, { k: 'CAPITAL', v: 'Maseru' } ]
+  },
+  {
+    num: '04', name: 'St. Vincent & Grenadines', iso: 'VC', coords: '13°15′ N · 61°12′ W', lon: -61.20, lat: 13.25,
+    tagline: 'Volcanic Island Archipelago',
+    desc: 'Comprises a volcanic main island (St. Vincent) and a chain of 32 smaller islands in the Caribbean Sea.',
+    stats: [ { k: 'ISLANDS', v: '32' }, { k: 'VOLCANO', v: 'La Soufrière' }, { k: 'CAPITAL', v: 'Kingstown' } ]
+  },
+  {
+    num: '05', name: 'Nauru', iso: 'NR', coords: '0°32′ S · 166°55′ E', lon: 166.93, lat: -0.52,
+    tagline: 'Republic Without an Official Capital',
+    desc: 'At 21 km², Nauru is the world’s smallest island republic. Governance convenes in Yaren District.',
+    stats: [ { k: 'AREA', v: '21 km²' }, { k: 'POP', v: '~10.8k' }, { k: 'YEAR', v: '1968' } ]
+  },
+  {
+    num: '06', name: 'Bhutan', iso: 'BT', coords: '27°30′ N · 90°30′ E', lon: 90.50, lat: 27.50,
+    tagline: 'Carbon Negative Kingdom',
+    desc: 'A Himalayan nation that measures Gross National Happiness and absorbs more carbon than it emits.',
+    stats: [ { k: 'PHILOSOPHY', v: 'GNH' }, { k: 'FORESTS', v: '71%' }, { k: 'CAPITAL', v: 'Thimphu' } ]
+  }
+];
+
 export class LandingPage {
   constructor(app) {
     this.app = app;
-    this.el = document.getElementById('page-landing');
+    this.el = document.createElement('div');
+    this.el.id = 'page-landing';
+    this.el.className = 'page-container';
+
+        tagline: 'Smallest Independent State on Earth',
+        desc: 'Encompasses 0.49 km² inside Rome with ~800 citizens and historic St. Peter’s Basilica.',
+        stats: [ { k: 'AREA', v: '0.49 km²' }, { k: 'SEAT', v: 'Holy See' }, { k: 'POP', v: '~800' } ]
+      },
+      {
+        num: '02', name: 'Tuvalu', iso: 'TV', coords: '8°31′ S · 179°11′ E', lon: 179.19, lat: -8.52,
+        tagline: 'Pacific Atoll of Virtual Sovereignty',
+        desc: 'Nine reef islands under 4.6m elevation. Leasing its .tv domain powers key national revenue.',
+        stats: [ { k: 'MAX ELEV', v: '4.6 m' }, { k: 'TLD', v: '.tv' }, { k: 'POP', v: '~11.2k' } ]
+      },
+      {
+        num: '03', name: 'Lesotho', iso: 'LS', coords: '29°35′ S · 28°14′ E', lon: 28.23, lat: -29.58,
+        tagline: 'The Kingdom in the Sky',
+        desc: 'A high-altitude enclave entirely surrounded by South Africa, with its lowest point at 1,400 meters.',
+        stats: [ { k: 'BASE ELEV', v: '1,400 m' }, { k: 'TYPE', v: 'Enclave' }, { k: 'CAPITAL', v: 'Maseru' } ]
+      },
+      {
+        num: '04', name: 'St. Vincent & Grenadines', iso: 'VC', coords: '13°15′ N · 61°12′ W', lon: -61.20, lat: 13.25,
+        tagline: 'Volcanic Island Archipelago',
+        desc: 'Comprises a volcanic main island (St. Vincent) and a chain of 32 smaller islands in the Caribbean Sea.',
+        stats: [ { k: 'ISLANDS', v: '32' }, { k: 'VOLCANO', v: 'La Soufrière' }, { k: 'CAPITAL', v: 'Kingstown' } ]
+      },
+      {
+        num: '05', name: 'Nauru', iso: 'NR', coords: '0°32′ S · 166°55′ E', lon: 166.93, lat: -0.52,
+        tagline: 'Republic Without an Official Capital',
+        desc: 'At 21 km², Nauru is the world’s smallest island republic. Governance convenes in Yaren District.',
+        stats: [ { k: 'AREA', v: '21 km²' }, { k: 'POP', v: '~10.8k' }, { k: 'YEAR', v: '1968' } ]
+      },
+      {
+        num: '06', name: 'Bhutan', iso: 'BT', coords: '27°30′ N · 90°30′ E', lon: 90.50, lat: 27.50,
+        tagline: 'Carbon Negative Kingdom',
+        desc: 'A Himalayan nation that measures Gross National Happiness and absorbs more carbon than it emits.',
+        stats: [ { k: 'FOREST', v: '72%' }, { k: 'INDEX', v: 'GNH' }, { k: 'CAPITAL', v: 'Thimphu' } ]
+      }
+    ];
+
     this._globe = null;
+    this._observers = []; // Track observers for cleanup
   }
 
   async init() {
@@ -225,104 +304,12 @@ export class LandingPage {
         <div class="dossier-wings-container">
           <!-- Left Wing: 3 Slim Cards -->
           <div class="dossier-wing wing-left" id="wing-left">
-            ${this._renderDossierCard({
-              num: '01',
-              name: 'Vatican City',
-              iso: 'VA',
-              coords: '41°54′ N · 12°27′ E',
-              lon: 12.45,
-              lat: 41.90,
-              tagline: 'Smallest Independent State on Earth',
-              desc: 'Encompasses 0.49 km² inside Rome with ~800 citizens and historic St. Peter’s Basilica.',
-              stats: [
-                { k: 'AREA', v: '0.49 km²' },
-                { k: 'SEAT', v: 'Holy See' },
-                { k: 'POP', v: '~800' }
-              ]
-            })}
-
-            ${this._renderDossierCard({
-              num: '02',
-              name: 'Tuvalu',
-              iso: 'TV',
-              coords: '8°31′ S · 179°11′ E',
-              lon: 179.19,
-              lat: -8.52,
-              tagline: 'Pacific Atoll of Virtual Sovereignty',
-              desc: 'Nine reef islands under 4.6m elevation. Leasing its .tv domain powers key national revenue.',
-              stats: [
-                { k: 'MAX ELEV', v: '4.6 m' },
-                { k: 'TLD', v: '.tv' },
-                { k: 'POP', v: '~11.2k' }
-              ]
-            })}
-
-            ${this._renderDossierCard({
-              num: '03',
-              name: 'Lesotho',
-              iso: 'LS',
-              coords: '29°35′ S · 28°14′ E',
-              lon: 28.23,
-              lat: -29.58,
-              tagline: 'The Kingdom in the Sky',
-              desc: 'A high-altitude enclave entirely surrounded by South Africa, with its lowest point at 1,400 meters.',
-              stats: [
-                { k: 'BASE ELEV', v: '1,400 m' },
-                { k: 'TYPE', v: 'Enclave' },
-                { k: 'CAPITAL', v: 'Maseru' }
-              ]
-            })}
+            ${this.featuredDossiers.slice(0, 3).map(d => this._renderDossierCard(d)).join('')}
           </div>
 
           <!-- Right Wing: 3 Slim Cards -->
           <div class="dossier-wing wing-right" id="wing-right">
-            ${this._renderDossierCard({
-              num: '04',
-              name: 'St. Vincent & Grenadines',
-              iso: 'VC',
-              coords: '13°15′ N · 61°12′ W',
-              lon: -61.20,
-              lat: 13.25,
-              tagline: 'Volcanic Island Archipelago',
-              desc: 'Comprises a volcanic main island (St. Vincent) and a chain of 32 smaller islands in the Caribbean Sea.',
-              stats: [
-                { k: 'ISLANDS', v: '32' },
-                { k: 'VOLCANO', v: 'La Soufrière' },
-                { k: 'CAPITAL', v: 'Kingstown' }
-              ]
-            })}
-
-            ${this._renderDossierCard({
-              num: '05',
-              name: 'Nauru',
-              iso: 'NR',
-              coords: '0°32′ S · 166°55′ E',
-              lon: 166.93,
-              lat: -0.52,
-              tagline: 'Republic Without an Official Capital',
-              desc: 'At 21 km², Nauru is the world’s smallest island republic. Governance convenes in Yaren District.',
-              stats: [
-                { k: 'AREA', v: '21 km²' },
-                { k: 'POP', v: '~10.8k' },
-                { k: 'YEAR', v: '1968' }
-              ]
-            })}
-
-            ${this._renderDossierCard({
-              num: '06',
-              name: 'Bhutan',
-              iso: 'BT',
-              coords: '27°30′ N · 90°30′ E',
-              lon: 90.50,
-              lat: 27.50,
-              tagline: 'Carbon Negative Kingdom',
-              desc: 'A Himalayan nation that measures Gross National Happiness and absorbs more carbon than it emits.',
-              stats: [
-                { k: 'PHILOSOPHY', v: 'GNH' },
-                { k: 'FORESTS', v: '71%' },
-                { k: 'CAPITAL', v: 'Thimphu' }
-              ]
-            })}
+            ${this.featuredDossiers.slice(3, 6).map(d => this._renderDossierCard(d)).join('')}
           </div>
         </div>
       </section>
@@ -624,6 +611,10 @@ export class LandingPage {
           if (entry.isIntersecting) { fn(entry.target); io.unobserve(entry.target); }
         });
       }, { root: landing, threshold });
+      
+      if (!this._observers) this._observers = [];
+      this._observers.push(io);
+      
       els.forEach(el => io.observe(el));
     };
 
@@ -682,30 +673,6 @@ export class LandingPage {
   }
 
   // ================================================================
-  //  GEOLOCATION
-  // ================================================================
-  _detectUserCountry() {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(
-      async pos => {
-        try {
-          const { latitude, longitude } = pos.coords;
-          const resp = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
-            { headers: { 'Accept-Language': 'en' } }
-          );
-          const data = await resp.json();
-          const code = data?.address?.country_code?.toUpperCase();
-          if (code && this._globe) {
-            // Optional ambient highlight
-          }
-        } catch (_) {}
-      },
-      () => {}
-    );
-  }
-
-  // ================================================================
   //  CTA & GAME MODE ROUTING
   // ================================================================
   _bindCTA() {
@@ -749,6 +716,11 @@ export class LandingPage {
   _revealGame(mode = 'casual', page = 'world') {
     if (this._globe) {
       this._globe.resetToTop();
+    }
+
+    if (this._observers && this._observers.length > 0) {
+      this._observers.forEach(io => io.disconnect());
+      this._observers = [];
     }
 
     const landing = document.getElementById('page-landing');
