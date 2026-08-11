@@ -40,7 +40,7 @@
   }
   40% {
     r: 2.8;
-    filter: drop-shadow(0 0 80px rgba(226, 109, 92, 1)) drop-shadow(0 0 40px rgba(226, 109, 92, 1)) drop-shadow(0 0 10px rgba(226, 109, 92, 1));
+    filter: drop-shadow(0 0 12px rgba(226, 109, 92, 0.4));
   }
   100% {
     r: 2.2;
@@ -58,7 +58,7 @@
   40% {
     stroke-width: 1.5px;
     stroke: var(--reverse-highlight-light);
-    filter: drop-shadow(0 0 80px rgba(226, 109, 92, 1)) drop-shadow(0 0 40px rgba(226, 109, 92, 1)) drop-shadow(0 0 10px rgba(226, 109, 92, 1));
+    filter: drop-shadow(0 0 12px rgba(226, 109, 92, 0.4));
   }
   100% {
     stroke-width: 1.2px;
