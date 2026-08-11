@@ -474,6 +474,15 @@ export class GlobeAnimation {
           cy = bbox.y + bbox.height / 2;
         } catch (e) {}
 
+        // Fallback: parse 'd' string for M x,y if getBBox fails (returns 0)
+        if ((cx === 0 && cy === 0) || Number.isNaN(cx) || Number.isNaN(cy)) {
+          const match = d.match(/M\s*([\d.-]+)[,\s]+([\d.-]+)/i);
+          if (match) {
+            cx = parseFloat(match[1]);
+            cy = parseFloat(match[2]);
+          }
+        }
+
         this.svgPaths.push({ id, d, cx, cy, color: this._parseColor(p) });
         if (id && id.length === 2) {
           this.isoPathMap.set(id, this.svgPaths.length - 1);
