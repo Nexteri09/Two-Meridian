@@ -30,11 +30,11 @@
   r: 1.6;
 }
 
-/* Hover state — clean hairline brightening (Exclude already discovered regions) */
-.map-wrapper svg path:not([class*="guessed"]):not(.passive-active):hover,
-.map-wrapper svg g:not([class*="guessed"]):not(.passive-active) path:hover,
-.map-wrapper svg polygon:not([class*="guessed"]):not(.passive-active):hover,
-.map-wrapper svg circle.country-marker:not([class*="guessed"]):not(.passive-active):hover {
+/* Hover state — clean hairline brightening */
+.map-wrapper svg path:hover,
+.map-wrapper svg g path:hover,
+.map-wrapper svg polygon:hover,
+.map-wrapper svg circle.country-marker:hover {
   fill: var(--map-fill-hover, #1E1B18);
   stroke: var(--map-stroke-hover, #FFF0C2);
   stroke-width: 1.2px;
@@ -58,14 +58,17 @@
 
 /* Casual mode (Radiant Brass / Gold) */
 .map-wrapper svg path.guessed-casual,
-.map-wrapper svg g.guessed-casual path {
+.map-wrapper svg g.guessed-casual path,
+.map-wrapper svg path.guessed-casual:hover,
+.map-wrapper svg g.guessed-casual path:hover {
   fill: var(--casual-fill-guessed);
   stroke: var(--casual-highlight-light);
   stroke-width: 1.0px;
   filter: var(--casual-filter);
 }
 
-.map-wrapper svg circle.guessed-casual {
+.map-wrapper svg circle.guessed-casual,
+.map-wrapper svg circle.guessed-casual:hover {
   fill: var(--casual-fill-guessed);
   stroke: var(--casual-highlight-light);
   stroke-width: 1.1px;
@@ -76,13 +79,16 @@
 
 /* Passive highlight for clicked countries in Casual Mode */
 .map-wrapper svg path.passive-active,
-.map-wrapper svg g.passive-active path {
+.map-wrapper svg g.passive-active path,
+.map-wrapper svg path.passive-active:hover,
+.map-wrapper svg g.passive-active path:hover {
   fill: var(--casual-fill-active);
   stroke: var(--casual-highlight-light);
   stroke-width: 1.0px;
 }
 
-.map-wrapper svg circle.passive-active {
+.map-wrapper svg circle.passive-active,
+.map-wrapper svg circle.passive-active:hover {
   fill: var(--casual-fill-active);
   stroke: var(--casual-highlight-light);
   stroke-width: 1.1px;
@@ -91,14 +97,17 @@
 
 /* Speed mode (Antique Malachite / Verdigris) */
 .map-wrapper svg path.guessed-speed,
-.map-wrapper svg g.guessed-speed path {
+.map-wrapper svg g.guessed-speed path,
+.map-wrapper svg path.guessed-speed:hover,
+.map-wrapper svg g.guessed-speed path:hover {
   fill: var(--speed-fill-guessed);
   stroke: var(--speed-highlight-light);
   stroke-width: 1.0px;
   filter: var(--speed-filter);
 }
 
-.map-wrapper svg circle.guessed-speed {
+.map-wrapper svg circle.guessed-speed,
+.map-wrapper svg circle.guessed-speed:hover {
   fill: var(--speed-fill-guessed);
   stroke: #B5F0DB;
   stroke-width: 1.1px;
@@ -109,14 +118,17 @@
 
 /* Reverse mode (Terracotta / Crimson) */
 #map-container .map-wrapper svg path.guessed-reverse,
-#map-container .map-wrapper svg g.guessed-reverse path {
+#map-container .map-wrapper svg g.guessed-reverse path,
+#map-container .map-wrapper svg path.guessed-reverse:hover,
+#map-container .map-wrapper svg g.guessed-reverse path:hover {
   fill: var(--reverse-fill-guessed);
   stroke: var(--reverse-highlight-light);
   stroke-width: 0.95px;
   filter: var(--reverse-filter);
 }
 
-#map-container .map-wrapper svg circle.country-marker.guessed-reverse {
+#map-container .map-wrapper svg circle.country-marker.guessed-reverse,
+#map-container .map-wrapper svg circle.country-marker.guessed-reverse:hover {
   fill: var(--reverse-fill-guessed);
   stroke: var(--reverse-highlight-light);
   stroke-width: 1.0px;
@@ -135,15 +147,18 @@
 
 /* Active highlight in reverse mode (mystery territory) */
 #map-container .map-wrapper svg path.reverse-active,
-#map-container .map-wrapper svg g.reverse-active path {
+#map-container .map-wrapper svg g.reverse-active path,
+#map-container .map-wrapper svg path.reverse-active:hover,
+#map-container .map-wrapper svg g.reverse-active path:hover {
   fill: var(--reverse-fill-active);
   stroke: var(--reverse-highlight-light);
   stroke-width: 1.2px;
-  filter: drop-shadow(0 0 4px rgba(184, 58, 46, 0.35));
+  filter: drop-shadow(0 0 6px rgba(220, 88, 70, 0.45));
   animation: islandRadarPulse 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-#map-container .map-wrapper svg circle.country-marker.reverse-active {
+#map-container .map-wrapper svg circle.country-marker.reverse-active,
+#map-container .map-wrapper svg circle.country-marker.reverse-active:hover {
   fill: var(--reverse-fill-active);
   stroke: var(--reverse-highlight-light);
   stroke-width: 1.2px;
