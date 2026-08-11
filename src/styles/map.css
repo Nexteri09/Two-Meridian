@@ -145,6 +145,11 @@
   stroke-width: 0.5px;
 }
 
+[data-theme="light"] #map-container[data-reverse-active="true"] .map-wrapper svg path,
+[data-theme="light"] #map-container[data-reverse-active="true"] .map-wrapper svg circle.country-marker {
+  stroke-width: 0.8px;
+}
+
 /* Active highlight in reverse mode (mystery territory) */
 #map-container .map-wrapper svg path.reverse-active,
 #map-container .map-wrapper svg g.reverse-active path,

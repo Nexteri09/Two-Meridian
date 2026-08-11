@@ -167,7 +167,7 @@
   --map-stroke-width: 1.4px; /* Increased to bridge topological gaps in the SVG data */
   
   --map-fill-dimmed: #dfd6c1; /* Pre-calculated 0.65 opacity blend for reverse mode */
-  --map-stroke-dimmed: #bbab95; /* Pre-calculated 0.65 opacity blend for reverse mode */
+  --map-stroke-dimmed: #a99680; /* Slightly darker than previous for better legibility */
   --map-stroke-hover: #3D2D18;
   --map-border: var(--hairline);
 
