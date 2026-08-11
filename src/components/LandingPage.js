@@ -47,9 +47,7 @@ const FEATURED_DOSSIERS = [
 export class LandingPage {
   constructor(app) {
     this.app = app;
-    this.el = document.createElement('div');
-    this.el.id = 'page-landing';
-    this.el.className = 'page-container';
+    this.el = document.getElementById('page-landing');
 
     this.featuredDossiers = FEATURED_DOSSIERS;
 
