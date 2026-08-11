@@ -160,7 +160,7 @@
   /* Map fills — sepia parchment */
   --map-fill: #D4C8AE;
   --map-fill-hover: #C9BC9E;
-  --map-stroke: #b2a189; /* Pre-blended solid color for 0.6 opacity look */
+  --map-stroke: #866d4d; /* Solid color for darker borders in light mode */
   --map-stroke-width: 1.4px; /* Increased to bridge topological gaps in the SVG data */
   --map-stroke-hover: #3D2D18;
   --map-border: var(--hairline);
