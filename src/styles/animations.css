@@ -36,11 +36,11 @@
 @keyframes microstateRadarPing {
   0% {
     r: 1.6;
-    filter: drop-shadow(0 0 0px rgba(184, 58, 46, 0));
+    filter: none;
   }
-  35% {
-    r: 3.4;
-    filter: drop-shadow(0 0 10px rgba(226, 109, 92, 0.95)) drop-shadow(0 0 20px rgba(184, 58, 46, 0.70));
+  40% {
+    r: 2.8;
+    filter: drop-shadow(0 0 120px rgba(226, 109, 92, 0.85)) drop-shadow(0 0 40px rgba(184, 58, 46, 0.6));
   }
   100% {
     r: 2.2;
@@ -51,13 +51,14 @@
 /* ---- Island / Small Territory Radar Pulse (Glows 1 time at the start) ---- */
 @keyframes islandRadarPulse {
   0% {
-    stroke-width: 1.0px;
-    filter: drop-shadow(0 0 0px rgba(184, 58, 46, 0));
+    stroke-width: var(--map-stroke-width);
+    stroke: var(--map-stroke-dimmed);
+    filter: none;
   }
-  35% {
-    stroke-width: 2.0px;
-    stroke: #FFE5E0;
-    filter: drop-shadow(0 0 10px rgba(226, 109, 92, 0.95)) drop-shadow(0 0 20px rgba(184, 58, 46, 0.70));
+  40% {
+    stroke-width: 1.5px;
+    stroke: var(--reverse-highlight-light);
+    filter: drop-shadow(0 0 120px rgba(226, 109, 92, 0.85)) drop-shadow(0 0 40px rgba(184, 58, 46, 0.6));
   }
   100% {
     stroke-width: 1.2px;
