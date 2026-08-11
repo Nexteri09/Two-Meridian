@@ -158,18 +158,21 @@
 .map-wrapper svg path.guessed-casual:hover,
 .map-wrapper svg g.passive-active path:hover,
 .map-wrapper svg path.passive-active:hover {
+  fill: var(--casual-fill-guessed);
   stroke: var(--map-stroke-hover);
   stroke-width: 1.2px;
 }
 
 .map-wrapper svg g.guessed-speed path:hover,
 .map-wrapper svg path.guessed-speed:hover {
+  fill: var(--speed-fill-guessed);
   stroke: var(--map-stroke-hover);
   stroke-width: 1.2px;
 }
 
-.map-wrapper svg g.guessed-reverse path:hover,
-.map-wrapper svg path.guessed-reverse:hover {
+#map-container .map-wrapper svg g.guessed-reverse path:hover,
+#map-container .map-wrapper svg path.guessed-reverse:hover {
+  fill: var(--reverse-fill-guessed);
   stroke: var(--map-stroke-hover);
   stroke-width: 1.2px;
 }
