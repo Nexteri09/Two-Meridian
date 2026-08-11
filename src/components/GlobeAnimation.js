@@ -401,9 +401,9 @@ export class GlobeAnimation {
     return isDark ? {
       background: '#0b0e12',
       pathFill:   'rgba(25,30,37,0.96)',
-      pathStroke: 'rgba(238, 206, 126, 0.36)',
+      pathStroke: 'rgba(238, 206, 126, 1.0)',
       circleFill: 'none',
-      circleStroke: 'rgba(238, 206, 126, 0.36)',
+      circleStroke: 'rgba(238, 206, 126, 1.0)',
       graticule: 'rgba(197, 155, 39, 0.12)',
       markerStroke: 'rgba(197, 155, 39, 0.42)',
       svgBackground: '#0b0e12',

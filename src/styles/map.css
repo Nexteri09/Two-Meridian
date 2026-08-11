@@ -7,41 +7,23 @@
 .map-wrapper svg {
   width: 100%;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
-/* ==========================================================================
-   Base Layer: Fills the topological zoom gaps with scaling landmass color
-   ========================================================================== */
-.map-wrapper svg.svg-base-layer path,
-.map-wrapper svg.svg-base-layer polygon,
-.map-wrapper svg.svg-base-layer circle {
+/* ---- Base Country Paths & Microstate Circles ---- */
+.map-wrapper svg path,
+.map-wrapper svg g path,
+.map-wrapper svg polygon,
+.map-wrapper svg circle.country-marker {
   fill: var(--map-fill, #141210);
-  stroke: var(--map-fill, #141210); /* Stroke matches fill */
-  stroke-width: 1.2px;              /* Scalable stroke to bridge gaps */
-  vector-effect: none;              /* Allows stroke to scale with zoom */
-  shape-rendering: optimizeSpeed;   /* Fast rendering, hidden under top layer */
-  pointer-events: none;             /* Base layer ignores mouse */
-}
-
-/* ---- Top Layer: Crisp Non-Scaling Borders & Interaction ---- */
-.map-wrapper svg.svg-stroke-layer path,
-.map-wrapper svg.svg-stroke-layer g path,
-.map-wrapper svg.svg-stroke-layer polygon,
-.map-wrapper svg.svg-stroke-layer circle.country-marker {
-  fill: transparent; /* Let base layer fill show through initially */
   stroke: var(--map-stroke, rgba(238, 206, 126, 0.75));
   stroke-width: var(--map-stroke-width, 0.8px);
   stroke-linejoin: round;
   stroke-linecap: round;
   paint-order: stroke fill;
   cursor: pointer;
-  pointer-events: all; /* Important: makes transparent fill clickable */
   transition: fill 0.35s ease, stroke 0.35s ease;
   vector-effect: non-scaling-stroke;
-  shape-rendering: geometricPrecision; /* Crisp borders */
+  shape-rendering: geometricPrecision;
 }
 
 .map-wrapper svg circle.country-marker {

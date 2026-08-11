@@ -28,18 +28,10 @@ export class MapView {
       const resp    = await fetch('./src/assets/world-map.svg');
       const svgText = await resp.text();
 
-      // Create the base layer to fill gaps during deep zoom
-      const baseSvgText = svgText
-        .replace('<svg', '<svg class="svg-base-layer"')
-        .replace(/id="[^"]+"/g, ''); // Strip IDs from base layer so they remain unique in top layer
+      this.wrapper.innerHTML = svgText;
+      this.svgElement = this.wrapper.querySelector('svg');
 
-      // Create the top layer for crisp borders and interactions
-      const topSvgText = svgText.replace('<svg', '<svg class="svg-stroke-layer"');
-
-      this.wrapper.innerHTML = baseSvgText + topSvgText;
-      
-      const svgs = this.wrapper.querySelectorAll('svg');
-      this.svgElement = svgs[1]; // Use the top layer as the interactive element
+      if (!this.svgElement) return;
 
       this.svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
