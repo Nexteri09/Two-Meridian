@@ -108,17 +108,17 @@
 }
 
 /* Reverse mode (Terracotta / Crimson) */
-.map-wrapper svg path.guessed-reverse,
-.map-wrapper svg g.guessed-reverse path {
+#map-container .map-wrapper svg path.guessed-reverse,
+#map-container .map-wrapper svg g.guessed-reverse path {
   fill: var(--reverse-fill-guessed);
   stroke: var(--reverse-highlight-light);
   stroke-width: 0.95px;
   filter: var(--reverse-filter);
 }
 
-.map-wrapper svg circle.guessed-reverse {
+#map-container .map-wrapper svg circle.country-marker.guessed-reverse {
   fill: var(--reverse-fill-guessed);
-  stroke: #FFC0B5;
+  stroke: var(--reverse-highlight-light);
   stroke-width: 1.0px;
   r: 2.0;
   opacity: 1;
@@ -126,18 +126,16 @@
 }
 
 /* When Reverse Mode expedition is actively running, push inactive world back by reducing opacity */
-#map-container[data-reverse-active="true"] .map-wrapper svg path:not(.reverse-active):not(.guessed-reverse),
-#map-container[data-reverse-active="true"] .map-wrapper svg circle.country-marker:not(.reverse-active):not(.guessed-reverse),
-#map-container.reverse-active-game .map-wrapper svg path:not(.reverse-active):not(.guessed-reverse),
-#map-container.reverse-active-game .map-wrapper svg circle.country-marker:not(.reverse-active):not(.guessed-reverse) {
+#map-container[data-reverse-active="true"] .map-wrapper svg path,
+#map-container[data-reverse-active="true"] .map-wrapper svg circle.country-marker {
   fill: var(--map-fill-dimmed);
   stroke: var(--map-stroke-dimmed);
   stroke-width: 0.5px;
 }
 
 /* Active highlight in reverse mode (mystery territory) */
-.map-wrapper svg path.reverse-active,
-.map-wrapper svg g.reverse-active path {
+#map-container .map-wrapper svg path.reverse-active,
+#map-container .map-wrapper svg g.reverse-active path {
   fill: var(--reverse-fill-active);
   stroke: var(--reverse-highlight-light);
   stroke-width: 1.2px;
@@ -145,12 +143,13 @@
   animation: islandRadarPulse 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.map-wrapper svg circle.reverse-active {
+#map-container .map-wrapper svg circle.country-marker.reverse-active {
   fill: var(--reverse-fill-active);
-  stroke: #FFC0B5;
-  stroke-width: 1.1px;
+  stroke: var(--reverse-highlight-light);
+  stroke-width: 1.2px;
   r: 2.2;
   opacity: 1;
+  filter: drop-shadow(0 0 4px rgba(184, 58, 46, 0.35));
   animation: microstateRadarPing 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
