@@ -34,8 +34,8 @@
   --bg-tertiary: var(--ink-800);
   --bg-sidebar: var(--ink-900);
 
-  --map-fill: #191E25;   /* Visible slate land fill — reads as map, not wireframe */
-  --map-fill-hover: #232A34; /* Hover: one step lighter than fill */
+  --map-fill: #1E242D;   /* Lifted slate land fill — readable, not void-like */
+  --map-fill-hover: #28303C; /* Hover: one step lighter than fill */
   --map-border: var(--hairline);
   --map-border-hover: var(--brass-500);
 
@@ -45,33 +45,33 @@
   --active-glow-subtle: rgba(197, 155, 39, 0.20);
 
   /* Mode Specific Highlights (Archival Cartographic Accents) */
-  --casual-highlight: #C59B27;
+  --casual-highlight: #D4A832;
   --casual-highlight-light: #E8C15A;
-  --casual-fill-guessed: #A37B14; /* Vibrant solid gold for dark mode guessed */
-  --casual-fill-active: #7A5B0F;  /* Bright solid gold for dark mode active */
-  --casual-filter: none; /* No glow in dark mode */
-  --casual-filter-strong: none;
-  --casual-glow: rgba(197, 155, 39, 0.35);
-  --casual-glow-subtle: rgba(197, 155, 39, 0.15);
+  --casual-fill-guessed: #C8951E; /* Vibrant warm gold — pops on dark slate */
+  --casual-fill-active: #9A7216;  /* Rich amber for passive/active */
+  --casual-filter: drop-shadow(0 0 6px rgba(200, 149, 30, 0.40));
+  --casual-filter-strong: drop-shadow(0 0 8px rgba(200, 149, 30, 0.55));
+  --casual-glow: rgba(200, 149, 30, 0.40);
+  --casual-glow-subtle: rgba(200, 149, 30, 0.20);
 
   /* Fix 5: Align speed mode to blue (same as light mode) */
-  --speed-highlight: #2A688C;
-  --speed-highlight-light: #4D9CC0;
-  --speed-fill-guessed: #1F5C80; /* Vibrant solid blue for dark mode guessed */
-  --speed-fill-active: #154561;  /* Bright solid blue for dark mode active */
-  --speed-filter: none;
-  --speed-filter-strong: none;
-  --speed-glow: rgba(42, 104, 140, 0.35);
-  --speed-glow-subtle: rgba(42, 104, 140, 0.15);
+  --speed-highlight: #3A8AB8;
+  --speed-highlight-light: #5BB0D8;
+  --speed-fill-guessed: #2D7FA8; /* Vibrant cerulean blue — alive on dark */
+  --speed-fill-active: #1E5E80;  /* Rich deep blue for active */
+  --speed-filter: drop-shadow(0 0 6px rgba(45, 127, 168, 0.40));
+  --speed-filter-strong: drop-shadow(0 0 8px rgba(45, 127, 168, 0.55));
+  --speed-glow: rgba(45, 127, 168, 0.40);
+  --speed-glow-subtle: rgba(45, 127, 168, 0.20);
 
-  --reverse-highlight: #B83A2E;
-  --reverse-highlight-light: #E26D5C;
-  --reverse-fill-guessed: #9E2F25; /* Vibrant solid crimson for dark mode guessed */
-  --reverse-fill-active: #751F17;  /* Bright solid crimson for dark mode active */
-  --reverse-filter: none;
-  --reverse-filter-strong: none;
-  --reverse-glow: rgba(184, 58, 46, 0.35);
-  --reverse-glow-subtle: rgba(184, 58, 46, 0.15);
+  --reverse-highlight: #D04838;
+  --reverse-highlight-light: #E87060;
+  --reverse-fill-guessed: #C04030; /* Vibrant warm crimson — alive on dark */
+  --reverse-fill-active: #8E2E22;  /* Deep rich brick for active */
+  --reverse-filter: drop-shadow(0 0 6px rgba(192, 64, 48, 0.40));
+  --reverse-filter-strong: drop-shadow(0 0 8px rgba(192, 64, 48, 0.55));
+  --reverse-glow: rgba(192, 64, 48, 0.40);
+  --reverse-glow-subtle: rgba(192, 64, 48, 0.20);
 
   --text-primary: var(--paper);
   --text-secondary: var(--paper-muted);
@@ -129,8 +129,8 @@
   --map-stroke: #938153; /* Pre-blended solid color for 0.6 opacity look */
   --map-stroke-width: 1.6px; /* Increased to bridge SVG topological gaps */
   
-  --map-fill-dimmed: #13181e; /* Pre-calculated 0.65 opacity blend for reverse mode */
-  --map-stroke-dimmed: #63593c; /* Pre-calculated 0.65 opacity blend for reverse mode */
+  --map-fill-dimmed: #171C24; /* Pre-calculated 0.65 opacity blend for reverse mode */
+  --map-stroke-dimmed: #6A5F42; /* Pre-calculated 0.65 opacity blend for reverse mode */
   --map-stroke-hover: rgba(255, 240, 194, 0.85);
   --map-frame-shadow: inset 0 0 0 1px rgba(197, 155, 39, 0.20), inset 0 0 24px rgba(0, 0, 0, 0.70), 0 4px 20px rgba(0, 0, 0, 0.55);
 }

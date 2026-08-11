@@ -400,7 +400,7 @@ export class GlobeAnimation {
     const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
     return isDark ? {
       background: '#0b0e12',
-      pathFill:   'rgba(25,30,37,0.96)',
+      pathFill:   'rgba(30,36,45,0.96)',
       pathStroke: '#938153',
       circleFill: 'none',
       circleStroke: '#938153',
