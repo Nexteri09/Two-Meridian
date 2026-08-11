@@ -51,41 +51,7 @@ export class LandingPage {
     this.el.id = 'page-landing';
     this.el.className = 'page-container';
 
-        tagline: 'Smallest Independent State on Earth',
-        desc: 'Encompasses 0.49 km² inside Rome with ~800 citizens and historic St. Peter’s Basilica.',
-        stats: [ { k: 'AREA', v: '0.49 km²' }, { k: 'SEAT', v: 'Holy See' }, { k: 'POP', v: '~800' } ]
-      },
-      {
-        num: '02', name: 'Tuvalu', iso: 'TV', coords: '8°31′ S · 179°11′ E', lon: 179.19, lat: -8.52,
-        tagline: 'Pacific Atoll of Virtual Sovereignty',
-        desc: 'Nine reef islands under 4.6m elevation. Leasing its .tv domain powers key national revenue.',
-        stats: [ { k: 'MAX ELEV', v: '4.6 m' }, { k: 'TLD', v: '.tv' }, { k: 'POP', v: '~11.2k' } ]
-      },
-      {
-        num: '03', name: 'Lesotho', iso: 'LS', coords: '29°35′ S · 28°14′ E', lon: 28.23, lat: -29.58,
-        tagline: 'The Kingdom in the Sky',
-        desc: 'A high-altitude enclave entirely surrounded by South Africa, with its lowest point at 1,400 meters.',
-        stats: [ { k: 'BASE ELEV', v: '1,400 m' }, { k: 'TYPE', v: 'Enclave' }, { k: 'CAPITAL', v: 'Maseru' } ]
-      },
-      {
-        num: '04', name: 'St. Vincent & Grenadines', iso: 'VC', coords: '13°15′ N · 61°12′ W', lon: -61.20, lat: 13.25,
-        tagline: 'Volcanic Island Archipelago',
-        desc: 'Comprises a volcanic main island (St. Vincent) and a chain of 32 smaller islands in the Caribbean Sea.',
-        stats: [ { k: 'ISLANDS', v: '32' }, { k: 'VOLCANO', v: 'La Soufrière' }, { k: 'CAPITAL', v: 'Kingstown' } ]
-      },
-      {
-        num: '05', name: 'Nauru', iso: 'NR', coords: '0°32′ S · 166°55′ E', lon: 166.93, lat: -0.52,
-        tagline: 'Republic Without an Official Capital',
-        desc: 'At 21 km², Nauru is the world’s smallest island republic. Governance convenes in Yaren District.',
-        stats: [ { k: 'AREA', v: '21 km²' }, { k: 'POP', v: '~10.8k' }, { k: 'YEAR', v: '1968' } ]
-      },
-      {
-        num: '06', name: 'Bhutan', iso: 'BT', coords: '27°30′ N · 90°30′ E', lon: 90.50, lat: 27.50,
-        tagline: 'Carbon Negative Kingdom',
-        desc: 'A Himalayan nation that measures Gross National Happiness and absorbs more carbon than it emits.',
-        stats: [ { k: 'FOREST', v: '72%' }, { k: 'INDEX', v: 'GNH' }, { k: 'CAPITAL', v: 'Thimphu' } ]
-      }
-    ];
+    this.featuredDossiers = FEATURED_DOSSIERS;
 
     this._globe = null;
     this._observers = []; // Track observers for cleanup
