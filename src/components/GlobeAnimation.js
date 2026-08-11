@@ -489,7 +489,7 @@ export class GlobeAnimation {
           }
         }
 
-        this.svgPaths.push({ id, d, cx, cy, color: this._parseColor(p) });
+        this.svgPaths.push({ id, d, cx, cy });
         if (id && id.length === 2) {
           this.isoPathMap.set(id, this.svgPaths.length - 1);
         }
