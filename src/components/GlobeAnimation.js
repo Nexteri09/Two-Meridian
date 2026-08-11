@@ -298,7 +298,6 @@ export class GlobeAnimation {
       this.focusRotX = Math.max(-0.35, Math.min(0.35, (shaderUvY - 0.5) * Math.PI));
     }
 
-    const palette = this._getPalette();
     const highlights = [];
     if (upperIso) {
       if (this.isoPathMap.has(upperIso)) {
@@ -306,7 +305,7 @@ export class GlobeAnimation {
         highlights.push({
           type: 'path',
           pathIdx,
-          color: { fill: palette.pointer, stroke: palette.pointer },
+          color: { fill: 'rgba(255, 204, 0, 0.9)', stroke: 'rgba(255, 215, 0, 0.5)' },
           alpha: 1.0
         });
       } else if (this.isoCircleMap.has(upperIso)) {
@@ -315,12 +314,12 @@ export class GlobeAnimation {
           type: 'circle',
           cx: circleData.cx,
           cy: circleData.cy,
-          color: { fill: palette.background, stroke: palette.pointer },
+          color: { fill: '#ffffff', stroke: '#FFD700' },
           alpha: 1.0,
           radius: 3.5
         });
       } else if (lon !== undefined && lat !== undefined) {
-        // Fallback for missing microstates
+        // Fallback for missing microstates (Tuvalu, Nauru)
         const u = (lon - (-169.11)) / 360.0;
         const shaderUvY = (lat - (-55.68)) / (83.62 - (-55.68));
         const vNorm = 1.0 - shaderUvY;
@@ -330,7 +329,7 @@ export class GlobeAnimation {
         highlights.push({
           type: 'circle',
           cx, cy,
-          color: { fill: palette.background, stroke: palette.pointer },
+          color: { fill: '#ffffff', stroke: '#FFD700' },
           alpha: 1.0,
           radius: 4.0
         });
@@ -426,8 +425,8 @@ export class GlobeAnimation {
       graticule: 'rgba(100, 78, 48, 0.14)',
       markerStroke: 'rgba(100, 78, 48, 0.45)',
       svgBackground: '#EBE4D5',
-      beaconCore: '#644e30',
-      beaconStroke: 'rgba(100, 78, 48, 0.60)',
+      beaconCore: '#C04030',
+      beaconStroke: 'rgba(192, 64, 48, 0.60)',
       pointer: '#8B2C24',
       text: '#1C160E',
       pulses: [
@@ -462,10 +461,9 @@ export class GlobeAnimation {
 
     doc.querySelectorAll('path').forEach(p => {
       let id = (p.getAttribute('id') || p.getAttribute('data-id') || '').toUpperCase();
-      if (!id && p.parentElement && p.parentElement.tagName.toLowerCase() === 'g') {
-        id = (p.parentElement.getAttribute('id') || p.parentElement.getAttribute('data-id') || '').toUpperCase();
+      if (!id && p.parentNode && p.parentNode.tagName.toLowerCase() === 'g') {
+        id = (p.parentNode.getAttribute('id') || p.parentNode.getAttribute('data-id') || '').toUpperCase();
       }
-      
       const d = p.getAttribute('d');
       if (d) {
         let cx = 0, cy = 0;
@@ -483,7 +481,10 @@ export class GlobeAnimation {
     });
 
     doc.querySelectorAll('circle').forEach(c => {
-      const id = (c.getAttribute('id') || c.getAttribute('data-id') || '').toUpperCase();
+      let id = (c.getAttribute('id') || c.getAttribute('data-id') || '').toUpperCase();
+      if (!id && c.parentNode && c.parentNode.tagName.toLowerCase() === 'g') {
+        id = (c.parentNode.getAttribute('id') || c.parentNode.getAttribute('data-id') || '').toUpperCase();
+      }
       const cx = parseFloat(c.getAttribute('cx') || '0');
       const cy = parseFloat(c.getAttribute('cy') || '0');
       if (id && id.length === 2) {
@@ -725,9 +726,12 @@ export class GlobeAnimation {
           ctx.lineWidth = 2.0 * alpha;
           ctx.stroke();
 
-          // Radiant brass/white core
+          // Radiant glowing core
+          ctx.save();
           ctx.beginPath();
           ctx.arc(mx, my, radius, 0, Math.PI * 2);
+          ctx.shadowColor = h.color?.fill || '#ffffff';
+          ctx.shadowBlur = 12; // Beautiful soft glow
           ctx.fillStyle = h.color?.fill || '#ffffff';
           ctx.fill();
           ctx.restore();
