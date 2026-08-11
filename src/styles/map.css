@@ -132,6 +132,7 @@
 #map-container.reverse-active-game .map-wrapper svg circle.country-marker:not(.reverse-active):not(.guessed-reverse) {
   fill: var(--map-fill-dimmed);
   stroke: var(--map-stroke-dimmed);
+  stroke-width: 0.5px;
 }
 
 /* Active highlight in reverse mode (mystery territory) */
