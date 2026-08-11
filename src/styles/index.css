@@ -126,7 +126,7 @@
   --z-intro: 100;
 
   /* Map canvas stroke — quiet borders, let fills carry shape */
-  --map-stroke: rgba(238, 206, 126, 0.6);
+  --map-stroke: #938153; /* Pre-blended solid color for 0.6 opacity look */
   --map-stroke-width: 1.6px; /* Increased to bridge SVG topological gaps */
   --map-stroke-hover: rgba(255, 240, 194, 0.85);
   --map-frame-shadow: inset 0 0 0 1px rgba(197, 155, 39, 0.20), inset 0 0 24px rgba(0, 0, 0, 0.70), 0 4px 20px rgba(0, 0, 0, 0.55);
@@ -160,7 +160,7 @@
   /* Map fills — sepia parchment */
   --map-fill: #D4C8AE;
   --map-fill-hover: #C9BC9E;
-  --map-stroke: rgba(134, 109, 77, 0.6); /* 40% transparent */
+  --map-stroke: #b2a189; /* Pre-blended solid color for 0.6 opacity look */
   --map-stroke-width: 1.4px; /* Increased to bridge topological gaps in the SVG data */
   --map-stroke-hover: #3D2D18;
   --map-border: var(--hairline);
