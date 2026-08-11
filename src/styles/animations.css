@@ -71,7 +71,7 @@
   0% {
     fill: var(--map-fill);
     stroke: var(--map-stroke);
-    stroke-width: 0.8px;
+    stroke-width: var(--map-stroke-width);
     filter: none;
   }
   30% {
@@ -92,7 +92,7 @@
   0% {
     fill: var(--map-fill);
     stroke: var(--map-stroke);
-    stroke-width: 0.8px;
+    stroke-width: var(--map-stroke-width);
     filter: none;
   }
   30% {
@@ -113,7 +113,7 @@
   0% {
     fill: var(--map-fill);
     stroke: var(--map-stroke);
-    stroke-width: 0.8px;
+    stroke-width: var(--map-stroke-width);
     filter: none;
   }
   30% {
