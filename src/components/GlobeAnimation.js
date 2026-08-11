@@ -298,6 +298,7 @@ export class GlobeAnimation {
       this.focusRotX = Math.max(-0.35, Math.min(0.35, (shaderUvY - 0.5) * Math.PI));
     }
 
+    const palette = this._getPalette();
     const highlights = [];
     if (upperIso) {
       if (this.isoPathMap.has(upperIso)) {
@@ -305,7 +306,7 @@ export class GlobeAnimation {
         highlights.push({
           type: 'path',
           pathIdx,
-          color: { fill: 'rgba(255, 204, 0, 0.9)', stroke: 'rgba(255, 215, 0, 0.5)' },
+          color: { fill: palette.beaconCore, stroke: palette.beaconStroke },
           alpha: 1.0
         });
       } else if (this.isoCircleMap.has(upperIso)) {
@@ -314,7 +315,7 @@ export class GlobeAnimation {
           type: 'circle',
           cx: circleData.cx,
           cy: circleData.cy,
-          color: { fill: '#ffffff', stroke: '#FFD700' },
+          color: { fill: palette.beaconCore, stroke: palette.beaconStroke },
           alpha: 1.0,
           radius: 3.5
         });
@@ -329,7 +330,7 @@ export class GlobeAnimation {
         highlights.push({
           type: 'circle',
           cx, cy,
-          color: { fill: '#ffffff', stroke: '#FFD700' },
+          color: { fill: palette.beaconCore, stroke: palette.beaconStroke },
           alpha: 1.0,
           radius: 4.0
         });
