@@ -49,8 +49,8 @@
   --casual-highlight-light: #E8C15A;
   --casual-fill-guessed: #C8951E; /* Vibrant warm gold — pops on dark slate */
   --casual-fill-active: #9A7216;  /* Rich amber for passive/active */
-  --casual-filter: drop-shadow(0 0 6px rgba(200, 149, 30, 0.40));
-  --casual-filter-strong: drop-shadow(0 0 8px rgba(200, 149, 30, 0.55));
+  --casual-filter: drop-shadow(0 0 2px rgba(200, 149, 30, 0.20));
+  --casual-filter-strong: drop-shadow(0 0 4px rgba(200, 149, 30, 0.35));
   --casual-glow: rgba(200, 149, 30, 0.40);
   --casual-glow-subtle: rgba(200, 149, 30, 0.20);
 
@@ -59,8 +59,8 @@
   --speed-highlight-light: #5BB0D8;
   --speed-fill-guessed: #2D7FA8; /* Vibrant cerulean blue — alive on dark */
   --speed-fill-active: #1E5E80;  /* Rich deep blue for active */
-  --speed-filter: drop-shadow(0 0 6px rgba(45, 127, 168, 0.40));
-  --speed-filter-strong: drop-shadow(0 0 8px rgba(45, 127, 168, 0.55));
+  --speed-filter: drop-shadow(0 0 2px rgba(45, 127, 168, 0.20));
+  --speed-filter-strong: drop-shadow(0 0 4px rgba(45, 127, 168, 0.35));
   --speed-glow: rgba(45, 127, 168, 0.40);
   --speed-glow-subtle: rgba(45, 127, 168, 0.20);
 
@@ -68,8 +68,8 @@
   --reverse-highlight-light: #E87060;
   --reverse-fill-guessed: #C04030; /* Vibrant warm crimson — alive on dark */
   --reverse-fill-active: #8E2E22;  /* Deep rich brick for active */
-  --reverse-filter: drop-shadow(0 0 6px rgba(192, 64, 48, 0.40));
-  --reverse-filter-strong: drop-shadow(0 0 8px rgba(192, 64, 48, 0.55));
+  --reverse-filter: drop-shadow(0 0 2px rgba(192, 64, 48, 0.20));
+  --reverse-filter-strong: drop-shadow(0 0 4px rgba(192, 64, 48, 0.35));
   --reverse-glow: rgba(192, 64, 48, 0.40);
   --reverse-glow-subtle: rgba(192, 64, 48, 0.20);
 

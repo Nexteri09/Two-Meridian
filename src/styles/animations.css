@@ -75,12 +75,7 @@
     stroke-width: var(--map-stroke-width);
     filter: none;
   }
-  30% {
-    fill: var(--casual-highlight-light);
-    stroke: #FFF0B8;
-    stroke-width: 1.5px;
-    filter: var(--casual-filter-strong);
-  }
+
   100% {
     fill: var(--casual-fill-guessed);
     stroke: var(--casual-highlight-light);
@@ -96,12 +91,7 @@
     stroke-width: var(--map-stroke-width);
     filter: none;
   }
-  30% {
-    fill: var(--speed-highlight-light);
-    stroke: #B5F0DB;
-    stroke-width: 1.5px;
-    filter: var(--speed-filter-strong);
-  }
+
   100% {
     fill: var(--speed-fill-guessed);
     stroke: var(--speed-highlight-light);
@@ -116,12 +106,6 @@
     stroke: var(--map-stroke);
     stroke-width: var(--map-stroke-width);
     filter: none;
-  }
-  30% {
-    fill: var(--reverse-highlight-light);
-    stroke: #FFC0B5;
-    stroke-width: 1.5px;
-    filter: var(--reverse-filter-strong);
   }
   100% {
     fill: var(--reverse-fill-guessed);
