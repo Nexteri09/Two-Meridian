@@ -69,13 +69,6 @@
 
 /* ---- Soft Mode-Aware Country Discovery Reveal ---- */
 @keyframes countryRevealCasual {
-  0% {
-    fill: var(--map-fill);
-    stroke: var(--map-stroke);
-    stroke-width: var(--map-stroke-width);
-    filter: none;
-  }
-
   100% {
     fill: var(--casual-fill-guessed);
     stroke: var(--casual-highlight);
@@ -85,13 +78,6 @@
 }
 
 @keyframes countryRevealSpeed {
-  0% {
-    fill: var(--map-fill);
-    stroke: var(--map-stroke);
-    stroke-width: var(--map-stroke-width);
-    filter: none;
-  }
-
   100% {
     fill: var(--speed-fill-guessed);
     stroke: var(--speed-highlight);
@@ -101,12 +87,6 @@
 }
 
 @keyframes countryRevealReverse {
-  0% {
-    fill: var(--map-fill);
-    stroke: var(--map-stroke);
-    stroke-width: var(--map-stroke-width);
-    filter: none;
-  }
   100% {
     fill: var(--reverse-fill-guessed);
     stroke: var(--reverse-highlight);
