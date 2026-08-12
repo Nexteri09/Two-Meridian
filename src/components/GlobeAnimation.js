@@ -410,14 +410,14 @@ export class GlobeAnimation {
         { name: 'reverse', fillRgb: '184, 58, 46', stroke: '#B83A2E', glow: '#B83A2E' }
       ]
     } : {
-      background: '#EBE4D5',
+      background: '#F4EFE4',
       pathFill:   'rgba(210,198,178,0.97)',
       pathStroke: '#9c876b',
       circleFill: 'none',
       circleStroke: '#9c876b',
       graticule: 'rgba(100, 78, 48, 0.14)',
       markerStroke: 'rgba(100, 78, 48, 0.45)',
-      svgBackground: '#EBE4D5',
+      svgBackground: '#F4EFE4',
       beaconCore: '#C04030',
       beaconStroke: 'rgba(192, 64, 48, 0.60)',
       pointer: '#8B2C24',
