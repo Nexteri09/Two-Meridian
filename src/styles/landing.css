@@ -103,9 +103,9 @@
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(
-    circle at calc(100% - 130px) 36px,
+    ellipse 80% 50% at 50% 50%,
     rgba(10, 9, 8, 0.65) 0%,
-    rgba(10, 9, 8, 0.25) 50%,
+    rgba(10, 9, 8, 0.15) 65%,
     transparent 100%
   );
 }
@@ -1019,9 +1019,9 @@
 /* Hero centre scrim — warm cream instead of dark ink */
 [data-theme="light"] .landing-hero::before {
   background: radial-gradient(
-    circle at calc(100% - 130px) 36px,
+    ellipse 80% 50% at 50% 50%,
     rgba(235, 227, 210, 0.65) 0%,
-    rgba(235, 227, 210, 0.15) 50%,
+    rgba(235, 227, 210, 0.15) 65%,
     transparent 100%
   );
 }
