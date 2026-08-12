@@ -126,11 +126,11 @@
   --z-intro: 100;
 
   /* Map canvas stroke — quiet borders, let fills carry shape */
-  --map-stroke: #938153; /* Pre-blended solid color for 0.6 opacity look */
+  --map-stroke: #7D6E49; /* Pre-blended solid color for 0.5 opacity look (10% more transparent) */
   --map-stroke-width: 1.6px; /* Increased to bridge SVG topological gaps */
   
   --map-fill-dimmed: #171C24; /* Pre-calculated 0.65 opacity blend for reverse mode */
-  --map-stroke-dimmed: #6A5F42; /* Pre-calculated 0.65 opacity blend for reverse mode */
+  --map-stroke-dimmed: #544C37; /* Pre-calculated 0.31 opacity blend for reverse mode */
   --map-stroke-hover: rgba(255, 240, 194, 0.85);
   --map-frame-shadow: inset 0 0 0 1px rgba(197, 155, 39, 0.20), inset 0 0 24px rgba(0, 0, 0, 0.70), 0 4px 20px rgba(0, 0, 0, 0.55);
 }
