@@ -21,7 +21,7 @@
   stroke-linecap: round;
   paint-order: stroke fill;
   cursor: pointer;
-  transition: fill 0.35s ease, stroke 0.35s ease;
+  transition: fill 0.4s ease, stroke 0.4s ease, filter 0.4s ease;
   vector-effect: non-scaling-stroke;
   shape-rendering: geometricPrecision;
 }
@@ -41,18 +41,6 @@
   paint-order: stroke fill;
 }
 
-/* ---- Discovery Soft Glow Fade-In (Mode-Aware, No Harsh Flash) ---- */
-.map-wrapper svg .just-discovered.guessed-casual {
-  animation: countryRevealCasual 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-.map-wrapper svg .just-discovered.guessed-speed {
-  animation: countryRevealSpeed 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-.map-wrapper svg .just-discovered.guessed-reverse {
-  animation: countryRevealReverse 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
 
 /* ---- Guessed country highlights (Mode-Consistent Cartographic Glow) ---- */
 
