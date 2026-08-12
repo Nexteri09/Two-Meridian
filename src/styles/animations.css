@@ -79,7 +79,7 @@
     fill: var(--casual-fill-guessed);
     stroke: var(--casual-highlight);
     stroke-width: 1.0px;
-    filter: none;
+    filter: var(--casual-filter);
   }
 }
 
@@ -94,7 +94,7 @@
     fill: var(--speed-fill-guessed);
     stroke: var(--speed-highlight);
     stroke-width: 1.0px;
-    filter: none;
+    filter: var(--speed-filter);
   }
 }
 
@@ -109,7 +109,7 @@
     fill: var(--reverse-fill-guessed);
     stroke: var(--reverse-highlight);
     stroke-width: 0.95px;
-    filter: none;
+    filter: var(--reverse-filter);
   }
 }
 
