@@ -392,22 +392,22 @@ export class GlobeAnimation {
     // Fallback: read data-theme from html element directly
     const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
     return isDark ? {
-      background: '#101419',
-      pathFill:   'rgba(30,36,45,0.96)',
-      pathStroke: '#938153',
+      background: '#111110',
+      pathFill:   'rgba(28,27,25,0.96)',
+      pathStroke: '#6B6048',
       circleFill: 'none',
-      circleStroke: '#938153',
+      circleStroke: '#6B6048',
       graticule: 'rgba(197, 155, 39, 0.12)',
       markerStroke: 'rgba(197, 155, 39, 0.42)',
-      svgBackground: '#101419',
+      svgBackground: '#111110',
       beaconCore: '#c59b27',
       beaconStroke: 'rgba(197, 155, 39, 0.60)',
       pointer: '#E26D5C',
       text: '#DFB755',
       pulses: [
-        { name: 'casual', fillRgb: '197, 155, 39', stroke: '#C59B27', glow: '#C59B27' },
-        { name: 'speed', fillRgb: '40, 176, 149', stroke: '#28B095', glow: '#28B095' },
-        { name: 'reverse', fillRgb: '184, 58, 46', stroke: '#B83A2E', glow: '#B83A2E' }
+        { name: 'casual', fillRgb: '185, 145, 55', stroke: '#C4A050', glow: '#C4A050' },
+        { name: 'speed', fillRgb: '75, 155, 130', stroke: '#3A9E88', glow: '#3A9E88' },
+        { name: 'reverse', fillRgb: '180, 72, 55', stroke: '#C44A3A', glow: '#C44A3A' }
       ]
     } : {
       background: '#F4EFE4',
