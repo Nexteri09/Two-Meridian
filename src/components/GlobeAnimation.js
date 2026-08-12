@@ -546,7 +546,7 @@ export class GlobeAnimation {
 
     // Apply theme-aware palette
     cleanSvg = cleanSvg
-      .replace(/<svg\b([^>]*)>/i, `<svg $1 style="background:${palette.svgBackground};">`)
+      .replace(/<svg\b([^>]*)>/i, `<svg $1 style="background:${palette.svgBackground};" preserveAspectRatio="none">`)
       .replace(/<path\b/gi,
         `<path style="fill:${palette.pathFill};stroke:${palette.pathStroke};stroke-width:0.70;stroke-linejoin:round;" `
       )
