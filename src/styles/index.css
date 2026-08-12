@@ -5,8 +5,8 @@
 
 /* ---- Core CSS Custom Properties ---- */
 :root {
-  /* Backgrounds & Ink Surfaces — cool oceanic slate for depth and dimension */
-  --ink-950: #101419;   /* Deep ocean / map background */
+  /* Backgrounds & Ink Surfaces — slightly lifted oceanic slate for a softer dark mode */
+  --ink-950: #101419;   /* Soft slate ocean / map background */
   --ink-900: #181D24;   /* Raised panels & sidebar */
   --ink-800: #202730;   /* Cards, surface elevation */
   --hairline: #262D38;  /* Precision 1px rules */
@@ -44,35 +44,34 @@
   --active-glow: rgba(197, 155, 39, 0.45);
   --active-glow-subtle: rgba(197, 155, 39, 0.20);
 
-  /* Casual Mode: Warm Gold — HSL(42, 40%, 56%) — same gold family, refined for dark */
-  --casual-highlight: #C4A860;
-  --casual-highlight-light: #D4BA78;
-  --casual-fill-guessed: #BFA664; /* Antique gold — warm, clearly gold, not neon */
-  --casual-fill-active: rgba(191, 166, 100, 0.25);  /* Subtle gold wash for clicked */
-  --casual-filter: drop-shadow(0 0 3px rgba(191, 166, 100, 0.30));
-  --casual-filter-strong: drop-shadow(0 0 5px rgba(191, 166, 100, 0.45));
-  --casual-glow: rgba(191, 166, 100, 0.35);
-  --casual-glow-subtle: rgba(191, 166, 100, 0.18);
+  /* Mode Specific Highlights (Archival Cartographic Accents) */
+  --casual-highlight: #D4A832;
+  --casual-highlight-light: #E0C060;
+  --casual-fill-guessed: #D4A43A; /* Warm amber-gold — rich and settled on dark slate */
+  --casual-fill-active: #6B5420;  /* Deep cool bronze — clearly distinct from guessed */
+  --casual-filter: drop-shadow(0 0 2px rgba(212, 164, 58, 0.18));
+  --casual-filter-strong: drop-shadow(0 0 4px rgba(212, 164, 58, 0.30));
+  --casual-glow: rgba(212, 164, 58, 0.35);
+  --casual-glow-subtle: rgba(212, 164, 58, 0.16);
 
-  /* Speed Mode: Teal — HSL(168, 40%, 48%) — same teal family, refined for dark */
-  --speed-highlight: #4AB09C;
-  --speed-highlight-light: #6CC8B6;
-  --speed-fill-guessed: #4EA898; /* Verdigris teal — clearly green-blue, not electric */
-  --speed-fill-active: rgba(78, 168, 152, 0.25);  /* Subtle teal wash for clicked */
-  --speed-filter: drop-shadow(0 0 3px rgba(78, 168, 152, 0.30));
-  --speed-filter-strong: drop-shadow(0 0 5px rgba(78, 168, 152, 0.45));
-  --speed-glow: rgba(78, 168, 152, 0.35);
-  --speed-glow-subtle: rgba(78, 168, 152, 0.18);
+  /* Speed Mode: Vivid Emerald / Cyan */
+  --speed-highlight: #28B095;
+  --speed-highlight-light: #52D4BA;
+  --speed-fill-guessed: #20967F; /* Vibrant emerald green — alive on dark */
+  --speed-fill-active: #156E5D;  /* Rich deep emerald for active */
+  --speed-filter: drop-shadow(0 0 2px rgba(32, 150, 127, 0.20));
+  --speed-filter-strong: drop-shadow(0 0 4px rgba(32, 150, 127, 0.35));
+  --speed-glow: rgba(32, 150, 127, 0.40);
+  --speed-glow-subtle: rgba(32, 150, 127, 0.20);
 
-  /* Reverse Mode: Red — HSL(6, 45%, 52%) — same red family, refined for dark */
-  --reverse-highlight: #C45A4C;
-  --reverse-highlight-light: #D87868;
-  --reverse-fill-guessed: #C25548; /* Rich terracotta — clearly red, not alarming */
-  --reverse-fill-active: rgba(194, 85, 72, 0.25);  /* Subtle red wash for clicked */
-  --reverse-filter: drop-shadow(0 0 3px rgba(194, 85, 72, 0.30));
-  --reverse-filter-strong: drop-shadow(0 0 5px rgba(194, 85, 72, 0.45));
-  --reverse-glow: rgba(194, 85, 72, 0.35);
-  --reverse-glow-subtle: rgba(194, 85, 72, 0.18);
+  --reverse-highlight: #D04838;
+  --reverse-highlight-light: #E87060;
+  --reverse-fill-guessed: #C04030; /* Vibrant warm crimson — alive on dark */
+  --reverse-fill-active: #8E2E22;  /* Deep rich brick for active */
+  --reverse-filter: drop-shadow(0 0 2px rgba(192, 64, 48, 0.20));
+  --reverse-filter-strong: drop-shadow(0 0 4px rgba(192, 64, 48, 0.35));
+  --reverse-glow: rgba(192, 64, 48, 0.40);
+  --reverse-glow-subtle: rgba(192, 64, 48, 0.20);
 
   --text-primary: var(--paper);
   --text-secondary: var(--paper-muted);
@@ -127,11 +126,11 @@
   --z-intro: 100;
 
   /* Map canvas stroke — quiet borders, let fills carry shape */
-  --map-stroke: #7D6E49; /* Pre-blended solid color for quiet border */
+  --map-stroke: #7D6E49; /* Pre-blended solid color for 0.5 opacity look (10% more transparent) */
   --map-stroke-width: 1.6px; /* Increased to bridge SVG topological gaps */
   
-  --map-fill-dimmed: #171C24; /* Pre-calculated opacity blend for reverse mode */
-  --map-stroke-dimmed: #544C37; /* Pre-calculated opacity blend for reverse mode */
+  --map-fill-dimmed: #171C24; /* Pre-calculated 0.65 opacity blend for reverse mode */
+  --map-stroke-dimmed: #544C37; /* Pre-calculated 0.31 opacity blend for reverse mode */
   --map-stroke-hover: rgba(255, 240, 194, 0.85);
   --map-frame-shadow: inset 0 0 0 1px rgba(197, 155, 39, 0.20), inset 0 0 24px rgba(0, 0, 0, 0.70), 0 4px 20px rgba(0, 0, 0, 0.55);
 }

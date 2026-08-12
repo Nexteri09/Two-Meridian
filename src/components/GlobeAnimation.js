@@ -394,9 +394,9 @@ export class GlobeAnimation {
     return isDark ? {
       background: '#101419',
       pathFill:   'rgba(30,36,45,0.96)',
-      pathStroke: '#7D6E49',
+      pathStroke: '#938153',
       circleFill: 'none',
-      circleStroke: '#7D6E49',
+      circleStroke: '#938153',
       graticule: 'rgba(197, 155, 39, 0.12)',
       markerStroke: 'rgba(197, 155, 39, 0.42)',
       svgBackground: '#101419',
@@ -405,9 +405,9 @@ export class GlobeAnimation {
       pointer: '#E26D5C',
       text: '#DFB755',
       pulses: [
-        { name: 'casual', fillRgb: '191, 166, 100', stroke: '#C4A860', glow: '#C4A860' },
-        { name: 'speed', fillRgb: '78, 168, 152', stroke: '#4AB09C', glow: '#4AB09C' },
-        { name: 'reverse', fillRgb: '194, 85, 72', stroke: '#C45A4C', glow: '#C45A4C' }
+        { name: 'casual', fillRgb: '197, 155, 39', stroke: '#C59B27', glow: '#C59B27' },
+        { name: 'speed', fillRgb: '40, 176, 149', stroke: '#28B095', glow: '#28B095' },
+        { name: 'reverse', fillRgb: '184, 58, 46', stroke: '#B83A2E', glow: '#B83A2E' }
       ]
     } : {
       background: '#F4EFE4',
