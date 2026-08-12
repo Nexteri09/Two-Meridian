@@ -46,9 +46,9 @@
 
   /* Mode Specific Highlights (Archival Cartographic Accents) */
   --casual-highlight: #665530;        /* Dim, muted brass for mapped borders */
-  --casual-highlight-light: #CBA55B;  /* Radiant brass for the active clicked country */
+  --casual-highlight-light: #A3884D;  /* Medium brass for the active clicked country (toned down) */
   --casual-fill-guessed: #3A3221;     /* Subdued antique bronze. Easy on the eyes when the whole map is filled. */
-  --casual-fill-active: #96762F;      /* Bold, glowing gold for the current focus */
+  --casual-fill-active: #5B4F35;      /* Medium warm olive for the active click (no glowing) */
   --casual-filter: drop-shadow(0 0 1px rgba(102, 85, 48, 0.40)); /* Very subtle shadow instead of a bright glow */
   --casual-filter-strong: drop-shadow(0 0 6px rgba(203, 165, 91, 0.35)); /* Bright glow for active */
   --casual-glow: rgba(203, 165, 91, 0.25);

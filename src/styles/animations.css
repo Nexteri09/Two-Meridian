@@ -78,9 +78,9 @@
 
   100% {
     fill: var(--casual-fill-guessed);
-    stroke: var(--casual-highlight-light);
+    stroke: var(--casual-highlight);
     stroke-width: 1.0px;
-    filter: var(--casual-filter);
+    filter: none;
   }
 }
 
