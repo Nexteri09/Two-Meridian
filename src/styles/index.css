@@ -45,14 +45,14 @@
   --active-glow-subtle: rgba(197, 155, 39, 0.20);
 
   /* Mode Specific Highlights (Archival Cartographic Accents) */
-  --casual-highlight: #665530;        /* Dim, muted brass for mapped borders */
-  --casual-highlight-light: #A3884D;  /* Medium brass for the active clicked country (toned down) */
-  --casual-fill-guessed: #3A3221;     /* Subdued antique bronze. Easy on the eyes when the whole map is filled. */
-  --casual-fill-active: #5B4F35;      /* Medium warm olive for the active click (no glowing) */
-  --casual-filter: drop-shadow(0 0 1px rgba(102, 85, 48, 0.40)); /* Very subtle shadow instead of a bright glow */
-  --casual-filter-strong: drop-shadow(0 0 6px rgba(203, 165, 91, 0.35)); /* Bright glow for active */
-  --casual-glow: rgba(203, 165, 91, 0.25);
-  --casual-glow-subtle: rgba(102, 85, 48, 0.15);
+  --casual-highlight: rgba(212, 168, 50, 0.50);      /* Clean, glassy gold border for mapped countries */
+  --casual-highlight-light: #E8C15A;                 /* Radiant, solid brass for the active clicked country */
+  --casual-fill-guessed: rgba(212, 168, 50, 0.12);   /* Premium, subtle golden sheen over the slate (no flat mud) */
+  --casual-fill-active: rgba(212, 168, 50, 0.35);    /* Stronger glassy gold for the active focus */
+  --casual-filter: drop-shadow(0 0 2px rgba(212, 168, 50, 0.15)); /* Very clean, subtle ambient glow */
+  --casual-filter-strong: drop-shadow(0 0 8px rgba(232, 193, 90, 0.40)); /* Crisp glow for active */
+  --casual-glow: rgba(232, 193, 90, 0.30);
+  --casual-glow-subtle: rgba(212, 168, 50, 0.15);
 
   /* Speed Mode: Vivid Emerald / Cyan */
   --speed-highlight: #28B095;
