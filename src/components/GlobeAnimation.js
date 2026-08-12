@@ -707,52 +707,67 @@ export class GlobeAnimation {
 
           const radius = h.radius || 3.5;
 
-          ctx.save();
-          // Hairline outer ring
-          ctx.beginPath();
-          ctx.arc(mx, my, radius * 2.5, 0, Math.PI * 2);
-          ctx.strokeStyle = h.color?.stroke || '#FFD700';
-          ctx.lineWidth = 2.0 * alpha;
-          ctx.stroke();
+          // Wrap horizontally across the Pacific seam to prevent WebGL cutoff lines
+          for (const offset of [-W, 0, W]) {
+            ctx.save();
+            ctx.translate(offset, 0);
 
-          // Radiant glowing core
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(mx, my, radius, 0, Math.PI * 2);
-          ctx.shadowColor = h.color?.fill || '#ffffff';
-          ctx.shadowBlur = 12; // Beautiful soft glow
-          ctx.fillStyle = h.color?.fill || '#ffffff';
-          ctx.fill();
-          ctx.restore();
+            // Hairline outer ring
+            ctx.beginPath();
+            ctx.arc(mx, my, radius * 2.5, 0, Math.PI * 2);
+            ctx.strokeStyle = h.color?.stroke || '#FFD700';
+            ctx.lineWidth = 2.0 * alpha;
+            ctx.stroke();
+
+            // Radiant glowing core
+            ctx.beginPath();
+            ctx.arc(mx, my, radius, 0, Math.PI * 2);
+            ctx.shadowColor = h.color?.fill || '#ffffff';
+            ctx.shadowBlur = 12; // Beautiful soft glow
+            ctx.fillStyle = h.color?.fill || '#ffffff';
+            ctx.fill();
+
+            ctx.restore();
+          }
         } else if (h.pathIdx !== undefined && this.svgPaths[h.pathIdx]) {
           const item = this.svgPaths[h.pathIdx];
           if (item && item.d) {
-            ctx.save();
-            ctx.translate(-svgX * scaleX, -svgY * scaleY);
-            ctx.scale(scaleX, scaleY);
-
             // Draw all paths that share the same id (multi-piece countries like US, VC)
             const targetId = item.id;
             const matchingPaths = targetId
               ? this.svgPaths.filter(p => p.id === targetId)
               : [item];
 
-            for (const mp of matchingPaths) {
-              const path2d = new Path2D(mp.d);
-              ctx.shadowColor = h.color?.fill || 'rgba(255, 204, 0, 0.9)';
-              ctx.shadowBlur = 20 / scaleX;
-              ctx.fillStyle = h.color?.fill || 'rgba(255, 204, 0, 0.9)';
-              ctx.fill(path2d);
-              ctx.shadowBlur = 0;
-              ctx.strokeStyle = h.color?.stroke || 'rgba(255, 215, 0, 0.5)';
-              ctx.lineWidth = (1.2 * alpha) / scaleX;
-              ctx.stroke(path2d);
+            // Wrap horizontally across the Pacific seam to prevent WebGL cutoff lines
+            for (const offset of [-W, 0, W]) {
+              ctx.save();
+              ctx.translate(offset, 0);
+              ctx.translate(-svgX * scaleX, -svgY * scaleY);
+              ctx.scale(scaleX, scaleY);
+
+              for (const mp of matchingPaths) {
+                const path2d = new Path2D(mp.d);
+                ctx.shadowColor = h.color?.fill || 'rgba(255, 204, 0, 0.9)';
+                ctx.shadowBlur = 20 / scaleX;
+                ctx.fillStyle = h.color?.fill || 'rgba(255, 204, 0, 0.9)';
+                ctx.fill(path2d);
+                
+                ctx.shadowBlur = 0;
+                ctx.strokeStyle = h.color?.stroke || 'rgba(255, 215, 0, 0.5)';
+                ctx.lineWidth = (1.2 * alpha) / scaleX;
+                ctx.stroke(path2d);
+              }
+              ctx.restore();
             }
-            ctx.restore();
           }
         }
       });
     }
+
+    // 3. Clear the absolute edges to prevent WebGL ClampToEdge polar smearing
+    ctx.strokeStyle = palette.background;
+    ctx.lineWidth = 6; 
+    ctx.strokeRect(0, 0, W, H);
 
     // No explicit pointer marker needed - the highlighted SVG path/circle
     // serves as the perfectly accurate visual indicator.
