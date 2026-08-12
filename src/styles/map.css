@@ -43,15 +43,15 @@
 
 /* ---- Discovery Soft Glow Fade-In (Mode-Aware, No Harsh Flash) ---- */
 .map-wrapper svg .just-discovered.guessed-casual {
-  animation: countryRevealCasual 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: countryRevealCasual 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .map-wrapper svg .just-discovered.guessed-speed {
-  animation: countryRevealSpeed 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: countryRevealSpeed 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .map-wrapper svg .just-discovered.guessed-reverse {
-  animation: countryRevealReverse 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: countryRevealReverse 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 /* ---- Guessed country highlights (Mode-Consistent Cartographic Glow) ---- */
