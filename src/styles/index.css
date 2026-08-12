@@ -55,23 +55,23 @@
   --casual-glow-subtle: rgba(212, 168, 50, 0.15);
 
   /* Speed Mode: Vivid Emerald / Cyan */
-  --speed-highlight: #28B095;
+  --speed-highlight: rgba(40, 176, 149, 0.50);
   --speed-highlight-light: #52D4BA;
-  --speed-fill-guessed: #20967F; /* Vibrant emerald green — alive on dark */
-  --speed-fill-active: #156E5D;  /* Rich deep emerald for active */
-  --speed-filter: drop-shadow(0 0 2px rgba(32, 150, 127, 0.20));
-  --speed-filter-strong: drop-shadow(0 0 4px rgba(32, 150, 127, 0.35));
-  --speed-glow: rgba(32, 150, 127, 0.40);
-  --speed-glow-subtle: rgba(32, 150, 127, 0.20);
+  --speed-fill-guessed: rgba(40, 176, 149, 0.12);
+  --speed-fill-active: rgba(40, 176, 149, 0.35);
+  --speed-filter: drop-shadow(0 0 2px rgba(40, 176, 149, 0.15));
+  --speed-filter-strong: drop-shadow(0 0 8px rgba(82, 212, 186, 0.40));
+  --speed-glow: rgba(82, 212, 186, 0.30);
+  --speed-glow-subtle: rgba(40, 176, 149, 0.15);
 
-  --reverse-highlight: #D04838;
+  --reverse-highlight: rgba(208, 72, 56, 0.50);
   --reverse-highlight-light: #E87060;
-  --reverse-fill-guessed: #C04030; /* Vibrant warm crimson — alive on dark */
-  --reverse-fill-active: #8E2E22;  /* Deep rich brick for active */
-  --reverse-filter: drop-shadow(0 0 2px rgba(192, 64, 48, 0.20));
-  --reverse-filter-strong: drop-shadow(0 0 4px rgba(192, 64, 48, 0.35));
-  --reverse-glow: rgba(192, 64, 48, 0.40);
-  --reverse-glow-subtle: rgba(192, 64, 48, 0.20);
+  --reverse-fill-guessed: rgba(208, 72, 56, 0.12);
+  --reverse-fill-active: rgba(208, 72, 56, 0.35);
+  --reverse-filter: drop-shadow(0 0 2px rgba(208, 72, 56, 0.15));
+  --reverse-filter-strong: drop-shadow(0 0 8px rgba(232, 112, 96, 0.40));
+  --reverse-glow: rgba(232, 112, 96, 0.30);
+  --reverse-glow-subtle: rgba(208, 72, 56, 0.15);
 
   --text-primary: var(--paper);
   --text-secondary: var(--paper-muted);

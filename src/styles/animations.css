@@ -94,9 +94,9 @@
 
   100% {
     fill: var(--speed-fill-guessed);
-    stroke: var(--speed-highlight-light);
+    stroke: var(--speed-highlight);
     stroke-width: 1.0px;
-    filter: var(--speed-filter);
+    filter: none;
   }
 }
 
@@ -109,9 +109,9 @@
   }
   100% {
     fill: var(--reverse-fill-guessed);
-    stroke: var(--reverse-highlight-light);
+    stroke: var(--reverse-highlight);
     stroke-width: 0.95px;
-    filter: var(--reverse-filter);
+    filter: none;
   }
 }
 

@@ -101,7 +101,7 @@
 .map-wrapper svg path.guessed-speed:hover,
 .map-wrapper svg g.guessed-speed path:hover {
   fill: var(--speed-fill-guessed);
-  stroke: var(--speed-highlight-light);
+  stroke: var(--speed-highlight);
   stroke-width: 1.0px;
   filter: var(--speed-filter);
 }
@@ -109,7 +109,7 @@
 .map-wrapper svg circle.guessed-speed,
 .map-wrapper svg circle.guessed-speed:hover {
   fill: var(--speed-fill-guessed);
-  stroke: #B5F0DB;
+  stroke: var(--speed-highlight);
   stroke-width: 1.1px;
   r: 2.2;
   opacity: 1;
@@ -122,7 +122,7 @@
 #map-container .map-wrapper svg path.guessed-reverse:hover,
 #map-container .map-wrapper svg g.guessed-reverse path:hover {
   fill: var(--reverse-fill-guessed);
-  stroke: var(--reverse-highlight-light);
+  stroke: var(--reverse-highlight);
   stroke-width: 0.95px;
   filter: var(--reverse-filter);
 }
@@ -130,7 +130,7 @@
 #map-container .map-wrapper svg circle.country-marker.guessed-reverse,
 #map-container .map-wrapper svg circle.country-marker.guessed-reverse:hover {
   fill: var(--reverse-fill-guessed);
-  stroke: var(--reverse-highlight-light);
+  stroke: var(--reverse-highlight);
   stroke-width: 1.0px;
   r: 2.0;
   opacity: 1;
