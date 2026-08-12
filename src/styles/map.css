@@ -62,7 +62,7 @@
 .map-wrapper svg path.guessed-casual:hover,
 .map-wrapper svg g.guessed-casual path:hover {
   fill: var(--casual-fill-guessed);
-  stroke: var(--casual-highlight-light);
+  stroke: var(--casual-highlight);
   stroke-width: 1.0px;
   filter: var(--casual-filter);
 }
@@ -70,7 +70,7 @@
 .map-wrapper svg circle.guessed-casual,
 .map-wrapper svg circle.guessed-casual:hover {
   fill: var(--casual-fill-guessed);
-  stroke: var(--casual-highlight-light);
+  stroke: var(--casual-highlight);
   stroke-width: 1.1px;
   r: 2.2;
   opacity: 1;

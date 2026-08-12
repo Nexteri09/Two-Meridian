@@ -45,14 +45,14 @@
   --active-glow-subtle: rgba(197, 155, 39, 0.20);
 
   /* Mode Specific Highlights (Archival Cartographic Accents) */
-  --casual-highlight: #D4A832;
-  --casual-highlight-light: #E0C060;
-  --casual-fill-guessed: #D4A43A; /* Warm amber-gold — rich and settled on dark slate */
-  --casual-fill-active: #6B5420;  /* Deep cool bronze — clearly distinct from guessed */
-  --casual-filter: drop-shadow(0 0 2px rgba(212, 164, 58, 0.18));
-  --casual-filter-strong: drop-shadow(0 0 4px rgba(212, 164, 58, 0.30));
-  --casual-glow: rgba(212, 164, 58, 0.35);
-  --casual-glow-subtle: rgba(212, 164, 58, 0.16);
+  --casual-highlight: #665530;        /* Dim, muted brass for mapped borders */
+  --casual-highlight-light: #CBA55B;  /* Radiant brass for the active clicked country */
+  --casual-fill-guessed: #3A3221;     /* Subdued antique bronze. Easy on the eyes when the whole map is filled. */
+  --casual-fill-active: #96762F;      /* Bold, glowing gold for the current focus */
+  --casual-filter: drop-shadow(0 0 1px rgba(102, 85, 48, 0.40)); /* Very subtle shadow instead of a bright glow */
+  --casual-filter-strong: drop-shadow(0 0 6px rgba(203, 165, 91, 0.35)); /* Bright glow for active */
+  --casual-glow: rgba(203, 165, 91, 0.25);
+  --casual-glow-subtle: rgba(102, 85, 48, 0.15);
 
   /* Speed Mode: Vivid Emerald / Cyan */
   --speed-highlight: #28B095;
