@@ -44,35 +44,35 @@
   --active-glow: rgba(197, 155, 39, 0.45);
   --active-glow-subtle: rgba(197, 155, 39, 0.20);
 
-  /* Casual Mode: Burnished Antique Gold — rich but not neon */
-  --casual-highlight: #C4A050;
-  --casual-highlight-light: #D4B468;
-  --casual-fill-guessed: #9E8248; /* Burnished antique gold — warm, rich, easy on eyes */
-  --casual-fill-active: #6B5830;  /* Deep amber for passive/active */
-  --casual-filter: drop-shadow(0 0 2px rgba(158, 130, 72, 0.25));
-  --casual-filter-strong: drop-shadow(0 0 4px rgba(158, 130, 72, 0.40));
-  --casual-glow: rgba(158, 130, 72, 0.40);
-  --casual-glow-subtle: rgba(158, 130, 72, 0.20);
+  /* Casual Mode: Luminous Antique Brass */
+  --casual-highlight: #DAB66E;
+  --casual-highlight-light: #EBD293;
+  --casual-fill-guessed: #CBA55B; /* Premium luminous brass for permanently guessed */
+  --casual-fill-active: rgba(203, 165, 91, 0.20); /* Soft glowing wash for clicked selection */
+  --casual-filter: drop-shadow(0 0 4px rgba(203, 165, 91, 0.35));
+  --casual-filter-strong: drop-shadow(0 0 6px rgba(203, 165, 91, 0.50));
+  --casual-glow: rgba(203, 165, 91, 0.40);
+  --casual-glow-subtle: rgba(203, 165, 91, 0.20);
 
-  /* Speed Mode: Muted Sage / Verdigris — organic, not electric */
-  --speed-highlight: #3A9E88;
-  --speed-highlight-light: #5AB89E;
-  --speed-fill-guessed: #3D7A6A; /* Aged verdigris — organic green, sits comfortably on dark */
-  --speed-fill-active: #2A544A;  /* Deep patina for active */
-  --speed-filter: drop-shadow(0 0 2px rgba(61, 122, 106, 0.25));
-  --speed-filter-strong: drop-shadow(0 0 4px rgba(61, 122, 106, 0.40));
-  --speed-glow: rgba(61, 122, 106, 0.40);
-  --speed-glow-subtle: rgba(61, 122, 106, 0.20);
+  /* Speed Mode: Vibrant Verdigris / Emerald */
+  --speed-highlight: #5DC2AA;
+  --speed-highlight-light: #83DFCA;
+  --speed-fill-guessed: #48A992; /* Luminous emerald for permanently guessed */
+  --speed-fill-active: rgba(72, 169, 146, 0.20); /* Soft glowing wash for clicked selection */
+  --speed-filter: drop-shadow(0 0 4px rgba(72, 169, 146, 0.35));
+  --speed-filter-strong: drop-shadow(0 0 6px rgba(72, 169, 146, 0.50));
+  --speed-glow: rgba(72, 169, 146, 0.40);
+  --speed-glow-subtle: rgba(72, 169, 146, 0.20);
 
-  /* Reverse Mode: Muted Terracotta — earthy, not alarming */
-  --reverse-highlight: #C44A3A;
-  --reverse-highlight-light: #DB6D5C;
-  --reverse-fill-guessed: #8B4A3A; /* Warm terracotta — earthy, rich */
-  --reverse-fill-active: #5E322A;  /* Deep brick for active */
-  --reverse-filter: drop-shadow(0 0 2px rgba(139, 74, 58, 0.25));
-  --reverse-filter-strong: drop-shadow(0 0 4px rgba(139, 74, 58, 0.40));
-  --reverse-glow: rgba(139, 74, 58, 0.40);
-  --reverse-glow-subtle: rgba(139, 74, 58, 0.20);
+  /* Reverse Mode: Rich Crimson / Terracotta */
+  --reverse-highlight: #D96959;
+  --reverse-highlight-light: #F28C7E;
+  --reverse-fill-guessed: #C65646; /* Luminous terracotta for permanently guessed */
+  --reverse-fill-active: rgba(198, 86, 70, 0.20); /* Soft glowing wash for clicked selection */
+  --reverse-filter: drop-shadow(0 0 4px rgba(198, 86, 70, 0.35));
+  --reverse-filter-strong: drop-shadow(0 0 6px rgba(198, 86, 70, 0.50));
+  --reverse-glow: rgba(198, 86, 70, 0.40);
+  --reverse-glow-subtle: rgba(198, 86, 70, 0.20);
 
   --text-primary: var(--paper);
   --text-secondary: var(--paper-muted);

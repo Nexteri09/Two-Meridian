@@ -405,9 +405,9 @@ export class GlobeAnimation {
       pointer: '#E26D5C',
       text: '#DFB755',
       pulses: [
-        { name: 'casual', fillRgb: '158, 130, 72', stroke: '#C4A050', glow: '#C4A050' },
-        { name: 'speed', fillRgb: '61, 122, 106', stroke: '#3A9E88', glow: '#3A9E88' },
-        { name: 'reverse', fillRgb: '139, 74, 58', stroke: '#C44A3A', glow: '#C44A3A' }
+        { name: 'casual', fillRgb: '203, 165, 91', stroke: '#DAB66E', glow: '#DAB66E' },
+        { name: 'speed', fillRgb: '72, 169, 146', stroke: '#5DC2AA', glow: '#5DC2AA' },
+        { name: 'reverse', fillRgb: '198, 86, 70', stroke: '#D96959', glow: '#D96959' }
       ]
     } : {
       background: '#F4EFE4',
