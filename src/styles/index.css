@@ -46,9 +46,10 @@
 
   /* Mode Specific Highlights (Archival Cartographic Accents) */
   --casual-highlight: rgba(212, 168, 50, 0.50);      /* Clean, glassy gold border for mapped countries */
-  --casual-highlight-light: #E8C15A;                 /* Radiant, solid brass for the active clicked country */
+  --casual-highlight-light: #E8C15A;                 /* Radiant, solid brass for text/sidebar accents */
+  --casual-stroke-active: rgba(212, 168, 50, 0.35);  /* Subdued border for the actively clicked country */
   --casual-fill-guessed: rgba(212, 168, 50, 0.12);   /* Premium, subtle golden sheen over the slate (no flat mud) */
-  --casual-fill-active: rgba(212, 168, 50, 0.65);    /* Lighter, stronger glassy gold for the active focus */
+  --casual-fill-active: rgba(212, 168, 50, 0.06);    /* Whisper-soft highlight for the active focus */
   --casual-filter: drop-shadow(0 0 2px rgba(212, 168, 50, 0.15)); /* Very clean, subtle ambient glow */
   --casual-filter-strong: drop-shadow(0 0 8px rgba(232, 193, 90, 0.40)); /* Crisp glow for active */
   --casual-glow: rgba(232, 193, 90, 0.30);
@@ -57,8 +58,9 @@
   /* Speed Mode: Vivid Emerald / Cyan */
   --speed-highlight: rgba(40, 176, 149, 0.50);
   --speed-highlight-light: #52D4BA;
+  --speed-stroke-active: rgba(40, 176, 149, 0.35);
   --speed-fill-guessed: rgba(40, 176, 149, 0.12);
-  --speed-fill-active: rgba(40, 176, 149, 0.65);
+  --speed-fill-active: rgba(40, 176, 149, 0.06);
   --speed-filter: drop-shadow(0 0 2px rgba(40, 176, 149, 0.15));
   --speed-filter-strong: drop-shadow(0 0 8px rgba(82, 212, 186, 0.40));
   --speed-glow: rgba(82, 212, 186, 0.30);
@@ -66,8 +68,9 @@
 
   --reverse-highlight: rgba(208, 72, 56, 0.50);
   --reverse-highlight-light: #E87060;
+  --reverse-stroke-active: rgba(208, 72, 56, 0.35);
   --reverse-fill-guessed: rgba(208, 72, 56, 0.12);
-  --reverse-fill-active: rgba(208, 72, 56, 0.65);
+  --reverse-fill-active: rgba(208, 72, 56, 0.06);
   --reverse-filter: drop-shadow(0 0 2px rgba(208, 72, 56, 0.15));
   --reverse-filter-strong: drop-shadow(0 0 8px rgba(232, 112, 96, 0.40));
   --reverse-glow: rgba(232, 112, 96, 0.30);

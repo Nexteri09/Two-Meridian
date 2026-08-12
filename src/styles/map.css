@@ -83,14 +83,14 @@
 .map-wrapper svg path.passive-active:hover,
 .map-wrapper svg g.passive-active path:hover {
   fill: var(--casual-fill-active);
-  stroke: var(--casual-highlight-light);
+  stroke: var(--casual-stroke-active);
   stroke-width: 1.0px;
 }
 
 .map-wrapper svg circle.passive-active,
 .map-wrapper svg circle.passive-active:hover {
   fill: var(--casual-fill-active);
-  stroke: var(--casual-highlight-light);
+  stroke: var(--casual-stroke-active);
   stroke-width: 1.1px;
   r: 2.2;
 }
