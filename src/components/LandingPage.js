@@ -61,6 +61,9 @@ export class LandingPage {
     this._bindDossierInteractions();
     this._bindCoffeeTipOptions();
     this._bindThemeToggle();
+    this._bindLeaderboardTabs();
+    this._bindFAQs();
+    this._initLeaderboard('speed');
     this._initGlobe();
     this._updateThemeIcon();
     await this._waitForAnime();
@@ -255,10 +258,6 @@ export class LandingPage {
       <!-- ── SECTION 3: FLANKING FIELD STUDY ────────────────────── -->
       <section class="landing-dossiers" id="landing-dossiers">
         <div class="section-header" id="dossiers-header">
-          <div class="header-badge">
-            <span class="badge-glyph">⌖</span>
-            <span>GLOBAL FIELD STUDY // 6 SOVEREIGN REALMS</span>
-          </div>
           <h2 class="section-title">Cartography Beyond the Ordinary</h2>
           <p class="section-desc">
             Hover any dossier to smoothly rotate the globe and focus on its exact cartographic marker.
@@ -278,47 +277,192 @@ export class LandingPage {
         </div>
       </section>
 
+      <!-- ── SECTION DIVIDER 1 ── -->
+      <div class="atlas-section-divider left-aligned-section">
+        <span class="divider-line"></span>
+      </div>
 
+      <!-- ── SECTION 4: LEADERBOARD (Expedition Ledger) ────────────────── -->
+      <section class="landing-leaderboard left-aligned-section" id="landing-leaderboard">
+        <div class="ledger-manifest-container">
+          <div class="corner-bracket bracket-tl"></div>
+          <div class="corner-bracket bracket-tr"></div>
+          <div class="corner-bracket bracket-bl"></div>
+          <div class="corner-bracket bracket-br"></div>
 
-      <!-- ── SECTION 5: EXPEDITION SUPPORT (Archival Ledger) ─────── -->
-      <section class="landing-support" id="landing-support">
-        <div class="ledger-card">
-          <div class="ledger-header">
-            <div class="ledger-stamp">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <div class="manifest-header">
+            <div class="manifest-title-block">
+              <span class="manifest-eyebrow">GLOBAL STANDINGS // EXPEDITION RANKS</span>
+              <h2 class="manifest-title">Top Cartographers</h2>
+            </div>
+            
+            <div class="leaderboard-timer-flip">
+              <span class="timer-label">CYCLE RESET:</span>
+              <div class="flip-clock" id="landing-timer">--:--:--</div>
+            </div>
+          </div>
+
+          <div class="manifest-tabs-bar">
+            <div class="sliding-tabs-container">
+              <button class="lb-tab active" data-mode="speed">SPEED RUN</button>
+              <button class="lb-tab" data-mode="reverse">REVERSE DEDUCTION</button>
+              <div class="tab-slider-line" id="lb-tab-slider"></div>
+            </div>
+            <div class="manifest-live-tag">
+              <span class="pulse-dot"></span>
+              <span>LIVE TELEMETRY</span>
+            </div>
+          </div>
+
+          <div class="leaderboard-table-container">
+            <table class="landing-lb-table">
+              <thead>
+                <tr>
+                  <th class="col-rank">RANK</th>
+                  <th class="col-alias">CARTOGRAPHER</th>
+                  <th class="col-acc">ACCURACY</th>
+                  <th class="col-time">TIME</th>
+                  <th class="col-score">SCORE</th>
+                </tr>
+              </thead>
+              <tbody id="landing-lb-body">
+                <tr><td colspan="5" class="lb-loading">Fetching telemetry...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECTION DIVIDER 2 ── -->
+      <div class="atlas-section-divider left-aligned-section">
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- ── SECTION 5: ABOUT & FAQ (Atlas Foreword) ──────────────────────── -->
+      <section class="landing-about left-aligned-section" id="landing-about">
+        <div class="about-foreword-container">
+          <div class="about-header">
+            <span class="about-eyebrow">ATLAS DIRECTIVE // MISSION STATEMENT</span>
+            <h2 class="about-title">About Two Meridian</h2>
+            <div class="about-editorial-intro">
+              <p class="editorial-p">
+                Two Meridian is a specialized cartographic testing environment built for spatial recall, rapid typing precision, and absolute geographical knowledge of sovereign boundaries.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-accordion">
+            <div class="faq-item">
+              <button class="faq-question">
+                <span class="faq-num">01</span>
+                <span class="faq-text">Why 196 countries?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer"><p>We follow the sovereign standard of 193 UN member states plus Vatican City, Palestine, and Taiwan for complete global fidelity.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">
+                <span class="faq-num">02</span>
+                <span class="faq-text">How does Reverse Mode work?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer"><p>The globe isolates a mystery border and highlights its geometry in vibrant terra-cotta. Deduce the nation based solely on its shape, neighboring coastlines, and geographic position.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">
+                <span class="faq-num">03</span>
+                <span class="faq-text">Are microstates included?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer"><p>Yes! All independent microstates like Nauru, Tuvalu, San Marino, and Vatican City are fully integrated with vector geometries and renderable on the 3D globe.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">
+                <span class="faq-num">04</span>
+                <span class="faq-text">How is the leaderboard scored?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer"><p>Scores are calculated by combining speed streak multipliers, typing accuracy percentage, and country difficulty ratings. Clean streaks without backspacing grant maximum points.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">
+                <span class="faq-num">05</span>
+                <span class="faq-text">Is Two Meridian free & ad-free?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer"><p>100% ad-free, private, and free to explore forever. The project is sustained entirely by optional cartographic tips from supporters.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECTION DIVIDER 3 ── -->
+      <div class="atlas-section-divider left-aligned-section">
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- ── SECTION 6: SUPPORT (Archival Ration Card) ────────────────────── -->
+      <section class="landing-support left-aligned-section" id="landing-support">
+        <div class="ticket-ration-container">
+          <div class="corner-bracket bracket-tl"></div>
+          <div class="corner-bracket bracket-tr"></div>
+          <div class="corner-bracket bracket-bl"></div>
+          <div class="corner-bracket bracket-br"></div>
+
+          <div class="ticket-header">
+            <div class="ticket-stamp">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <circle cx="12" cy="12" r="10" stroke-dasharray="2 2"/>
-                <path d="M12 2v4M12 18v4M2 12h4M18 12h4M6.34 6.34l2.83 2.83M14.83 14.83l2.83 2.83M6.34 17.66l2.83-2.83M14.83 9.17l2.83-2.83"/>
+                <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
                 <circle cx="12" cy="12" r="3"/>
               </svg>
             </div>
-            <span class="ledger-eyebrow">EXPEDITION LOG // ARCHIVAL SUPPORT</span>
-            <h2 class="ledger-title">Fuel the Cartography Expedition</h2>
-            <p class="ledger-desc">
-              Two Meridian is an independent, ad-free cartography archive. Support ongoing chart maintenance, territory telemetry, and future releases with an expedition ration.
+            <span class="ticket-eyebrow">EXPEDITION LOG // ARCHIVAL SUPPORT</span>
+            <h2 class="ticket-title">Fuel the Cartography Expedition</h2>
+            <p class="ticket-desc">
+              Two Meridian is an independent, ad-free cartography archive. Support ongoing chart maintenance, telemetry servers, and future releases with an expedition ration.
             </p>
           </div>
 
-          <!-- Archival Ledger Table with Dotted Leaders -->
-          <div class="ledger-table" id="tip-options">
-            <div class="ledger-row tip-btn" data-amt="3" role="button" tabindex="0">
-              <span class="ledger-item">Cartographer’s Espresso</span>
-              <span class="ledger-dots"></span>
-              <span class="ledger-price">$3.00</span>
+          <!-- Selectable Ticket Tier Cards -->
+          <div class="ticket-tiers-grid" id="tip-options">
+            <div class="tier-card tip-btn" data-amt="3" role="button" tabindex="0">
+              <div class="tier-radio"></div>
+              <div class="tier-info">
+                <div class="tier-top">
+                  <span class="tier-name">Cartographer’s Espresso</span>
+                  <span class="tier-price">$3.00</span>
+                </div>
+                <p class="tier-desc">Supports weekly border updates & server telemetry.</p>
+              </div>
             </div>
-            <div class="ledger-row tip-btn active" data-amt="5" role="button" tabindex="0">
-              <span class="ledger-item">Field Officer’s Cortado</span>
-              <span class="ledger-dots"></span>
-              <span class="ledger-price">$5.00</span>
+
+            <div class="tier-card tip-btn active" data-amt="5" role="button" tabindex="0">
+              <div class="tier-radio"></div>
+              <div class="tier-info">
+                <div class="tier-top">
+                  <span class="tier-name">Field Officer’s Cortado</span>
+                  <span class="tier-price">$5.00</span>
+                </div>
+                <p class="tier-desc">Powers regional atlas expansions & high-res vector rendering.</p>
+              </div>
             </div>
-            <div class="ledger-row tip-btn" data-amt="10" role="button" tabindex="0">
-              <span class="ledger-item">Master Navigator’s Roast</span>
-              <span class="ledger-dots"></span>
-              <span class="ledger-price">$10.00</span>
+
+            <div class="tier-card tip-btn" data-amt="10" role="button" tabindex="0">
+              <div class="tier-radio"></div>
+              <div class="tier-info">
+                <div class="tier-top">
+                  <span class="tier-name">Master Navigator’s Roast</span>
+                  <span class="tier-price">$10.00</span>
+                </div>
+                <p class="tier-desc">Fuels custom expedition modes, historical maps & archival research.</p>
+              </div>
             </div>
           </div>
 
-          <div class="ledger-actions">
-            <a href="https://buymeacoffee.com" target="_blank" rel="noopener noreferrer" class="ledger-cta-btn" id="coffee-cta-btn">
+          <div class="ticket-actions">
+            <a href="https://buymeacoffee.com" target="_blank" rel="noopener noreferrer" class="brass-plate-btn" id="coffee-cta-btn">
+              <span class="btn-glyph">⌖</span>
               <span>Fuel the Atlas Expedition</span>
               <span class="cta-arrow">↗</span>
             </a>
@@ -326,35 +470,85 @@ export class LandingPage {
         </div>
       </section>
 
-      <!-- ── SECTION 6: FINALE / EXPEDITION LAUNCH ──────────────── -->
-      <section class="landing-finale" id="landing-finale">
-        <div class="finale-card">
-          <div class="finale-header">
-            <span class="finale-mono">PRIME MERIDIAN // SYSTEM READY</span>
-            <h2 class="finale-title">Every Border, Coastline, and Territory.</h2>
-            <p class="finale-desc">
-              Ready to test your geography? Select a discipline below to launch into the interactive map engine.
-            </p>
-          </div>
+      <!-- ── SECTION DIVIDER 4 ── -->
+      <div class="atlas-section-divider left-aligned-section">
+        <span class="divider-line"></span>
+      </div>
 
-          <div class="finale-mode-select">
-            <button class="finale-mode-btn" data-mode="casual">
-              <span class="btn-label">Casual Study</span>
-              <span class="btn-sub">Untimed Exploration</span>
-            </button>
-            <button class="finale-mode-btn" data-mode="speed">
-              <span class="btn-label">Speed Run</span>
-              <span class="btn-sub">Beat the Clock</span>
-            </button>
-            <button class="finale-mode-btn" data-mode="reverse">
-              <span class="btn-label">Reverse Mode</span>
-              <span class="btn-sub">Deduce the Nation</span>
-            </button>
-          </div>
+      <!-- ── SECTION 7: FINALE / EXPEDITION LAUNCH ──────────────── -->
+      <section class="landing-finale left-aligned-section" id="landing-finale">
+        <div class="finale-header">
+          <span class="finale-mono">PRIME MERIDIAN // SYSTEM READY</span>
+          <h2 class="finale-title">Every Border, Coastline, and Territory.</h2>
+          <p class="finale-desc">
+            Select your discipline to launch the interactive map engine.
+          </p>
+        </div>
+
+        <div class="finale-slabs-container">
+          <button class="finale-slab-btn mode-casual" data-mode="casual">
+            <div class="slab-left">
+              <div class="slab-icon-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="9" stroke-dasharray="2 2"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </div>
+              <div class="slab-titles">
+                <span class="slab-label">Casual Study</span>
+                <span class="slab-sub">UNTIMED EXPLORATION · 6 CONTINENTS</span>
+              </div>
+            </div>
+            <span class="slab-arrow">→</span>
+          </button>
+
+          <button class="finale-slab-btn mode-speed" data-mode="speed">
+            <div class="slab-left">
+              <div class="slab-icon-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="13" r="8"/>
+                  <path d="M12 9v4l2.5 2.5"/>
+                  <path d="M10 2h4"/>
+                </svg>
+              </div>
+              <div class="slab-titles">
+                <span class="slab-label">Speed Run</span>
+                <span class="slab-sub">TIMED COUNTDOWN · STREAK MULTIPLIERS</span>
+              </div>
+            </div>
+            <span class="slab-arrow">→</span>
+          </button>
+
+          <button class="finale-slab-btn mode-reverse" data-mode="reverse">
+            <div class="slab-left">
+              <div class="slab-icon-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="11" cy="11" r="7"/>
+                  <path d="M16 16l4.5 4.5"/>
+                </svg>
+              </div>
+              <div class="slab-titles">
+                <span class="slab-label">Reverse Mode</span>
+                <span class="slab-sub">SPATIAL DEDUCTION · SHAPE RECOGNITION</span>
+              </div>
+            </div>
+            <span class="slab-arrow">→</span>
+          </button>
         </div>
       </section>
+
+      <!-- ── FOOTER ──────────────────────────────────────────────── -->
+      <footer class="landing-page-footer left-aligned-section">
+        <div class="footer-meridian-coords">0° 0' 0" N · 0° 0' 0" E — GREENWICH PRIME MERIDIAN</div>
+        <div class="footer-links-row">
+          <span class="landing-footer-copy">&copy; 2026 Two Meridian</span>
+          <span class="landing-footer-sep">·</span>
+          <a href="/privacy.html" class="landing-footer-link" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </footer>
     `;
   }
+
 
   // ================================================================
   //  SLIM DOSSIER CARD (Archival Field Index Layout)
@@ -370,7 +564,7 @@ export class LandingPage {
                role="button"
                aria-label="View dossier for ${d.name}">
         <div class="dossier-top">
-          <span class="dossier-num">${d.num} // ${d.iso}</span>
+          <span class="dossier-num">${d.iso}</span>
           <span class="dossier-coords">${d.coords}</span>
         </div>
 
@@ -389,10 +583,6 @@ export class LandingPage {
           `).join('')}
         </div>
 
-        <div class="dossier-footer">
-          <span class="focus-hint">⌖ Center on Globe</span>
-          <span class="focus-arrow">→</span>
-        </div>
       </article>
     `;
   }
@@ -458,42 +648,6 @@ export class LandingPage {
       });
     }, 0);
   }
-
-  _bindCTA() {
-    // Bind Hero CTA
-    const cta = this.el.querySelector('#landing-cta');
-    if (cta) {
-      cta.addEventListener('click', () => {
-        this.app.startMode('casual');
-      });
-    }
-
-    // Bind Feature Panels
-    const panels = this.el.querySelectorAll('.feature-panel');
-    panels.forEach(p => {
-      p.addEventListener('click', () => {
-        const mode = p.getAttribute('data-mode');
-        this.app.startMode(mode);
-      });
-      p.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const mode = p.getAttribute('data-mode');
-          this.app.startMode(mode);
-        }
-      });
-    });
-
-    // Bind Secondary Mode Pills
-    const pills = this.el.querySelectorAll('.secondary-pill');
-    pills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        const page = pill.getAttribute('data-page');
-        if (page) this.app.startMode(page);
-      });
-    });
-  }
-
   _bindThemeToggle() {
     const themeBtn = this.el.querySelector('#landing-theme-toggle');
     if (themeBtn) {
@@ -506,10 +660,161 @@ export class LandingPage {
     }
   }
 
+  // ================================================================
+  //  V2: INLINE LEADERBOARD & FAQ
+  // ================================================================
+  _bindLeaderboardTabs() {
+    const tabs = this.el.querySelectorAll('.lb-tab');
+    const slider = this.el.querySelector('#lb-tab-slider');
+
+    const updateSlider = (activeTab) => {
+      if (!slider || !activeTab) return;
+      const rect = activeTab.getBoundingClientRect();
+      const parentRect = activeTab.parentElement.getBoundingClientRect();
+      slider.style.width = `${rect.width}px`;
+      slider.style.transform = `translateX(${rect.left - parentRect.left}px)`;
+    };
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        updateSlider(tab);
+        this._initLeaderboard(tab.dataset.mode);
+      });
+    });
+
+    const activeTab = this.el.querySelector('.lb-tab.active');
+    if (activeTab) setTimeout(() => updateSlider(activeTab), 50);
+  }
+
+  async _initLeaderboard(mode = 'speed') {
+    const tbody = this.el.querySelector('#landing-lb-body');
+    if (!tbody) return;
+    tbody.innerHTML = `<tr><td colspan="5" class="lb-loading">Fetching telemetry...</td></tr>`;
+
+    try {
+      let entries = [];
+      if (this.app.leaderboardManager) {
+        entries = await this.app.leaderboardManager.fetchLeaderboard(mode);
+      }
+      
+      let top10 = entries.slice(0, 10);
+      
+      // Temporary fallback data if empty or disconnected
+      if (top10.length === 0) {
+        top10 = [
+          { alias: "MAGELLAN", final_score: mode === 'speed' ? 14500 : 95, accuracy: "98%", time: "1m 45s" },
+          { alias: "PTOLEMY", final_score: mode === 'speed' ? 12200 : 88, accuracy: "94%", time: "1m 52s" },
+          { alias: "VESPUCCI", final_score: mode === 'speed' ? 11850 : 82, accuracy: "91%", time: "1m 58s" },
+          { alias: "MERCATOR", final_score: mode === 'speed' ? 9400 : 70, accuracy: "89%", time: "2m 10s" },
+          { alias: "ERATOSTHENES", final_score: mode === 'speed' ? 8900 : 65, accuracy: "85%", time: "2m 15s" },
+          { alias: "AL-IDRISI", final_score: mode === 'speed' ? 8100 : 60, accuracy: "83%", time: "2m 30s" },
+          { alias: "IBN_BATTUTA", final_score: mode === 'speed' ? 7600 : 55, accuracy: "79%", time: "2m 45s" },
+          { alias: "ZHENG_HE", final_score: mode === 'speed' ? 7200 : 51, accuracy: "76%", time: "3m 01s" },
+          { alias: "COLUMBUS", final_score: mode === 'speed' ? 6800 : 45, accuracy: "72%", time: "3m 10s" },
+          { alias: "COOK", final_score: mode === 'speed' ? 6100 : 40, accuracy: "68%", time: "3m 25s" }
+        ];
+      }
+
+      // DOM-safe injection with podium rank styling (#1-#3)
+      tbody.innerHTML = ''; 
+      top10.forEach((entry, idx) => {
+        const tr = document.createElement('tr');
+        if (idx < 3) tr.classList.add('row-podium', `row-rank-${idx + 1}`);
+
+        const tdRank = document.createElement('td');
+        tdRank.className = 'col-rank';
+        if (idx === 0) {
+          tdRank.innerHTML = `<span class="rank-badge rank-1"><span class="rank-icon">⌖</span> 01</span>`;
+        } else if (idx === 1) {
+          tdRank.innerHTML = `<span class="rank-badge rank-2">02</span>`;
+        } else if (idx === 2) {
+          tdRank.innerHTML = `<span class="rank-badge rank-3">03</span>`;
+        } else {
+          tdRank.textContent = String(idx + 1).padStart(2, '0');
+        }
+
+        const tdAlias = document.createElement('td');
+        tdAlias.className = 'col-alias';
+        tdAlias.textContent = entry.alias || 'Anonymous';
+        
+        const tdAcc = document.createElement('td');
+        tdAcc.className = 'col-acc';
+        tdAcc.textContent = entry.accuracy || '---';
+
+        const tdTime = document.createElement('td');
+        tdTime.className = 'col-time';
+        tdTime.textContent = entry.time || '---';
+
+        const tdScore = document.createElement('td');
+        tdScore.className = 'col-score';
+        tdScore.textContent = Number(entry.final_score).toLocaleString();
+        
+        tr.appendChild(tdRank);
+        tr.appendChild(tdAlias);
+        tr.appendChild(tdAcc);
+        tr.appendChild(tdTime);
+        tr.appendChild(tdScore);
+        tbody.appendChild(tr);
+      });
+      
+      // Update timer
+      const timerEl = this.el.querySelector('#landing-timer');
+      if (timerEl) {
+        this._updateResetTimer(timerEl);
+        if (this._lbTimerInt) clearInterval(this._lbTimerInt);
+        this._lbTimerInt = setInterval(() => this._updateResetTimer(timerEl), 1000);
+      }
+      
+    } catch (err) {
+      console.warn("Failed to fetch landing leaderboard:", err);
+    }
+  }
+
+  _updateResetTimer(el) {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setUTCHours(24, 0, 0, 0); // Midnight UTC
+    const diff = tomorrow - now;
+    
+    if (diff <= 0) {
+      el.innerHTML = `<span class="flip-unit">00</span>:<span class="flip-unit">00</span>:<span class="flip-unit">00</span>`;
+      return;
+    }
+    
+    const h = Math.floor(diff / (1000 * 60 * 60));
+    const m = Math.floor((diff / 1000 / 60) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    
+    const hs = h.toString().padStart(2, '0');
+    const ms = m.toString().padStart(2, '0');
+    const ss = s.toString().padStart(2, '0');
+
+    el.innerHTML = `
+      <span class="flip-cell">${hs[0]}</span><span class="flip-cell">${hs[1]}</span>
+      <span class="flip-sep">:</span>
+      <span class="flip-cell">${ms[0]}</span><span class="flip-cell">${ms[1]}</span>
+      <span class="flip-sep">:</span>
+      <span class="flip-cell">${ss[0]}</span><span class="flip-cell">${ss[1]}</span>
+    `;
+  }
+
+  _bindFAQs() {
+    const items = this.el.querySelectorAll('.faq-item');
+    items.forEach(item => {
+      const btn = item.querySelector('.faq-question');
+      btn.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        items.forEach(i => i.classList.remove('active'));
+        if (!isActive) item.classList.add('active');
+      });
+    });
+  }
+
   _updateThemeIcon() {
     const btn = this.el.querySelector('#landing-theme-toggle');
     if (!btn || !this.app.themeManager) return;
-    
     const sun = btn.querySelector('.theme-icon-sun');
     const moon = btn.querySelector('.theme-icon-moon');
     if (this.app.themeManager.isDark()) {
@@ -623,17 +928,25 @@ export class LandingPage {
       });
     }, 0.05);
 
-    observe('.landing-about', el => {
-      anime({ targets: el.querySelectorAll('.about-card'), opacity: [0, 1], translateY: [25, 0], duration: 600, delay: anime.stagger(120), easing: 'easeOutCubic' });
+    observe('.atlas-section-divider', el => {
+      anime({ targets: el, opacity: [0, 1], scaleX: [0.8, 1], duration: 600, easing: 'easeOutCubic' });
     }, 0.1);
 
-    observe('.ledger-card', el => {
-      anime({ targets: el, opacity: [0, 1], translateY: [24, 0], duration: 700, easing: 'easeOutCubic' });
-    }, 0.15);
+    observe('#landing-leaderboard', el => {
+      anime({ targets: el.querySelectorAll('.ledger-manifest-container'), opacity: [0, 1], translateY: [24, 0], duration: 650, easing: 'easeOutCubic' });
+    }, 0.1);
 
-    observe('.finale-card', el => {
-      anime({ targets: el, opacity: [0, 1], translateY: [24, 0], duration: 750, easing: 'easeOutCubic' });
-    }, 0.2);
+    observe('#landing-about', el => {
+      anime({ targets: el.querySelectorAll('.about-foreword-container'), opacity: [0, 1], translateY: [24, 0], duration: 650, easing: 'easeOutCubic' });
+    }, 0.1);
+
+    observe('#landing-support', el => {
+      anime({ targets: el.querySelectorAll('.ticket-ration-container'), opacity: [0, 1], translateY: [24, 0], duration: 650, easing: 'easeOutCubic' });
+    }, 0.1);
+
+    observe('#landing-finale', el => {
+      anime({ targets: el.querySelectorAll('.finale-slab-btn'), opacity: [0, 1], translateY: [20, 0], duration: 550, delay: anime.stagger(90), easing: 'easeOutCubic' });
+    }, 0.1);
   }
 
   // ================================================================
@@ -670,8 +983,8 @@ export class LandingPage {
         pill.addEventListener('click', () => launchGame('casual', pill.dataset.page));
       });
 
-      // Finale mode buttons
-      document.querySelectorAll('.finale-mode-btn[data-mode]').forEach(btn => {
+      // Finale mode slabs
+      document.querySelectorAll('.finale-slab-btn[data-mode]').forEach(btn => {
         btn.addEventListener('click', () => launchGame(btn.dataset.mode, 'world'));
       });
     }, 0);

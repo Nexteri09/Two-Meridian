@@ -21,6 +21,14 @@ export class LeaderboardManager {
     this._bindEvents();
   }
 
+  // Prevent XSS from any alias stored in DB
+  _sanitizeAlias(raw) {
+    if (!raw || typeof raw !== 'string') return 'Unknown';
+    const el = document.createElement('span');
+    el.textContent = raw.slice(0, 30);
+    return el.innerHTML; // HTML-escaped string safe to inject
+  }
+
   _bindEvents() {
     this.triggerBtns.forEach(btn => {
       btn.addEventListener('click', () => this.open());
@@ -120,7 +128,7 @@ export class LeaderboardManager {
     rows.forEach((row, index) => {
       let metricDisplay = '';
       if (this.currentMode === 'speed') {
-        metricDisplay = `${row.final_score} / 196`;
+        metricDisplay = `${Number(row.final_score) || 0} / 196`;
       } else {
         const mins = Math.floor(row.elapsed_seconds / 60);
         const secs = Math.floor(row.elapsed_seconds % 60);
@@ -129,11 +137,13 @@ export class LeaderboardManager {
 
       const isMe = this.app.authManager && this.app.authManager.user && this.app.authManager.user.id === row.user_id;
       const rowClass = isMe ? 'lb-row-me' : '';
+      // Use _sanitizeAlias to prevent XSS from any alias injected into HTML
+      const safeAlias = this._sanitizeAlias(row.alias);
 
       html += `
         <tr class="${rowClass}">
           <td class="lb-rank">#${index + 1}</td>
-          <td class="lb-alias">${row.alias || 'Unknown'}</td>
+          <td class="lb-alias">${safeAlias}</td>
           <td class="lb-score">${metricDisplay}</td>
         </tr>
       `;

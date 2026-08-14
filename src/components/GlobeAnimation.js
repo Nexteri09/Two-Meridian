@@ -178,6 +178,7 @@ export class GlobeAnimation {
     this.focusRotY      = null;
     this.focusRotX      = null;
     this.isFocused      = false;
+    this.autoSpinY      = 0;
     this._rafId         = null;
 
     // Texture + telemetry beacon + SVG circles
@@ -336,8 +337,15 @@ export class GlobeAnimation {
   /** Releases country focus and smoothly returns to scroll-based rotation */
   releaseFocus() {
     this.isFocused = false;
+    this.focusRotY = null;
+    this.focusRotX = null;
     this._activeBeacon = null;
     this._currentHighlights = [];
+    
+    // Sync autoSpinY so the soft spin resumes smoothly from the current rotation
+    // instead of jerking back to the background rotation.
+    this.autoSpinY = this.currentRotY - this.scrollRotY;
+    
     this._redrawMap();
   }
 
@@ -861,6 +869,21 @@ export class GlobeAnimation {
 
     const morphProgress = Math.min(Math.max(scrollY / (heroH * 0.90), 0), 1.0);
     this.targetProgress = morphProgress;
+
+    // Shift -> Right + Zoom (Dynamically tied to the Dossiers section)
+    const dossiers = document.getElementById('landing-dossiers');
+    if (dossiers) {
+      const rect = dossiers.getBoundingClientRect();
+      // Start shift EXACTLY when dossiers are 100% off the top of the screen (rect.bottom <= 0)
+      const shiftStartDist = 0; 
+      // End shift after scrolling further down (e.g., 60vh)
+      const shiftEndDist = -heroH * 0.6; 
+      
+      this.shiftTarget = Math.min(Math.max((rect.bottom - shiftStartDist) / (shiftEndDist - shiftStartDist), 0), 1.0);
+    } else {
+      this.shiftTarget = 0;
+    }
+
     this.scrollRotY = scrollY * 0.0028;
   }
 
@@ -886,15 +909,45 @@ export class GlobeAnimation {
 
     // 2. Smooth progress and camera
     this.progress += (this.targetProgress - this.progress) * 0.08;
+    if (this.shiftProgress === undefined) this.shiftProgress = 0;
+    if (this.shiftTarget === undefined) this.shiftTarget = 0;
+    this.shiftProgress += (this.shiftTarget - this.shiftProgress) * 0.08;
+
     if (this.uniforms) {
       this.uniforms.uProgress.value = this.progress;
     }
 
-    this.camera.position.set(0, 0, 4.40);
-    this.camera.lookAt(0, 0, 0);
+    // Interpolate camera X (pan left so globe goes right) and Z (zoom in)
+    // We only apply this shift if NOT focused on a dossier (to prevent weird offset conflicts)
+    const activeShift = this.isFocused ? 0 : this.shiftProgress;
+    const camX = -1.25 * activeShift;
+    const camZ = 4.40 - (1.6 * activeShift);
+
+    this.camera.position.set(camX, 0, camZ);
+    // Look straight ahead relative to the new X so the globe stays round and centered on the right
+    this.camera.lookAt(camX, 0, 0);
 
     if (this.mesh) {
-      const targetY = (this.isFocused && this.focusRotY !== null) ? this.focusRotY : this.scrollRotY;
+      // Continuous soft spin
+      this.autoSpinY += 0.0025;
+
+      // Normalize rotation when fully spherical to prevent violent unwinding 
+      // when morphing back to a flat map. (A 2PI jump is invisible on a full sphere)
+      if (this.progress > 0.999) {
+        while (this.currentRotY > Math.PI) {
+          this.currentRotY -= Math.PI * 2;
+          this.autoSpinY -= Math.PI * 2;
+        }
+        while (this.currentRotY < -Math.PI) {
+          this.currentRotY += Math.PI * 2;
+          this.autoSpinY += Math.PI * 2;
+        }
+      }
+
+      const targetY = (this.isFocused && this.focusRotY !== null) 
+        ? this.focusRotY 
+        : (this.scrollRotY + this.autoSpinY);
+        
       const targetX = (this.isFocused && this.focusRotX !== null) ? this.focusRotX : 0.0;
 
       // 1. Calculate difference.

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Lost on the Map | Two Meridian</title>
+  <meta name="description" content="Looks like this page doesn't exist. Navigate back to Two Meridian and keep exploring.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://twomeridian.in/">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MFE4FJL0RR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MFE4FJL0RR');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #0c0e16;
+      color: #e8e8f0;
+      font-family: 'IBM Plex Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      gap: 0;
+    }
+
+    .error-code {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(6rem, 20vw, 12rem);
+      font-weight: 300;
+      line-height: 1;
+      color: transparent;
+      background: linear-gradient(135deg, #3a5c7a 0%, #1a2a3a 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+    }
+
+    .error-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 400;
+      color: #c8c8d8;
+      margin-bottom: 0.75rem;
+    }
+
+    .error-subtitle {
+      font-size: 1rem;
+      color: #6a6a7a;
+      max-width: 380px;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      color: #c8c8d8;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .brand-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      color: #6a6a7a;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .brand-link:hover { color: #c8c8d8; }
+
+    .compass-svg {
+      opacity: 0.18;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="/" class="brand-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="9.5" stroke-dasharray="1.5 2"/>
+      <polygon points="12,2 14.5,9.5 22,12 14.5,14.5 12,22 9.5,14.5 2,12 9.5,9.5" fill="none"/>
+      <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+    </svg>
+    Two Meridian
+  </a>
+
+  <svg class="compass-svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#8888aa" stroke-width="1">
+    <circle cx="12" cy="12" r="10"/>
+    <polygon points="12,2 14,10 12,12 10,10" fill="#8888aa"/>
+    <polygon points="12,22 14,14 12,12 10,14" fill="#3a3a5a"/>
+    <circle cx="12" cy="12" r="1.5" fill="#8888aa"/>
+  </svg>
+
+  <div class="error-code">404</div>
+  <h1 class="error-title">Lost on the Map</h1>
+  <p class="error-subtitle">This territory doesn't exist in our atlas. Perhaps it was renamed, or never charted to begin with.</p>
+
+  <a href="/" class="back-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Back to the Atlas
+  </a>
+
+</body>
+</html>

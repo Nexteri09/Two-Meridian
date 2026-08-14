@@ -73,9 +73,17 @@ export class AuthManager {
     }
   }
 
+  _sanitizeAlias(raw) {
+    if (!raw || typeof raw !== 'string') return 'Unknown Cartographer';
+    // Strip HTML tags, trim, cap at 30 chars
+    const stripped = raw.replace(/<[^>]*>/g, '').trim();
+    return stripped.slice(0, 30) || 'Unknown Cartographer';
+  }
+
   async _createProfile() {
-    let alias = prompt('Welcome to Two Meridian! Please enter a display name for the leaderboards:');
-    if (!alias) {
+    let rawAlias = prompt('Welcome to Two Meridian! Please enter a display name for the leaderboards (max 30 chars):');
+    let alias = this._sanitizeAlias(rawAlias);
+    if (!alias || alias === 'Unknown Cartographer') {
       alias = `Cartographer-${Math.floor(Math.random() * 10000)}`;
     }
 
@@ -101,7 +109,8 @@ export class AuthManager {
       this.loginBtn.classList.add('hidden');
       this.userMenu.classList.remove('hidden');
       if (this.profile) {
-        this.aliasSpan.textContent = this.profile.alias;
+        // textContent is safe — no HTML injection risk
+        this.aliasSpan.textContent = this._sanitizeAlias(this.profile.alias);
       }
     } else {
       this.loginBtn.classList.remove('hidden');

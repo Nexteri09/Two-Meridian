@@ -113,5 +113,13 @@ export class Navigation {
     }
 
     this.app.currentPage = page;
+
+    // Track SPA page navigation in Google Analytics
+    if (typeof gtag === 'function') {
+      gtag('event', 'page_view', {
+        page_title: `Two Meridian — ${page.charAt(0).toUpperCase() + page.slice(1)}`,
+        page_location: `https://twomeridian.in/#${page}`
+      });
+    }
   }
 }
