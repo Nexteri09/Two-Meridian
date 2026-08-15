@@ -34,8 +34,8 @@
   --bg-tertiary: var(--ink-800);
   --bg-sidebar: var(--ink-900);
 
-  --map-fill: #1E242D;   /* Lifted slate land fill — readable, not void-like */
-  --map-fill-hover: #28303C; /* Hover: one step lighter than fill */
+  --map-fill: #1C232D;   /* Premium, cool deep slate for un-guessed countries */
+  --map-fill-hover: #26303D; /* Hover: slightly lighter */
   --map-border: var(--hairline);
   --map-border-hover: var(--brass-500);
 
@@ -48,29 +48,29 @@
   --casual-highlight: rgba(212, 168, 50, 0.50);      /* Clean, glassy gold border for mapped countries */
   --casual-highlight-light: #E8C15A;                 /* Radiant, solid brass for text/sidebar accents */
   --casual-stroke-active: rgba(230, 195, 100, 0.45); /* Bright, soft yellow border for active click */
-  --casual-fill-guessed: rgba(212, 168, 50, 0.12);   /* Premium, subtle golden sheen over the slate (no flat mud) */
-  --casual-fill-active: rgba(230, 195, 100, 0.20);   /* Soft, bright yellow sheen for active focus */
+  --casual-fill-guessed: rgba(184, 148, 79, 0.65);  /* 65% opacity brass for guessed countries */
+  --casual-fill-active: rgba(184, 148, 79, 0.15);   /* Subtle 15% brass for clicked focus country */
   --casual-filter: drop-shadow(0 0 2px rgba(212, 168, 50, 0.15)); /* Very clean, subtle ambient glow */
   --casual-filter-strong: drop-shadow(0 0 8px rgba(232, 193, 90, 0.40)); /* Crisp glow for active */
   --casual-glow: rgba(232, 193, 90, 0.30);
   --casual-glow-subtle: rgba(212, 168, 50, 0.15);
 
-  /* Speed Mode: Vivid Emerald / Cyan */
-  --speed-highlight: rgba(40, 176, 149, 0.50);
-  --speed-highlight-light: #52D4BA;
-  --speed-stroke-active: rgba(100, 230, 190, 0.45);  /* Bright, soft mint border */
-  --speed-fill-guessed: rgba(40, 176, 149, 0.12);
-  --speed-fill-active: rgba(100, 230, 190, 0.20);    /* Soft, bright mint sheen */
-  --speed-filter: drop-shadow(0 0 2px rgba(40, 176, 149, 0.15));
-  --speed-filter-strong: drop-shadow(0 0 8px rgba(82, 212, 186, 0.40));
-  --speed-glow: rgba(82, 212, 186, 0.30);
-  --speed-glow-subtle: rgba(40, 176, 149, 0.15);
+  /* Speed Mode: Royal Blue (#4376AB) */
+  --speed-highlight: rgba(67, 118, 171, 0.50);
+  --speed-highlight-light: #679ADB;
+  --speed-stroke-active: rgba(103, 154, 219, 0.45);  /* Bright soft blue border */
+  --speed-fill-guessed: rgba(67, 118, 171, 0.65);  /* 65% opacity royal blue (#4376AB) */
+  --speed-fill-active: rgba(67, 118, 171, 0.35);   /* 35% opacity for pulse/active */
+  --speed-filter: drop-shadow(0 0 2px rgba(67, 118, 171, 0.15));
+  --speed-filter-strong: drop-shadow(0 0 8px rgba(103, 154, 219, 0.40));
+  --speed-glow: rgba(103, 154, 219, 0.30);
+  --speed-glow-subtle: rgba(67, 118, 171, 0.15);
 
   --reverse-highlight: rgba(208, 72, 56, 0.50);
   --reverse-highlight-light: #E87060;
   --reverse-stroke-active: rgba(240, 120, 100, 0.45); /* Bright, soft coral border */
-  --reverse-fill-guessed: rgba(208, 72, 56, 0.12);
-  --reverse-fill-active: rgba(240, 120, 100, 0.20);   /* Soft, bright coral sheen */
+  --reverse-fill-guessed: rgba(208, 72, 56, 0.35);  /* Slightly transparent crimson */
+  --reverse-fill-active: rgba(208, 72, 56, 0.75);   /* Stronger transparent crimson */
   --reverse-filter: drop-shadow(0 0 2px rgba(208, 72, 56, 0.15));
   --reverse-filter-strong: drop-shadow(0 0 8px rgba(232, 112, 96, 0.40));
   --reverse-glow: rgba(232, 112, 96, 0.30);
@@ -196,13 +196,13 @@
   --casual-filter-strong: drop-shadow(0 0 3px rgba(197, 155, 39, 0.45));
   --casual-glow: rgba(194, 139, 30, 0.30);
   
-  --speed-highlight: #20967F;
-  --speed-highlight-light: #156E5D;
-  --speed-fill-guessed: rgba(32, 150, 127, 0.65); /* Beautiful translucent emerald blend */
-  --speed-fill-active: rgba(32, 150, 127, 0.25);  /* Beautiful translucent emerald blend */
-  --speed-filter: drop-shadow(0 0 2px rgba(32, 150, 127, 0.20));
-  --speed-filter-strong: drop-shadow(0 0 3px rgba(32, 150, 127, 0.45));
-  --speed-glow: rgba(32, 150, 127, 0.28);
+  --speed-highlight: #3A69A5;
+  --speed-highlight-light: #2D5487;
+  --speed-fill-guessed: rgba(67, 118, 171, 0.65); /* Beautiful translucent royal blue blend */
+  --speed-fill-active: rgba(67, 118, 171, 0.25);  /* Beautiful translucent royal blue blend */
+  --speed-filter: drop-shadow(0 0 2px rgba(67, 118, 171, 0.20));
+  --speed-filter-strong: drop-shadow(0 0 3px rgba(67, 118, 171, 0.45));
+  --speed-glow: rgba(67, 118, 171, 0.28);
   
   --reverse-highlight: #CC4030;
   --reverse-highlight-light: #B33729;

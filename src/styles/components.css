@@ -285,15 +285,15 @@
 }
 
 .cp-active .cp-count {
-  color: var(--brass-400);
+  color: var(--cp-active-color, var(--brass-400));
   font-weight: 700;
 }
 
 .cp-bar-track {
   width: 100%;
-  height: 2px;
+  height: 3px;
   background: var(--ink-800);
-  border-radius: 1px;
+  border-radius: 2px;
   overflow: hidden;
 }
 
@@ -528,7 +528,7 @@
 /* Timer display — identical weight treatment across all modes, hue-swapped only */
 .sidebar[data-mode="speed"] .timer-display {
   color: var(--speed-highlight-light);
-  text-shadow: 0 0 12px rgba(91, 184, 152, 0.28);
+  text-shadow: 0 0 12px rgba(67, 118, 171, 0.28);
 }
 
 .sidebar[data-mode="speed"] .timer-label {
@@ -728,14 +728,14 @@
 
 /* Mode aware styling for conclude button */
 .sidebar[data-mode="speed"] .conclude-expedition-btn {
-  background: rgba(91, 184, 152, 0.08);
-  border-color: rgba(91, 184, 152, 0.30);
+  background: rgba(67, 118, 171, 0.08);
+  border-color: rgba(67, 118, 171, 0.30);
   color: var(--speed-highlight-light);
 }
 .sidebar[data-mode="speed"] .conclude-expedition-btn:hover {
-  background: rgba(91, 184, 152, 0.18);
+  background: rgba(67, 118, 171, 0.18);
   border-color: var(--speed-highlight-light);
-  box-shadow: 0 0 14px rgba(91, 184, 152, 0.25);
+  box-shadow: 0 0 14px rgba(67, 118, 171, 0.25);
 }
 
 .sidebar[data-mode="reverse"] .conclude-expedition-btn {
@@ -827,15 +827,15 @@
 }
 
 .sidebar[data-mode="speed"] .streak-pill {
-  color: #7AD4B5;
-  background: rgba(91, 184, 152, 0.15);
-  border-color: rgba(91, 184, 152, 0.35);
+  color: #679ADB;
+  background: rgba(67, 118, 171, 0.15);
+  border-color: rgba(67, 118, 171, 0.35);
 }
 
 .sidebar[data-mode="reverse"] .streak-pill {
-  color: #E87063;
-  background: rgba(184, 58, 46, 0.15);
-  border-color: rgba(184, 58, 46, 0.35);
+  color: #E87060;
+  background: rgba(208, 72, 56, 0.15);
+  border-color: rgba(208, 72, 56, 0.35);
 }
 
 .streak-pop {
@@ -926,8 +926,8 @@
 
 .debrief-card[data-mode="speed"] .debrief-mode-tag {
   color: var(--speed-highlight-light, #7ce0c3);
-  background: rgba(91, 184, 152, 0.12);
-  border-color: rgba(91, 184, 152, 0.35);
+  background: rgba(67, 118, 171, 0.12);
+  border-color: rgba(67, 118, 171, 0.35);
 }
 
 .debrief-card[data-mode="reverse"] .debrief-mode-tag {

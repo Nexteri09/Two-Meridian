@@ -57,8 +57,8 @@ const vertexShader = `
 
     // ── 2. TRUE SPHERE WITH BALANCED POLAR LATITUDES ──────────────────────
     float R = 0.765; // Reduced globe size by 15% from 0.90
-    // Map SVG vertical span (-62° to +82°) to natural spherical latitude
-    float lat = mix(-1.08, 1.43, uv.y);
+    // Map full vertical span (-90° to +90°) to cover poles seamlessly
+    float lat = mix(-PI * 0.5, PI * 0.5, uv.y);
     float phi = PI * 0.5 - lat;
     float theta = uv.x * 2.0 * PI - PI * 0.5;
 
@@ -414,7 +414,7 @@ export class GlobeAnimation {
       text: '#DFB755',
       pulses: [
         { name: 'casual', fillRgb: '197, 155, 39', stroke: '#C59B27', glow: '#C59B27' },
-        { name: 'speed', fillRgb: '40, 176, 149', stroke: '#28B095', glow: '#28B095' },
+        { name: 'speed', fillRgb: '67, 118, 171', stroke: '#4376AB', glow: '#4376AB' },
         { name: 'reverse', fillRgb: '184, 58, 46', stroke: '#B83A2E', glow: '#B83A2E' }
       ]
     } : {
@@ -432,7 +432,7 @@ export class GlobeAnimation {
       text: '#1C160E',
       pulses: [
         { name: 'casual', fillRgb: '194, 139, 30', stroke: '#C28B1E', glow: '#C28B1E' },
-        { name: 'speed', fillRgb: '32, 150, 127', stroke: '#20967F', glow: '#20967F' },
+        { name: 'speed', fillRgb: '67, 118, 171', stroke: '#4376AB', glow: '#4376AB' },
         { name: 'reverse', fillRgb: '204, 64, 48', stroke: '#CC4030', glow: '#CC4030' }
       ]
     };
@@ -668,26 +668,33 @@ export class GlobeAnimation {
       ctx.globalAlpha = 1.0;
     }
 
-    // Draw Field Atlas Hairline Graticules (Equator, Prime Meridian)
+    // Draw Field Atlas Hairline Graticules (Latitudes & Meridians Grid)
     ctx.save();
     ctx.strokeStyle = palette.graticule;
     ctx.lineWidth = 1;
     ctx.setLineDash([4, 6]);
 
-    // Equator
-    const eqY = (470.9 - svgY) * scaleY;
-    ctx.beginPath();
-    ctx.moveTo(0, eqY);
-    ctx.lineTo(W, eqY);
-    ctx.stroke();
+    // Latitude graticule (Equator only to reduce noise)
+    const lats = [470.9];
+    lats.forEach(latY => {
+      const ly = (latY - svgY) * scaleY;
+      ctx.beginPath();
+      ctx.moveTo(0, ly);
+      ctx.lineTo(W, ly);
+      ctx.stroke();
+    });
 
-    // Prime Meridian
-    const pmX = (442.5 - svgX) * scaleX;
-    ctx.beginPath();
-    ctx.moveTo(pmX, 0);
-    ctx.lineTo(pmX, H);
-    ctx.stroke();
+    // Longitude meridian (Prime Meridian only)
+    const meridians = [442.5];
+    meridians.forEach(mxVal => {
+      const mx = (mxVal - svgX) * scaleX;
+      ctx.beginPath();
+      ctx.moveTo(mx, 0);
+      ctx.lineTo(mx, H);
+      ctx.stroke();
+    });
     ctx.restore();
+
 
     // 1. Draw base SVG Microstate Circle Markers
     if (this.svgCircles.length) {

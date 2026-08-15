@@ -60,21 +60,21 @@ export class Sidebar {
     // Update brand icon color to match game mode
     const icon = document.getElementById('brand-icon');
     if (icon) {
-      const modeColors = { casual: '#C59B27', speed: '#2D7F67', reverse: '#B83A2E' };
-      icon.style.color = modeColors[mode] || '#C59B27';
+      const modeColors = { casual: '#B8944F', speed: '#4376AB', reverse: '#D65141' };
+      icon.style.color = modeColors[mode] || '#B8944F';
       icon.style.transition = 'color 0.3s ease';
     }
 
     // Update continent panel bar colors
     const fills = document.querySelectorAll('.cp-bar-fill');
-    const barColors = { casual: '#C59B27', speed: '#2D7F67', reverse: '#B83A2E' };
+    const barColors = { casual: '#B8944F', speed: '#4376AB', reverse: '#D65141' };
     fills.forEach(fill => {
-      fill.style.background = barColors[mode] || '#C59B27';
+      fill.style.background = barColors[mode] || '#B8944F';
     });
 
     // Update completed-row highlight color
     document.documentElement.style.setProperty(
-      '--cp-active-color', barColors[mode] || '#C59B27'
+      '--cp-active-color', barColors[mode] || '#B8944F'
     );
   }
 

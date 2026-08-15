@@ -346,7 +346,7 @@ export class LandingPage {
             <h2 class="about-title">About Two Meridian</h2>
             <div class="about-editorial-intro">
               <p class="editorial-p">
-                Two Meridian is a specialized cartographic testing environment built for spatial recall, rapid typing precision, and absolute geographical knowledge of sovereign boundaries.
+                Two Meridian is a geography game that asks one simple question: can you name every country in the world? No multiple choice. No hints. Just a blank interactive map and your knowledge. Type a country, watch it light up, and learn something genuinely interesting about it along the way. Whether you're studying for a geography test, brushing up before a trip, or just curious how many of the 196 countries you actually know, this is the place.
               </p>
             </div>
           </div>
@@ -355,42 +355,50 @@ export class LandingPage {
             <div class="faq-item">
               <button class="faq-question">
                 <span class="faq-num">01</span>
-                <span class="faq-text">Why 196 countries?</span>
+                <span class="faq-text">What is Two Meridian?</span>
                 <span class="faq-icon">+</span>
               </button>
-              <div class="faq-answer"><p>We follow the sovereign standard of 193 UN member states plus Vatican City, Palestine, and Taiwan for complete global fidelity.</p></div>
+              <div class="faq-answer"><p>Two Meridian is a free geography game where you type country names to fill in an interactive map. No multiple choice, no hints, just you and a map. It's built for anyone who wants to genuinely learn every country in the world, not just recognize them from a list.</p></div>
             </div>
             <div class="faq-item">
               <button class="faq-question">
                 <span class="faq-num">02</span>
-                <span class="faq-text">How does Reverse Mode work?</span>
+                <span class="faq-text">How does the scoring work?</span>
                 <span class="faq-icon">+</span>
               </button>
-              <div class="faq-answer"><p>The globe isolates a mystery border and highlights its geometry in vibrant terra-cotta. Deduce the nation based solely on its shape, neighboring coastlines, and geographic position.</p></div>
+              <div class="faq-answer"><p>In Speed Run mode, your score combines three things: how fast you type (time), how accurately you spell (keystrokes), and how long you keep your streak going without pausing. Clean, fast, uninterrupted runs score highest. In Casual mode, there's no scoring, just exploration.</p></div>
             </div>
             <div class="faq-item">
               <button class="faq-question">
                 <span class="faq-num">03</span>
-                <span class="faq-text">Are microstates included?</span>
+                <span class="faq-text">Can I learn capitals and flags too?</span>
                 <span class="faq-icon">+</span>
               </button>
-              <div class="faq-answer"><p>Yes! All independent microstates like Nauru, Tuvalu, San Marino, and Vatican City are fully integrated with vector geometries and renderable on the 3D globe.</p></div>
+              <div class="faq-answer"><p>Yes. Beyond the main country quiz, there are dedicated modes for all 196 world capitals and sovereign flags. Each one has its own progress tracker so you can see which ones you've mastered and which still trip you up.</p></div>
             </div>
             <div class="faq-item">
               <button class="faq-question">
                 <span class="faq-num">04</span>
-                <span class="faq-text">How is the leaderboard scored?</span>
+                <span class="faq-text">Which countries are included?</span>
                 <span class="faq-icon">+</span>
               </button>
-              <div class="faq-answer"><p>Scores are calculated by combining speed streak multipliers, typing accuracy percentage, and country difficulty ratings. Clean streaks without backspacing grant maximum points.</p></div>
+              <div class="faq-answer"><p>All 196 sovereign nations, the 193 UN member states plus Kosovo, Taiwan, and Vatican City. We don't include dependent territories like Puerto Rico or Greenland, but every internationally recognized independent country is here.</p></div>
             </div>
             <div class="faq-item">
               <button class="faq-question">
                 <span class="faq-num">05</span>
-                <span class="faq-text">Is Two Meridian free & ad-free?</span>
+                <span class="faq-text">Is it really free? What's the catch?</span>
                 <span class="faq-icon">+</span>
               </button>
-              <div class="faq-answer"><p>100% ad-free, private, and free to explore forever. The project is sustained entirely by optional cartographic tips from supporters.</p></div>
+              <div class="faq-answer"><p>Genuinely free. No ads, no tracking, no account required. Your progress saves locally in your browser. The project is maintained independently and supported entirely by optional coffee-tip donations from people who find it useful.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">
+                <span class="faq-num">06</span>
+                <span class="faq-text">Does it work on mobile?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer"><p>Two Meridian works on any modern browser: Chrome, Firefox, Safari, Edge on desktop and mobile. The interactive map and all game modes are fully responsive. For the best experience, we recommend a screen wider than 768px.</p></div>
             </div>
           </div>
         </div>

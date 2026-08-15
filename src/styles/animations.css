@@ -298,13 +298,13 @@
 
 /* Theme: Speed Hyperdrive */
 .victory-card.speed-theme {
-  border-color: rgba(91, 184, 152, 0.4);
-  box-shadow: 0 0 60px rgba(91, 184, 152, 0.15), 0 24px 80px rgba(0, 0, 0, 0.9);
+  border-color: rgba(67, 118, 171, 0.4);
+  box-shadow: 0 0 60px rgba(67, 118, 171, 0.15), 0 24px 80px rgba(0, 0, 0, 0.9);
 }
 .victory-card.speed-theme .victory-badge {
-  background: rgba(91, 184, 152, 0.15);
+  background: rgba(67, 118, 171, 0.15);
   color: #7AD4B5;
-  border: 1px solid rgba(91, 184, 152, 0.4);
+  border: 1px solid rgba(67, 118, 171, 0.4);
 }
 
 /* Theme: Reverse Tactical Mastermind */
