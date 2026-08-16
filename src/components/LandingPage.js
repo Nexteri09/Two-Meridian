@@ -1,4 +1,5 @@
 // ==========================================================================
+// ==========================================================================
 // Two Meridian — "Field Atlas" Cartographic Landing Page
 // Engraved typography, archival expedition dossiers & 3D globe linkage
 // ==========================================================================
@@ -59,7 +60,6 @@ export class LandingPage {
     this._buildHTML();
     this._bindCTA();
     this._bindDossierInteractions();
-    this._bindCoffeeTipOptions();
     this._bindThemeToggle();
     this._bindLeaderboardTabs();
     this._bindFAQs();
@@ -146,25 +146,87 @@ export class LandingPage {
 
       <!-- ── SECTION 1: HERO ────────────────────────────────────── -->
       <section class="landing-hero" id="landing-hero">
-        <div class="hero-content">
-          <h2 class="hero-headline" id="hero-headline">
-            The World Is Yours <span class="hero-italic">to Master</span>
-          </h2>
-          <div class="hero-divider-rule"></div>
-          <p class="hero-sub" id="hero-sub">
-            A precision cartographic study of sovereign borders, political territories, and rapid global recall.
-          </p>
+        <div class="hero-directory">
+          <nav class="directory-nav">
+            <a href="#landing-dossiers" class="dir-link">01 / Field Dossiers</a>
+            <a href="#landing-features" class="dir-link">02 / Disciplines</a>
+            <a href="#landing-leaderboard" class="dir-link">03 / Telemetry Ledger</a>
+            <a href="#landing-about" class="dir-link">04 / About the Atlas</a>
+          </nav>
+        </div>
 
-          <div class="hero-actions" id="hero-actions">
-            <button class="hero-cta" id="landing-cta" data-mode="casual">
-              <span>Explore the Atlas</span>
-              <span class="cta-arrow">→</span>
-            </button>
+        <div class="hero-layout-grid">
+          <!-- LEFT COLUMN: Note -->
+          <div class="hero-note-column">
+            <div class="hero-creator-note" id="creator-note-block">
+              <div class="note-visible-content" id="creator-note-trigger" title="Read the full dispatch...">
+                <p class="note-text">
+                  Hey, I'm NEO. <em>my codename apparently;</em><br><br>
+                  I built Two Meridian because I got genuinely obsessed with geography and couldn't find anything that actually challenged me. No multiple choice, no hand holding, no hints. just you and a spinning globe trying to name every country on earth from memory. turns out that's harder than it sounds.
+                  <span class="note-expand-prompt">Read more...</span>
+                </p>
+              </div>
+
+              <div class="note-expanded-content" id="creator-note-expanded">
+                <p class="note-text">
+                  <br>
+                  I'm a solo dev, no team, no funding, no ads. Just me building this in my free time because I think the world deserves a geography tool that respects your intelligence.<br>
+                  every feedback and donation goes straight back into keeping this thing alive. server costs, map data, new features. I'm working on historical borders, a capitals mode, and some stuff I'm not ready to talk about yet. <em>(not like it costs me much but saying it for a dramatic effect to feel like a actual underpaid dev)</em><br><br>
+                  If two Meridian made you feel like you actually learned something today, even one country you didn't know before, that genuinely means everything to me.<br><br>
+                  Feedback is always respected and worked upon.
+                </p>
+              </div>
+
+              <div class="note-footer">
+                <span class="note-sig">— NEO</span>
+                <a href="mailto:feedback@twomeridian.in?subject=Feedback%20for%20Two%20Meridian" class="note-feedback-link">Send Feedback →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Main Headline -->
+          <div class="hero-content">
+            <h2 class="hero-headline" id="hero-headline">
+              The World Is Yours <span class="hero-italic">to Master</span>
+            </h2>
+
+            <div class="hero-actions" id="hero-actions">
+              <button class="hero-cta" id="landing-cta" data-mode="casual">
+                <span>Explore the Atlas</span>
+                <span class="cta-arrow">→</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ── SECTION 2: CORE DISCIPLINES ────────────────────────── -->
+      <!-- ── SECTION 2: FLANKING FIELD STUDY ────────────────────── -->
+      <section class="landing-dossiers" id="landing-dossiers">
+        <div class="section-header" id="dossiers-header">
+          <div class="header-badge">
+            <span class="badge-glyph">◈</span>
+            <span>EXPEDITION ARCHIVE</span>
+          </div>
+          <h2 class="section-title">Cartography Beyond the Ordinary</h2>
+          <p class="section-desc">
+            Hover any dossier to smoothly rotate the globe and focus on its exact cartographic marker.
+          </p>
+        </div>
+
+        <div class="dossier-wings-container">
+          <!-- Left Wing: 3 Slim Cards -->
+          <div class="dossier-wing wing-left" id="wing-left">
+            ${this.featuredDossiers.slice(0, 3).map(d => this._renderDossierCard(d)).join('')}
+          </div>
+
+          <!-- Right Wing: 3 Slim Cards -->
+          <div class="dossier-wing wing-right" id="wing-right">
+            ${this.featuredDossiers.slice(3, 6).map(d => this._renderDossierCard(d)).join('')}
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECTION 3: CORE DISCIPLINES ────────────────────────── -->
       <section class="landing-features" id="landing-features">
         <div class="section-header" id="features-header">
           <div class="header-badge">
@@ -252,28 +314,6 @@ export class LandingPage {
             </svg>
             <span>Sovereign Standards & Flags [196]</span>
           </button>
-        </div>
-      </section>
-
-      <!-- ── SECTION 3: FLANKING FIELD STUDY ────────────────────── -->
-      <section class="landing-dossiers" id="landing-dossiers">
-        <div class="section-header" id="dossiers-header">
-          <h2 class="section-title">Cartography Beyond the Ordinary</h2>
-          <p class="section-desc">
-            Hover any dossier to smoothly rotate the globe and focus on its exact cartographic marker.
-          </p>
-        </div>
-
-        <div class="dossier-wings-container">
-          <!-- Left Wing: 3 Slim Cards -->
-          <div class="dossier-wing wing-left" id="wing-left">
-            ${this.featuredDossiers.slice(0, 3).map(d => this._renderDossierCard(d)).join('')}
-          </div>
-
-          <!-- Right Wing: 3 Slim Cards -->
-          <div class="dossier-wing wing-right" id="wing-right">
-            ${this.featuredDossiers.slice(3, 6).map(d => this._renderDossierCard(d)).join('')}
-          </div>
         </div>
       </section>
 
@@ -409,74 +449,6 @@ export class LandingPage {
         <span class="divider-line"></span>
       </div>
 
-      <!-- ── SECTION 6: SUPPORT (Archival Ration Card) ────────────────────── -->
-      <section class="landing-support left-aligned-section" id="landing-support">
-        <div class="ticket-ration-container">
-          <div class="corner-bracket bracket-tl"></div>
-          <div class="corner-bracket bracket-tr"></div>
-          <div class="corner-bracket bracket-bl"></div>
-          <div class="corner-bracket bracket-br"></div>
-
-          <div class="ticket-header">
-            <div class="ticket-stamp">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="10" stroke-dasharray="2 2"/>
-                <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-            </div>
-            <span class="ticket-eyebrow">EXPEDITION LOG // ARCHIVAL SUPPORT</span>
-            <h2 class="ticket-title">Fuel the Cartography Expedition</h2>
-            <p class="ticket-desc">
-              Two Meridian is an independent, ad-free cartography archive. Support ongoing chart maintenance, telemetry servers, and future releases with an expedition ration.
-            </p>
-          </div>
-
-          <!-- Selectable Ticket Tier Cards -->
-          <div class="ticket-tiers-grid" id="tip-options">
-            <div class="tier-card tip-btn" data-amt="3" role="button" tabindex="0">
-              <div class="tier-radio"></div>
-              <div class="tier-info">
-                <div class="tier-top">
-                  <span class="tier-name">Cartographer’s Espresso</span>
-                  <span class="tier-price">$3.00</span>
-                </div>
-                <p class="tier-desc">Supports weekly border updates & server telemetry.</p>
-              </div>
-            </div>
-
-            <div class="tier-card tip-btn active" data-amt="5" role="button" tabindex="0">
-              <div class="tier-radio"></div>
-              <div class="tier-info">
-                <div class="tier-top">
-                  <span class="tier-name">Field Officer’s Cortado</span>
-                  <span class="tier-price">$5.00</span>
-                </div>
-                <p class="tier-desc">Powers regional atlas expansions & high-res vector rendering.</p>
-              </div>
-            </div>
-
-            <div class="tier-card tip-btn" data-amt="10" role="button" tabindex="0">
-              <div class="tier-radio"></div>
-              <div class="tier-info">
-                <div class="tier-top">
-                  <span class="tier-name">Master Navigator’s Roast</span>
-                  <span class="tier-price">$10.00</span>
-                </div>
-                <p class="tier-desc">Fuels custom expedition modes, historical maps & archival research.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="ticket-actions">
-            <a href="https://buymeacoffee.com" target="_blank" rel="noopener noreferrer" class="brass-plate-btn" id="coffee-cta-btn">
-              <span class="btn-glyph">⌖</span>
-              <span>Fuel the Atlas Expedition</span>
-              <span class="cta-arrow">↗</span>
-            </a>
-          </div>
-        </div>
-      </section>
 
       <!-- ── SECTION DIVIDER 4 ── -->
       <div class="atlas-section-divider left-aligned-section">
@@ -642,20 +614,6 @@ export class LandingPage {
     }, 0);
   }
 
-  // ================================================================
-  //  EXPEDITION LEDGER RATION SELECTION
-  // ================================================================
-  _bindCoffeeTipOptions() {
-    setTimeout(() => {
-      const tipBtns = document.querySelectorAll('.tip-btn');
-      tipBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          tipBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-        });
-      });
-    }, 0);
-  }
   _bindThemeToggle() {
     const themeBtn = this.el.querySelector('#landing-theme-toggle');
     if (themeBtn) {
@@ -851,11 +809,11 @@ export class LandingPage {
     });
 
     anime({
-      targets: ['.hero-divider-rule', '#hero-sub', '#hero-actions'],
+      targets: '#hero-actions',
       opacity: [0, 1],
       translateY: [18, 0],
       duration: 600,
-      delay: anime.stagger(120, { start: 350 }),
+      delay: 350,
       easing: 'easeOutCubic'
     });
   }
@@ -948,9 +906,6 @@ export class LandingPage {
       anime({ targets: el.querySelectorAll('.about-foreword-container'), opacity: [0, 1], translateY: [24, 0], duration: 650, easing: 'easeOutCubic' });
     }, 0.1);
 
-    observe('#landing-support', el => {
-      anime({ targets: el.querySelectorAll('.ticket-ration-container'), opacity: [0, 1], translateY: [24, 0], duration: 650, easing: 'easeOutCubic' });
-    }, 0.1);
 
     observe('#landing-finale', el => {
       anime({ targets: el.querySelectorAll('.finale-slab-btn'), opacity: [0, 1], translateY: [20, 0], duration: 550, delay: anime.stagger(90), easing: 'easeOutCubic' });
@@ -995,6 +950,31 @@ export class LandingPage {
       document.querySelectorAll('.finale-slab-btn[data-mode]').forEach(btn => {
         btn.addEventListener('click', () => launchGame(btn.dataset.mode, 'world'));
       });
+
+      // Creator Note Accordion Toggle
+      const noteBlock = document.getElementById('creator-note-block');
+      const noteTrigger = document.getElementById('creator-note-trigger');
+      
+      if (noteBlock && noteTrigger) {
+        noteTrigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          noteBlock.classList.toggle('expanded');
+          
+          if (noteBlock.classList.contains('expanded')) {
+            document.body.classList.add('globe-dimmed');
+          } else {
+            document.body.classList.remove('globe-dimmed');
+          }
+        });
+
+        // Click outside to close
+        document.addEventListener('click', (e) => {
+          if (noteBlock.classList.contains('expanded') && !noteBlock.contains(e.target)) {
+            noteBlock.classList.remove('expanded');
+            document.body.classList.remove('globe-dimmed');
+          }
+        });
+      }
     }, 0);
   }
 

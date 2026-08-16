@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase.js';
+import { ATLAS_VOCABULARY, getRandomLoadingText } from '../utils/atlasVocabulary.js';
 
 export class LeaderboardManager {
   constructor(app) {
@@ -23,7 +24,7 @@ export class LeaderboardManager {
 
   // Prevent XSS from any alias stored in DB
   _sanitizeAlias(raw) {
-    if (!raw || typeof raw !== 'string') return 'Unknown';
+    if (!raw || typeof raw !== 'string') return 'Unknown Cartographer';
     const el = document.createElement('span');
     el.textContent = raw.slice(0, 30);
     return el.innerHTML; // HTML-escaped string safe to inject
@@ -86,13 +87,14 @@ export class LeaderboardManager {
   }
 
   _showLoading() {
-    this.contentSpeed.innerHTML = '<div class="lb-loading">Retrieving archives...</div>';
-    this.contentReverse.innerHTML = '<div class="lb-loading">Retrieving archives...</div>';
+    const text = getRandomLoadingText();
+    this.contentSpeed.innerHTML = `<div class="lb-loading">${text}</div>`;
+    this.contentReverse.innerHTML = `<div class="lb-loading">${text}</div>`;
   }
 
   _showError() {
-    this.contentSpeed.innerHTML = '<div class="lb-loading">Error retrieving archives.</div>';
-    this.contentReverse.innerHTML = '<div class="lb-loading">Error retrieving archives.</div>';
+    this.contentSpeed.innerHTML = `<div class="lb-loading">${ATLAS_VOCABULARY.errors.anomaly}</div>`;
+    this.contentReverse.innerHTML = `<div class="lb-loading">${ATLAS_VOCABULARY.errors.anomaly}</div>`;
   }
 
   _render() {
@@ -109,7 +111,7 @@ export class LeaderboardManager {
 
   _renderTable(container, rows, primaryMetricName) {
     if (!rows || rows.length === 0) {
-      container.innerHTML = '<div class="lb-empty">No expeditions recorded today.</div>';
+      container.innerHTML = `<div class="lb-empty">${ATLAS_VOCABULARY.empty.leaderboard}</div>`;
       return;
     }
 

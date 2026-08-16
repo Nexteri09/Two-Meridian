@@ -5,6 +5,7 @@
 
 import { MapNavigator } from './MapNavigator.js';
 import { ConfettiEngine } from '../utils/confetti.js';
+import { CertificateGenerator } from '../utils/certificateGenerator.js';
 
 export class MapView {
   constructor(app) {
@@ -458,6 +459,20 @@ export class MapView {
           </div>
         </div>
 
+        <div class="debrief-share-box">
+          <div class="debrief-share-title">📜 Share Expedition Certificate</div>
+          <div class="debrief-share-btns">
+            <button class="debrief-share-btn" id="btn-share-text">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+              <span>Copy Results Grid</span>
+            </button>
+            <button class="debrief-share-btn secondary" id="btn-share-image">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span>Download Stamp Card</span>
+            </button>
+          </div>
+        </div>
+
         <div class="debrief-actions">
           <button class="debrief-conclude-btn" id="btn-debrief-confirm-conclude">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;">
@@ -479,6 +494,40 @@ export class MapView {
     `;
 
     document.body.appendChild(overlay);
+
+    // Wire Share Handlers
+    document.getElementById('btn-share-text')?.addEventListener('click', () => {
+      const shareText = CertificateGenerator.generateTextShare({
+        mode,
+        score,
+        total,
+        elapsedMs: timeMs,
+        streakCount: data.streakCount || 0,
+        continentStats: data.continentStats
+      });
+
+      navigator.clipboard.writeText(shareText).then(() => {
+        this.app.sidebar.showInputFeedback('Expedition grid copied to clipboard! 📋', 'correct');
+      });
+    });
+
+    document.getElementById('btn-share-image')?.addEventListener('click', async () => {
+      this.app.sidebar.showInputFeedback('Generating certificate stamp...', '');
+      const dataUrl = await CertificateGenerator.generateCanvasImage({
+        mode,
+        score,
+        total,
+        elapsedMs: timeMs,
+        streakCount: data.streakCount || 0,
+        continentStats: data.continentStats
+      });
+
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `TwoMeridian-Certificate-${Date.now()}.png`;
+      a.click();
+      this.app.sidebar.showInputFeedback('Expedition stamp downloaded! 📜', 'correct');
+    });
 
     document.getElementById('btn-debrief-confirm-conclude')?.addEventListener('click', () => {
       overlay.remove();

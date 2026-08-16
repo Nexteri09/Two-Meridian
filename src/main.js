@@ -11,11 +11,14 @@ import { ThemeManager } from './components/ThemeManager.js';
 import { AuthManager } from './components/AuthManager.js';
 import { SessionManager } from './components/SessionManager.js';
 import { LeaderboardManager } from './components/LeaderboardManager.js';
+import { OnboardingModal } from './components/OnboardingModal.js';
+import { Router } from './utils/router.js';
 import { Storage } from './utils/storage.js';
 
 class App {
   constructor() {
     this.storage = new Storage();
+    this.router = null;
     this.themeManager = null;
     this.authManager = null;
     this.sessionManager = null;
@@ -35,6 +38,9 @@ class App {
     // 0. Apply theme immediately — before any render to avoid flash
     this.themeManager = new ThemeManager(this.storage);
 
+    // Initialize Router
+    this.router = new Router(this);
+
     // Initialize authentication & session management
     this.authManager = new AuthManager();
     this.sessionManager = new SessionManager(this);
@@ -45,8 +51,6 @@ class App {
     this.landingPage.init();
 
     // 2. Load game data & components in the background
-    //    By the time the user finishes reading the landing page and clicks Begin,
-    //    all of this will already be ready.
     try {
       const resp = await fetch('./src/data/countries.json');
       this.countriesData = await resp.json();
@@ -69,6 +73,15 @@ class App {
 
     // Restore saved state
     this.restoreState();
+
+    // Handle initial route (if landing directly on /flags-quiz, /capitals-quiz, etc.)
+    const pathname = window.location.pathname;
+    if (pathname && pathname !== '/' && pathname !== '/index.html' && pathname !== '/world') {
+      const landing = document.getElementById('page-landing');
+      if (landing) landing.classList.add('hidden');
+      this.revealApp();
+    }
+    this.router.handleInitialRoute();
   }
 
   revealApp() {
@@ -79,6 +92,9 @@ class App {
     setTimeout(() => {
       const input = document.getElementById('country-input');
       if (input) input.focus();
+
+      // Trigger Guided Onboarding for 1st time visitors
+      new OnboardingModal(this);
     }, 400);
   }
 

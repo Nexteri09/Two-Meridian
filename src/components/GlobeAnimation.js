@@ -21,6 +21,7 @@ const vertexShader = `
   varying vec3 vWorldPosition;
 
   uniform float uProgress;    // 0 = Flat Map, 1 = 3D Sphere
+  uniform float uPanY;        // Vertical panning for flat map
 
   #define PI 3.1415926535897932384626433832795
 
@@ -50,7 +51,7 @@ const vertexShader = `
     float flatH = 1.8;
     vec3 flatPos = vec3(
       (uv.x - 0.5) * flatW,
-      (uv.y - 0.5) * flatH,
+      (uv.y - 0.5) * flatH - 0.60 + uPanY,
       0.0
     );
     vec3 flatNormal = vec3(0.0, 0.0, 1.0);
@@ -172,6 +173,8 @@ export class GlobeAnimation {
     // State
     this.progress       = 0;
     this.targetProgress = 0;
+    this.panY           = 0;
+    this.targetPanY     = 0;
     this.scrollRotY     = 0;
     this.currentRotY    = 0;
     this.currentRotX    = 0;
@@ -825,6 +828,7 @@ export class GlobeAnimation {
 
     this.uniforms = {
       uProgress: { value: 0.0 },
+      uPanY:     { value: 0.0 },
       uMap:      { value: this.texture }
     };
 
@@ -874,7 +878,16 @@ export class GlobeAnimation {
     const scrollY = landing ? landing.scrollTop : window.scrollY;
     const heroH   = window.innerHeight;
 
-    const morphProgress = Math.min(Math.max(scrollY / (heroH * 0.90), 0), 1.0);
+    // Phase 1: Panning (first 60% of the screen height)
+    const panEnd = heroH * 0.60;
+    const panProgress = Math.min(scrollY / panEnd, 1.0);
+    this.targetPanY = panProgress * 0.60;
+
+    // Phase 2: Morphing starts AFTER 60% of the screen is scrolled
+    const morphStart = heroH * 0.60;
+    const morphEnd = morphStart + (heroH * 0.60); // Takes another 60vh to fully morph
+    const morphProgress = Math.max(0, Math.min((scrollY - morphStart) / (morphEnd - morphStart), 1.0));
+    
     this.targetProgress = morphProgress;
 
     // Shift -> Right + Zoom (Dynamically tied to the Dossiers section)
@@ -891,7 +904,12 @@ export class GlobeAnimation {
       this.shiftTarget = 0;
     }
 
-    this.scrollRotY = scrollY * 0.0028;
+    // Phase 3: Scroll Rotation ONLY starts after the globe is fully formed
+    if (scrollY > morphEnd) {
+      this.scrollRotY = (scrollY - morphEnd) * 0.0028;
+    } else {
+      this.scrollRotY = 0;
+    }
   }
 
   _onResize() {
@@ -916,12 +934,15 @@ export class GlobeAnimation {
 
     // 2. Smooth progress and camera
     this.progress += (this.targetProgress - this.progress) * 0.08;
+    this.panY += (this.targetPanY - this.panY) * 0.08;
+    
     if (this.shiftProgress === undefined) this.shiftProgress = 0;
     if (this.shiftTarget === undefined) this.shiftTarget = 0;
     this.shiftProgress += (this.shiftTarget - this.shiftProgress) * 0.08;
 
     if (this.uniforms) {
       this.uniforms.uProgress.value = this.progress;
+      this.uniforms.uPanY.value = this.panY;
     }
 
     // Interpolate camera X (pan left so globe goes right) and Z (zoom in)
@@ -935,8 +956,14 @@ export class GlobeAnimation {
     this.camera.lookAt(camX, 0, 0);
 
     if (this.mesh) {
-      // Continuous soft spin
-      this.autoSpinY += 0.0025;
+      // Continuous soft spin only when fully spherical
+      if (this.progress > 0.98) {
+        this.autoSpinY += 0.0025;
+      } else {
+        this.autoSpinY = 0;
+        this.currentRotY = 0;
+        this.currentRotX = 0;
+      }
 
       // Normalize rotation when fully spherical to prevent violent unwinding 
       // when morphing back to a flat map. (A 2PI jump is invisible on a full sphere)
@@ -958,8 +985,6 @@ export class GlobeAnimation {
       const targetX = (this.isFocused && this.focusRotX !== null) ? this.focusRotX : 0.0;
 
       // 1. Calculate difference.
-      // If focusing on a dossier, use shortest angular distance to prevent wild full spins.
-      // If just scrolling, use linear distance so fast scrolling doesn't make it spin backwards.
       let diffY = targetY - this.currentRotY;
       if (this.isFocused && this.focusRotY !== null) {
         diffY = diffY % (Math.PI * 2);
@@ -978,8 +1003,15 @@ export class GlobeAnimation {
       const stepX = Math.sign(diffX) * Math.min(Math.abs(diffX * 0.035), maxSpeedX);
       this.currentRotX += stepX;
 
-      this.mesh.rotation.y = this.currentRotY * this.progress;
-      this.mesh.rotation.x = this.currentRotX * this.progress;
+      // STRICT ZERO ROTATION LOCK:
+      // While flat or scrunching (progress 0.0 to 0.98), rotation is locked at 0.0
+      const rotFactor = Math.max(0, Math.min((this.progress - 0.98) / 0.02, 1.0));
+
+      this.mesh.rotation.y = this.currentRotY * rotFactor;
+      this.mesh.rotation.x = this.currentRotX * rotFactor;
+
+      // Optically center the globe vertically below the sticky header
+      this.mesh.position.y = -0.065 * this.progress;
 
       if (this.atmosMesh) {
         this.atmosMesh.position.copy(this.mesh.position);

@@ -26,6 +26,10 @@ export class Navigation {
         this.app.landingPage._globe.resetToTop();
       }
 
+      if (this.app.router) {
+        this.app.router.navigate('world', true);
+      }
+
       const anime = window.anime;
       if (anime) {
         anime({
@@ -73,12 +77,24 @@ export class Navigation {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const page = link.dataset.page;
-        this.navigateTo(page);
+        if (this.app.router) {
+          this.app.router.navigate(page, true);
+        } else {
+          this.navigateTo(page);
+        }
       });
     });
   }
 
   navigateTo(page) {
+    if (this.app.router) {
+      this.app.router.navigate(page, true);
+    } else {
+      this.renderRoute(page, 'casual');
+    }
+  }
+
+  renderRoute(page, mode = 'casual') {
     if (this.app.currentPage && this.app.currentPage !== 'donate' && this.app.currentPage !== page) {
       this.previousPage = this.app.currentPage;
     }
@@ -112,14 +128,11 @@ export class Navigation {
       }
     }
 
-    this.app.currentPage = page;
-
-    // Track SPA page navigation in Google Analytics
-    if (typeof gtag === 'function') {
-      gtag('event', 'page_view', {
-        page_title: `Two Meridian — ${page.charAt(0).toUpperCase() + page.slice(1)}`,
-        page_location: `https://twomeridian.in/#${page}`
-      });
+    // If main world page and mode specified (e.g. speed, reverse, weakspots), set game mode
+    if (page === 'world' && mode && this.app.gameEngine && this.app.currentMode !== mode) {
+      this.app.setMode(mode);
     }
+
+    this.app.currentPage = page;
   }
 }

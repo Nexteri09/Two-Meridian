@@ -30,24 +30,25 @@ export class Sidebar {
       });
     }
 
-    // Bind continent row clicks to highlight/frame continent
-    const rows = document.querySelectorAll('.continent-row');
-    rows.forEach(row => {
-      row.addEventListener('click', () => {
-        const continent = row.dataset.continent;
-        if (!continent || !this.app.mapView?.svgElement) return;
-
-        // Find first visible country in that continent and focus
-        const countryInContinent = this.app.countriesData.find(c => c.continent === continent);
-        if (countryInContinent) {
-          const lowerId = countryInContinent.id.toLowerCase();
-          const el = this.app.mapView.svgElement.querySelector(`[id="${lowerId}"], [data-id="${lowerId}"]`);
-          if (el) {
-            this.app.mapView.navigator?.focusElement(el, 2.2);
-          }
-        }
-      });
+    // Global keyboard shortcut (/ or Ctrl+K) for focus
+    window.addEventListener('keydown', (e) => {
+      if ((e.key === '/' || (e.ctrlKey && e.key === 'k')) && document.activeElement?.tagName !== 'INPUT') {
+        e.preventDefault();
+        const input = document.getElementById('country-input') || document.getElementById('reverse-country-input');
+        if (input) input.focus();
+      }
     });
+
+    // Update Daily Streak Badge on load
+    this.updateDailyStreakBadge();
+  }
+
+  updateDailyStreakBadge() {
+    const streakData = this.app.storage.getDailyStreak();
+    const streakEl = document.getElementById('daily-streak-badge');
+    if (streakEl) {
+      streakEl.innerHTML = `🔥 ${streakData.count} Day Streak`;
+    }
   }
 
   setMode(mode) {

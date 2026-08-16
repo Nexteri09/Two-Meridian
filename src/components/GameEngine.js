@@ -26,10 +26,29 @@ export class GameEngine {
     this.streakCount = 0;
     this.lastGuessTime = 0;
 
+    // Instant submit mode (auto-submit on match without Enter)
+    const savedInstant = this.app.storage.get('instantSubmit');
+    this.instantSubmit = savedInstant !== undefined ? savedInstant : true;
+
     this.bind();
   }
 
   bind() {
+    // Instant submit toggle pill
+    const toggleBtn = document.getElementById('instant-submit-toggle');
+    if (toggleBtn) {
+      toggleBtn.classList.toggle('active', this.instantSubmit);
+      toggleBtn.addEventListener('click', () => {
+        this.instantSubmit = !this.instantSubmit;
+        this.app.storage.set('instantSubmit', this.instantSubmit);
+        toggleBtn.classList.toggle('active', this.instantSubmit);
+        this.app.sidebar.showInputFeedback(
+          this.instantSubmit ? 'Auto-Submit Enabled' : 'Auto-Submit Disabled',
+          'correct'
+        );
+      });
+    }
+
     // Main input
     const input = document.getElementById('country-input');
     if (input) {
@@ -39,6 +58,19 @@ export class GameEngine {
           input.value = '';
         }
       });
+
+      // Instant submit as user types
+      input.addEventListener('input', () => {
+        if (!this.instantSubmit) return;
+        const val = input.value.trim();
+        if (!val) return;
+        const countryId = this.matcher.match(val);
+        if (countryId && !this.guessedCountries.has(countryId)) {
+          this.handleGuess(val);
+          input.value = '';
+        }
+      });
+
       // Keep focus
       input.addEventListener('blur', () => {
         if (this.mode !== 'reverse') {
@@ -53,12 +85,23 @@ export class GameEngine {
     if (submitBtn) submitBtn.addEventListener('click', () => this.handleReverseSubmit());
     if (skipBtn) skipBtn.addEventListener('click', () => this.handleReverseSkip());
 
-    // Reverse input enter key
+    // Reverse input enter key & instant submit
     const revCountryInput = document.getElementById('reverse-country-input');
     if (revCountryInput) {
       revCountryInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') this.handleReverseSubmit();
       });
+
+      revCountryInput.addEventListener('input', () => {
+        if (!this.instantSubmit) return;
+        const val = revCountryInput.value.trim();
+        if (!val) return;
+        const countryId = this.matcher.match(val);
+        if (countryId && this.reverseActive && this.reverseCurrentCountry && countryId === this.reverseCurrentCountry.id) {
+          this.handleReverseSubmit();
+        }
+      });
+
       // Keep focus
       revCountryInput.addEventListener('blur', () => {
         if (this.mode === 'reverse' && this.reverseActive) {
@@ -98,8 +141,11 @@ export class GameEngine {
   }
 
   handleConcludeExpedition() {
-    const score = this.mode === 'reverse' ? this.reverseCorrect : this.guessedCountries.size;
+    const score = this.mode === 'reverse' || this.mode === 'weakspots' ? this.reverseCorrect : this.guessedCountries.size;
     
+    // Record daily streak participation
+    this.app.storage.recordDailyPlay();
+
     // Abandon session on server if they conclude early
     if (this.app.sessionManager) {
       this.app.sessionManager.abandonSession();
@@ -117,14 +163,16 @@ export class GameEngine {
       this.speedStreakTimeout = null;
     }
 
-    // Trigger vintage debrief modal
+    // Trigger vintage debrief modal with continent stats and certificate share context
     if (this.app.mapView) {
       this.app.mapView.triggerExpeditionDebrief({
         mode: this.mode,
         score,
         total: this.totalCountries,
         elapsedMs: this.elapsedMs,
-        reverseSkipped: this.reverseSkipped
+        reverseSkipped: this.reverseSkipped,
+        streakCount: this.streakCount,
+        continentStats: this.getContinentStats()
       });
     }
   }
@@ -351,16 +399,30 @@ export class GameEngine {
       this.app.mapView.setReverseActiveState(true);
     }
 
-    this.reverseQueue = [...this.app.countriesData]
-      .sort(() => Math.random() - 0.5)
-      .map(c => c.id);
+    if (this.mode === 'weakspots') {
+      const weakSpots = this.app.storage.getWeakSpots();
+      if (weakSpots.length === 0) {
+        this.app.sidebar.showInputFeedback('No weak spots recorded in logbook yet!', 'incorrect');
+        this.reverseActive = false;
+        this.updateExpeditionButtonState('begin');
+        return;
+      }
+      this.reverseQueue = [...weakSpots].sort(() => Math.random() - 0.5);
+      this.totalCountries = weakSpots.length;
+    } else {
+      this.reverseQueue = [...this.app.countriesData]
+        .sort(() => Math.random() - 0.5)
+        .map(c => c.id);
+      this.totalCountries = this.app.countriesData.length;
+    }
+
     this.reverseCorrect = 0;
     this.reverseSkipped = 0;
     this.streakCount = 0;
     this.app.sidebar.updateStreak(0);
     
     if (this.app.sessionManager) {
-      this.app.sessionManager.startSession('reverse');
+      this.app.sessionManager.startSession(this.mode);
     }
 
     this.startTimer();
@@ -433,6 +495,10 @@ export class GameEngine {
     this.reverseSkipped++;
     this.streakCount = 0;
     this.app.sidebar.updateStreak(0);
+    
+    // Add skipped country to weak spots
+    this.app.storage.addWeakSpot(this.reverseCurrentCountry.id);
+
     this.app.sidebar.showInputFeedback(`Skipped: ${this.reverseCurrentCountry.name}`, '');
     this.app.mapView.clearReverseHighlight();
     
@@ -464,6 +530,9 @@ export class GameEngine {
       this.reverseCorrect++;
       this.guessedCountries.add(this.reverseCurrentCountry.id);
 
+      // Remove from weak spots if mastered
+      this.app.storage.removeWeakSpot(this.reverseCurrentCountry.id);
+
       // In Reverse mode, no cooldown decay — streak simply increments on consecutive correct guesses
       this.streakCount++;
       this.app.sidebar.updateStreak(this.streakCount);
@@ -490,6 +559,10 @@ export class GameEngine {
       this.app.playSound('wrong');
       this.streakCount = 0;
       this.app.sidebar.updateStreak(0);
+
+      // Add to weak spots
+      this.app.storage.addWeakSpot(this.reverseCurrentCountry.id);
+
       this.app.sidebar.showInputFeedback(`✗ Try again`, 'incorrect');
 
       if (this.app.sessionManager && countryGuess) {
@@ -655,5 +728,24 @@ export class GameEngine {
       history.shift();
     }
     this.app.storage.set('history', history);
+  }
+
+  getContinentStats() {
+    const continents = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+    const stats = {};
+
+    continents.forEach(cont => {
+      const allInCont = this.app.countriesData.filter(c => {
+        if (cont === 'Americas') return c.continent === 'North America' || c.continent === 'South America';
+        return c.continent === cont;
+      });
+      const correctCount = allInCont.filter(c => this.guessedCountries.has(c.id)).length;
+      stats[cont] = {
+        correct: correctCount,
+        total: allInCont.length
+      };
+    });
+
+    return stats;
   }
 }

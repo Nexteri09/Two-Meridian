@@ -173,17 +173,59 @@
   position: relative;
 }
 
+.input-wrapper-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 .country-input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 10px 84px 10px 14px;
   background: var(--ink-950);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.90rem;
   font-weight: 500;
   color: var(--paper);
   transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.instant-submit-pill {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  color: var(--paper-muted);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+  z-index: 2;
+  line-height: 1.4;
+}
+
+.instant-submit-pill:hover {
+  border-color: var(--brass-500);
+  color: var(--paper);
+}
+
+.instant-submit-pill.active {
+  background: rgba(197, 155, 39, 0.12);
+  border-color: rgba(197, 155, 39, 0.40);
+  color: var(--brass-400);
 }
 
 .country-input::placeholder {
@@ -1706,4 +1748,186 @@ html[data-theme="light"] .sidebar[data-mode="reverse"] .log-count {
   color: var(--paper-muted);
   font-family: var(--font-mono);
   font-size: 0.8rem;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   Share Expedition Certificate Box (Debrief Modal)
+   ════════════════════════════════════════════════════════════════════════ */
+.debrief-share-box {
+  background: rgba(18, 17, 15, 0.7);
+  border: 1px dashed rgba(212, 175, 55, 0.4);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin: 10px 0 16px 0;
+  text-align: center;
+}
+
+.debrief-share-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--brass-400);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.debrief-share-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.debrief-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--brass-500);
+  color: var(--ink-950);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.70rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.debrief-share-btn:hover {
+  background: var(--brass-400);
+  transform: translateY(-1px);
+}
+
+.debrief-share-btn.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--paper);
+  border: 1px solid var(--hairline);
+}
+
+.debrief-share-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--brass-500);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   Interactive Onboarding Tour Modal
+   ════════════════════════════════════════════════════════════════════════ */
+.onboarding-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 9, 14, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.onboarding-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.onboarding-card {
+  max-width: 480px;
+  width: 90%;
+  background: var(--ink-900);
+  border: 1px solid var(--brass-500);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 0 0 2px var(--ink-900), inset 0 0 0 3px rgba(212, 175, 55, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.onboarding-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.onboarding-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--brass-400);
+  letter-spacing: 0.09em;
+}
+
+.onboarding-skip-btn {
+  background: transparent;
+  border: none;
+  color: var(--paper-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.onboarding-skip-btn:hover {
+  color: var(--paper);
+}
+
+.onboarding-progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.progress-dot {
+  height: 4px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.progress-dot.active {
+  background: var(--brass-500);
+}
+
+.progress-dot.completed {
+  background: rgba(212, 175, 55, 0.5);
+}
+
+.onboarding-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--paper);
+  margin-bottom: 6px;
+}
+
+.onboarding-desc {
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  color: var(--paper-muted);
+  line-height: 1.5;
+}
+
+.onboarding-next-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--brass-500);
+  color: var(--ink-950);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background 0.2s;
+}
+
+.onboarding-next-btn:hover {
+  background: var(--brass-400);
 }
