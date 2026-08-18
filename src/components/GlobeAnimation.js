@@ -890,23 +890,39 @@ export class GlobeAnimation {
     
     this.targetProgress = morphProgress;
 
-    // Shift -> Right + Zoom (Dynamically tied to the Dossiers section)
-    const dossiers = document.getElementById('landing-dossiers');
-    if (dossiers) {
-      const rect = dossiers.getBoundingClientRect();
-      // Start shift EXACTLY when dossiers are 100% off the top of the screen (rect.bottom <= 0)
-      const shiftStartDist = 0; 
-      // End shift after scrolling further down (e.g., 60vh)
-      const shiftEndDist = -heroH * 0.6; 
-      
-      this.shiftTarget = Math.min(Math.max((rect.bottom - shiftStartDist) / (shiftEndDist - shiftStartDist), 0), 1.0);
+    // Phase 2b: Dossiers Reveal & Pin Stage Scroll Tracking
+    const extraScrollBuffer = 140; 
+    const isPastMorph = scrollY >= (morphEnd + extraScrollBuffer);
+
+    // Track scroll through the Pin Stage
+    const pinStage = document.getElementById('dossiers-pin-stage');
+    if (pinStage) {
+      const rect = pinStage.getBoundingClientRect();
+      const scrollableDist = Math.max(pinStage.offsetHeight - heroH, 1);
+      // pinProgress goes from 0.0 (top of stage at viewport) to 1.0 (end of stage)
+      const pinProgress = Math.max(0, Math.min(-rect.top / scrollableDist, 1.0));
+
+      // 1. Dossiers are revealed when past morph AND during first 65% of the pin stage
+      this.targetDossiersRevealed = isPastMorph && (pinProgress < 0.65);
+
+      // 2. Camera shifts right during the last 35% of the pin stage (0.65 -> 1.0)
+      if (pinProgress > 0.65) {
+        this.shiftTarget = Math.min((pinProgress - 0.65) / 0.35, 1.0);
+      } else {
+        if (rect.bottom <= heroH) {
+          this.shiftTarget = 1.0;
+        } else {
+          this.shiftTarget = 0;
+        }
+      }
     } else {
+      this.targetDossiersRevealed = isPastMorph;
       this.shiftTarget = 0;
     }
 
-    // Phase 3: Scroll Rotation ONLY starts after the globe is fully formed
-    if (scrollY > morphEnd) {
-      this.scrollRotY = (scrollY - morphEnd) * 0.0028;
+    // Phase 3: Scroll Rotation ONLY starts after the globe is fully formed and extra buffer passed
+    if (scrollY > (morphEnd + extraScrollBuffer)) {
+      this.scrollRotY = (scrollY - (morphEnd + extraScrollBuffer)) * 0.0028;
     } else {
       this.scrollRotY = 0;
     }
@@ -915,7 +931,21 @@ export class GlobeAnimation {
   _onResize() {
     const w = window.innerWidth;
     const h = window.innerHeight;
-    this.camera.aspect = w / h;
+    const aspect = w / h;
+    
+    // 16:9 Reference Aspect Lock
+    // Ensures the flat map is NEVER horizontally cropped on 16:10 or 3:2 screens
+    const baseAspect = 16 / 9;
+    if (aspect < baseAspect) {
+      const zoomFactor = baseAspect / aspect;
+      const baseFovRad = (26 / 2) * (Math.PI / 180);
+      const newFovRad = Math.atan(Math.tan(baseFovRad) * zoomFactor);
+      this.camera.fov = (newFovRad * 2) * (180 / Math.PI);
+    } else {
+      this.camera.fov = 26;
+    }
+
+    this.camera.aspect = aspect;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(w, h);
   }
@@ -945,10 +975,34 @@ export class GlobeAnimation {
       this.uniforms.uPanY.value = this.panY;
     }
 
+    // Choreographed entrance: Reveal dossiers header & wings ONLY once extra scroll distance after globe formation is reached
+    if (!this._dossiersEl) {
+      this._dossiersEl = document.getElementById('landing-dossiers');
+    }
+    if (this._dossiersEl) {
+      if (this.targetDossiersRevealed && this.progress > 0.98) {
+        if (!this._dossiersRevealed) {
+          this._dossiersRevealed = true;
+          this._dossiersEl.classList.add('dossiers-revealed');
+        }
+      } else {
+        if (this._dossiersRevealed) {
+          this._dossiersRevealed = false;
+          this._dossiersEl.classList.remove('dossiers-revealed');
+        }
+      }
+    }
+
     // Interpolate camera X (pan left so globe goes right) and Z (zoom in)
     // We only apply this shift if NOT focused on a dossier (to prevent weird offset conflicts)
     const activeShift = this.isFocused ? 0 : this.shiftProgress;
-    const camX = -1.25 * activeShift;
+    
+    // Dynamic Percentage-Based Lateral Shift for Ultrawide monitors
+    const vFovRad = this.camera.fov * Math.PI / 180;
+    const visibleHeight = 2 * Math.tan(vFovRad / 2) * 4.40;
+    const visibleWidth = visibleHeight * this.camera.aspect;
+    
+    const camX = - (visibleWidth * 0.28) * activeShift;
     const camZ = 4.40 - (1.6 * activeShift);
 
     this.camera.position.set(camX, 0, camZ);

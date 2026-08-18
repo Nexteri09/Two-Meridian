@@ -9,39 +9,39 @@ import { GlobeAnimation } from './GlobeAnimation.js';
 const FEATURED_DOSSIERS = [
   {
     num: '01', name: 'Vatican City', iso: 'VA', coords: '41°54′ N · 12°27′ E', lon: 12.45, lat: 41.90,
-    tagline: 'Smallest Independent State on Earth',
-    desc: 'Encompasses 0.49 km² inside Rome with ~800 citizens and historic St. Peter’s Basilica.',
-    stats: [ { k: 'AREA', v: '0.49 km²' }, { k: 'SEAT', v: 'Holy See' }, { k: 'POP', v: '~800' } ]
+    tagline: 'The Walled Sanctuary inside Rome',
+    desc: 'Smaller than a typical golf course, it mints its own euros, runs its own post office, and guards centuries of archival history behind stone walls.',
+    stats: [ { k: 'SIZE', v: '0.49 km²' }, { k: 'GUARD', v: 'Swiss Corps' }, { k: 'CITIZENS', v: '825' } ]
   },
   {
     num: '02', name: 'Tuvalu', iso: 'TV', coords: '8°31′ S · 179°11′ E', lon: 179.19, lat: -8.52,
-    tagline: 'Pacific Atoll of Virtual Sovereignty',
-    desc: 'Nine reef islands under 4.6m elevation. Leasing its .tv domain powers key national revenue.',
-    stats: [ { k: 'MAX ELEV', v: '4.6 m' }, { k: 'TLD', v: '.tv' }, { k: 'POP', v: '~11.2k' } ]
+    tagline: 'The Coral Atolls Funded by the Web',
+    desc: 'Nine low-lying coral atolls in the South Pacific that generate much of their national revenue by licensing the lucrative .tv web domain.',
+    stats: [ { k: 'ISLANDS', v: '9 Atolls' }, { k: 'WEB ASSET', v: '.tv domain' }, { k: 'HIGH POINT', v: '4.6 m' } ]
   },
   {
     num: '03', name: 'Lesotho', iso: 'LS', coords: '29°35′ S · 28°14′ E', lon: 28.23, lat: -29.58,
-    tagline: 'The Kingdom in the Sky',
-    desc: 'A high-altitude enclave entirely surrounded by South Africa, with its lowest point at 1,400 meters.',
-    stats: [ { k: 'BASE ELEV', v: '1,400 m' }, { k: 'TYPE', v: 'Enclave' }, { k: 'CAPITAL', v: 'Maseru' } ]
+    tagline: 'The High Alpine Enclave',
+    desc: 'The only sovereign state situated entirely above 1,000 meters altitude. It is completely encircled by South Africa with snowy mountain passes.',
+    stats: [ { k: 'BASE FLOOR', v: '1,400 m' }, { k: 'BORDER', v: 'Enclave' }, { k: 'REGION', v: 'Maloti Mts' } ]
   },
   {
     num: '04', name: 'St. Vincent & Grenadines', iso: 'VC', coords: '13°15′ N · 61°12′ W', lon: -61.20, lat: 13.25,
-    tagline: 'Volcanic Island Archipelago',
-    desc: 'Comprises a volcanic main island (St. Vincent) and a chain of 32 smaller islands in the Caribbean Sea.',
-    stats: [ { k: 'ISLANDS', v: '32' }, { k: 'VOLCANO', v: 'La Soufrière' }, { k: 'CAPITAL', v: 'Kingstown' } ]
+    tagline: 'The Volcanic Windward Chain',
+    desc: 'A dramatic Caribbean archipelago crowned by an active volcano, spanning 32 secluded islands, pirate coves, and black sand shorelines.',
+    stats: [ { k: 'ISLANDS', v: '32 Cays' }, { k: 'VOLCANO', v: 'Active peak' }, { k: 'CAPITAL', v: 'Kingstown' } ]
   },
   {
     num: '05', name: 'Nauru', iso: 'NR', coords: '0°32′ S · 166°55′ E', lon: 166.93, lat: -0.52,
-    tagline: 'Republic Without an Official Capital',
-    desc: 'At 21 km², Nauru is the world’s smallest island republic. Governance convenes in Yaren District.',
-    stats: [ { k: 'AREA', v: '21 km²' }, { k: 'POP', v: '~10.8k' }, { k: 'YEAR', v: '1968' } ]
+    tagline: 'The Solitary Island Republic',
+    desc: 'An isolated Pacific island with no official capital city. You can drive around the entire country along its coastal ring road in thirty minutes.',
+    stats: [ { k: 'RING ROAD', v: '19 km' }, { k: 'TERRITORY', v: '21 km²' }, { k: 'CAPITAL', v: 'None' } ]
   },
   {
     num: '06', name: 'Bhutan', iso: 'BT', coords: '27°30′ N · 90°30′ E', lon: 90.50, lat: 27.50,
-    tagline: 'Carbon Negative Kingdom',
-    desc: 'A Himalayan nation that measures Gross National Happiness and absorbs more carbon than it emits.',
-    stats: [ { k: 'PHILOSOPHY', v: 'GNH' }, { k: 'FORESTS', v: '71%' }, { k: 'CAPITAL', v: 'Thimphu' } ]
+    tagline: 'The Forested Himalayan Monarchy',
+    desc: 'Perched in the Himalayas with zero traffic lights in its capital, it legally mandates 60 percent forest cover and absorbs more carbon than it creates.',
+    stats: [ { k: 'CANOPY', v: '71% Trees' }, { k: 'MEASURE', v: 'Happiness' }, { k: 'STATUS', v: 'Carbon-neg' } ]
   }
 ];
 
@@ -150,8 +150,7 @@ export class LandingPage {
           <nav class="directory-nav">
             <a href="#landing-dossiers" class="dir-link">01 / Field Dossiers</a>
             <a href="#landing-features" class="dir-link">02 / Disciplines</a>
-            <a href="#landing-leaderboard" class="dir-link">03 / Telemetry Ledger</a>
-            <a href="#landing-about" class="dir-link">04 / About the Atlas</a>
+            <a href="#landing-about" class="dir-link">03 / About the Atlas</a>
           </nav>
         </div>
 
@@ -178,8 +177,8 @@ export class LandingPage {
               </div>
 
               <div class="note-footer">
-                <span class="note-sig">— NEO</span>
                 <a href="mailto:feedback@twomeridian.in?subject=Feedback%20for%20Two%20Meridian" class="note-feedback-link">Send Feedback →</a>
+                <span class="note-sig">- NEO</span>
               </div>
             </div>
           </div>
@@ -187,7 +186,7 @@ export class LandingPage {
           <!-- RIGHT COLUMN: Main Headline -->
           <div class="hero-content">
             <h2 class="hero-headline" id="hero-headline">
-              The World Is Yours <span class="hero-italic">to Master</span>
+              The World Is Yours to <span class="hero-highlight">Master</span>
             </h2>
 
             <div class="hero-actions" id="hero-actions">
@@ -200,40 +199,34 @@ export class LandingPage {
         </div>
       </section>
 
-      <!-- ── SECTION 2: FLANKING FIELD STUDY ────────────────────── -->
-      <section class="landing-dossiers" id="landing-dossiers">
-        <div class="section-header" id="dossiers-header">
-          <div class="header-badge">
-            <span class="badge-glyph">◈</span>
-            <span>EXPEDITION ARCHIVE</span>
-          </div>
-          <h2 class="section-title">Cartography Beyond the Ordinary</h2>
-          <p class="section-desc">
-            Hover any dossier to smoothly rotate the globe and focus on its exact cartographic marker.
-          </p>
-        </div>
-
-        <div class="dossier-wings-container">
-          <!-- Left Wing: 3 Slim Cards -->
-          <div class="dossier-wing wing-left" id="wing-left">
-            ${this.featuredDossiers.slice(0, 3).map(d => this._renderDossierCard(d)).join('')}
+      <!-- ── SECTION 2: FLANKING FIELD STUDY (Pinned Stage) ──────── -->
+      <div class="dossiers-pin-stage" id="dossiers-pin-stage">
+        <section class="landing-dossiers" id="landing-dossiers">
+          <div class="section-header" id="dossiers-header">
+            <h2 class="section-title">Curiosities of the <span class="hero-highlight">World</span></h2>
+            <p class="section-desc">
+              6 unusual sovereign nations. Hover to locate them on the globe.
+            </p>
           </div>
 
-          <!-- Right Wing: 3 Slim Cards -->
-          <div class="dossier-wing wing-right" id="wing-right">
-            ${this.featuredDossiers.slice(3, 6).map(d => this._renderDossierCard(d)).join('')}
+          <div class="dossier-wings-container">
+            <!-- Left Wing: 3 Slim Cards -->
+            <div class="dossier-wing wing-left" id="wing-left">
+              ${this.featuredDossiers.slice(0, 3).map(d => this._renderDossierCard(d)).join('')}
+            </div>
+
+            <!-- Right Wing: 3 Slim Cards -->
+            <div class="dossier-wing wing-right" id="wing-right">
+              ${this.featuredDossiers.slice(3, 6).map(d => this._renderDossierCard(d)).join('')}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <!-- ── SECTION 3: CORE DISCIPLINES ────────────────────────── -->
       <section class="landing-features" id="landing-features">
         <div class="section-header" id="features-header">
-          <div class="header-badge">
-            <span class="badge-glyph">◈</span>
-            <span>THREE MAIN DISCIPLINES</span>
-          </div>
-          <h2 class="section-title">Master the World Your Way</h2>
+          <h2 class="section-title"><span class="hero-highlight">Master</span> the World Your Way</h2>
           <p class="section-desc">
             Three handcrafted disciplines tailored for relaxed discovery, lightning-fast typing streaks, or reverse deduction.
           </p>
@@ -322,7 +315,7 @@ export class LandingPage {
         <span class="divider-line"></span>
       </div>
 
-      <!-- ── SECTION 4: LEADERBOARD (Expedition Ledger) ────────────────── -->
+      <!-- ── SECTION 4: LEADERBOARD (Expedition Ledger) [TEMPORARILY DISABLED] ──
       <section class="landing-leaderboard left-aligned-section" id="landing-leaderboard">
         <div class="ledger-manifest-container">
           <div class="corner-bracket bracket-tl"></div>
@@ -372,13 +365,9 @@ export class LandingPage {
           </div>
         </div>
       </section>
+      ── END OF DISABLED LEADERBOARD SECTION ── -->
 
-      <!-- ── SECTION DIVIDER 2 ── -->
-      <div class="atlas-section-divider left-aligned-section">
-        <span class="divider-line"></span>
-      </div>
-
-      <!-- ── SECTION 5: ABOUT & FAQ (Atlas Foreword) ──────────────────────── -->
+      <!-- ── SECTION 4: ABOUT & FAQ (Atlas Foreword) ──────────────────────── -->
       <section class="landing-about left-aligned-section" id="landing-about">
         <div class="about-foreword-container">
           <div class="about-header">
@@ -632,6 +621,7 @@ export class LandingPage {
   _bindLeaderboardTabs() {
     const tabs = this.el.querySelectorAll('.lb-tab');
     const slider = this.el.querySelector('#lb-tab-slider');
+    if (!slider || tabs.length === 0) return;
 
     const updateSlider = (activeTab) => {
       if (!slider || !activeTab) return;
@@ -854,19 +844,23 @@ export class LandingPage {
     };
 
     observe('#features-header', el => {
-      anime({ targets: el, opacity: [0, 1], translateY: [20, 0], duration: 700, easing: 'easeOutCubic' });
-    });
+      anime({ targets: el, opacity: [0, 1], translateY: [28, 0], duration: 800, easing: 'easeOutCubic' });
+    }, 0.05);
 
-    observe('.feature-panel', () => {
+    observe('.features-grid', el => {
       anime({
-        targets: '.feature-panel',
+        targets: el.querySelectorAll('.feature-panel'),
         opacity: [0, 1],
-        translateY: [30, 0],
-        duration: 600,
-        delay: anime.stagger(100),
+        translateY: [36, 0],
+        duration: 750,
+        delay: anime.stagger(120),
         easing: 'easeOutCubic'
       });
-    }, 0.08);
+    }, 0.05);
+
+    observe('.secondary-modes-bar', el => {
+      anime({ targets: el, opacity: [0, 1], translateY: [20, 0], duration: 700, delay: 200, easing: 'easeOutCubic' });
+    }, 0.05);
 
     observe('#dossiers-header', el => {
       anime({ targets: el, opacity: [0, 1], translateY: [20, 0], duration: 700, easing: 'easeOutCubic' });
@@ -956,6 +950,13 @@ export class LandingPage {
       const noteTrigger = document.getElementById('creator-note-trigger');
       
       if (noteBlock && noteTrigger) {
+        const collapseNote = () => {
+          if (noteBlock.classList.contains('expanded')) {
+            noteBlock.classList.remove('expanded');
+            document.body.classList.remove('globe-dimmed');
+          }
+        };
+
         noteTrigger.addEventListener('click', (e) => {
           e.stopPropagation();
           noteBlock.classList.toggle('expanded');
@@ -970,15 +971,30 @@ export class LandingPage {
         // Click outside to close
         document.addEventListener('click', (e) => {
           if (noteBlock.classList.contains('expanded') && !noteBlock.contains(e.target)) {
-            noteBlock.classList.remove('expanded');
-            document.body.classList.remove('globe-dimmed');
+            collapseNote();
           }
         });
+
+        // Auto-collapse and remove background dimming when scrolled out of view
+        const landing = document.getElementById('page-landing');
+        const handleScrollCollapse = () => {
+          if (noteBlock.classList.contains('expanded')) {
+            const rect = noteBlock.getBoundingClientRect();
+            // If the note has scrolled completely out of the viewport
+            if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
+              collapseNote();
+            }
+          }
+        };
+
+        if (landing) landing.addEventListener('scroll', handleScrollCollapse, { passive: true });
+        window.addEventListener('scroll', handleScrollCollapse, { passive: true });
       }
     }, 0);
   }
 
   _revealGame(mode = 'casual', page = 'world') {
+    document.body.classList.remove('globe-dimmed');
     if (this._globe) {
       this._globe.resetToTop();
     }
