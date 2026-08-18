@@ -12,6 +12,7 @@ import { AuthManager } from './components/AuthManager.js';
 import { SessionManager } from './components/SessionManager.js';
 import { LeaderboardManager } from './components/LeaderboardManager.js';
 import { OnboardingModal } from './components/OnboardingModal.js';
+import { FeedbackModal } from './components/FeedbackModal.js';
 import { Router } from './utils/router.js';
 import { Storage } from './utils/storage.js';
 
@@ -23,6 +24,7 @@ class App {
     this.authManager = null;
     this.sessionManager = null;
     this.leaderboardManager = null;
+    this.feedbackModal = null;
     this.currentPage = 'world';
     this.currentMode = 'casual';
     this.countriesData = null;
@@ -38,7 +40,8 @@ class App {
     // 0. Apply theme immediately — before any render to avoid flash
     this.themeManager = new ThemeManager(this.storage);
 
-    // Initialize Router
+    // Initialize Feedback Modal & Router
+    this.feedbackModal = new FeedbackModal(this);
     this.router = new Router(this);
 
     // Initialize authentication & session management

@@ -177,7 +177,7 @@ export class LandingPage {
               </div>
 
               <div class="note-footer">
-                <a href="mailto:feedback@twomeridian.in?subject=Feedback%20for%20Two%20Meridian" class="note-feedback-link">Send Feedback →</a>
+                <button type="button" class="note-feedback-link" id="landing-feedback-btn">Send Feedback →</button>
                 <span class="note-sig">- NEO</span>
               </div>
             </div>
@@ -943,6 +943,13 @@ export class LandingPage {
       // Finale mode slabs
       document.querySelectorAll('.finale-slab-btn[data-mode]').forEach(btn => {
         btn.addEventListener('click', () => launchGame(btn.dataset.mode, 'world'));
+      });
+
+      // Feedback Modal Trigger
+      document.getElementById('landing-feedback-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.app.feedbackModal?.open('General');
       });
 
       // Creator Note Accordion Toggle

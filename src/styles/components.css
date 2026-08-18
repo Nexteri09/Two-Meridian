@@ -1931,3 +1931,299 @@ html[data-theme="light"] .sidebar[data-mode="reverse"] .log-count {
 .onboarding-next-btn:hover {
   background: var(--brass-400);
 }
+
+/* ==========================================================================
+   FEEDBACK MODAL (Direct Dispatch to Supabase)
+   ========================================================================== */
+.feedback-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 9, 8, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.feedback-modal-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.feedback-modal-card {
+  background: var(--ink-900);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(184, 148, 79, 0.15);
+  width: 100%;
+  max-width: 520px;
+  padding: 28px 30px;
+  box-sizing: border-box;
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--paper);
+}
+
+.feedback-modal-overlay.visible .feedback-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.feedback-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.feedback-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.70rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brass-500);
+}
+
+.feedback-glyph {
+  font-size: 0.8rem;
+}
+
+.feedback-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--paper-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s ease, background 0.15s ease;
+  line-height: 1;
+}
+
+.feedback-close-btn:hover {
+  color: var(--paper);
+  background: var(--ink-800);
+}
+
+.feedback-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+  margin: 0 0 12px;
+}
+
+.feedback-creator-note {
+  background: rgba(184, 148, 79, 0.06);
+  border-left: 2px solid var(--brass-500);
+  padding: 10px 14px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: 20px;
+}
+
+.feedback-note-p {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  line-height: 1.48;
+  color: var(--paper);
+  margin: 0;
+  opacity: 0.92;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedback-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feedback-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.feedback-char-count {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--paper-faint);
+  letter-spacing: 0.05em;
+  transition: color 0.15s ease;
+}
+
+.feedback-char-count.near-limit {
+  color: var(--brass-500);
+  font-weight: 600;
+}
+
+.feedback-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper-faint);
+}
+
+.feedback-label .required {
+  color: var(--brass-500);
+}
+
+.feedback-label .optional {
+  font-size: 0.60rem;
+  opacity: 0.7;
+}
+
+.feedback-category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.category-pill {
+  background: var(--ink-950);
+  border: 1px solid var(--hairline);
+  color: var(--paper-muted);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.category-pill:hover {
+  border-color: var(--hairline-strong);
+  color: var(--paper);
+}
+
+.category-pill.active {
+  background: var(--brass-500);
+  border-color: var(--brass-500);
+  color: var(--ink-950);
+  font-weight: 600;
+}
+
+.feedback-textarea,
+.feedback-input {
+  width: 100%;
+  background: var(--ink-950);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.feedback-textarea:focus,
+.feedback-input:focus {
+  border-color: var(--brass-500);
+  box-shadow: 0 0 0 2px rgba(184, 148, 79, 0.2);
+}
+
+.feedback-textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.feedback-error-msg {
+  font-size: 0.78rem;
+  color: #E57373;
+  padding: 6px 10px;
+  background: rgba(229, 115, 115, 0.1);
+  border-radius: var(--radius-sm);
+}
+
+.feedback-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.feedback-cancel-btn {
+  background: transparent;
+  border: 1px solid var(--hairline);
+  color: var(--paper-muted);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.feedback-cancel-btn:hover {
+  background: var(--ink-800);
+  color: var(--paper);
+}
+
+.feedback-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--brass-500);
+  border: none;
+  color: var(--ink-950);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.84rem;
+  padding: 9px 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.feedback-submit-btn:hover:not(:disabled) {
+  background: var(--brass-400);
+  transform: translateY(-1px);
+}
+
+.feedback-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Success State */
+.feedback-success-state {
+  text-align: center;
+  padding: 16px 10px;
+}
+
+.success-glyph {
+  font-size: 2rem;
+  color: var(--brass-500);
+  margin-bottom: 10px;
+}
+
+.feedback-success-p {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--paper-muted);
+  max-width: 420px;
+  margin: 0 auto 20px;
+}
+
+.success-footer {
+  justify-content: center;
+}
