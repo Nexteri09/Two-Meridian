@@ -1,16 +1,16 @@
 # Two Meridian
 
-> Free interactive geography game: name all 196 countries on an interactive map.
+> Free interactive geography game and country guesser: guess and name all 196 countries on an interactive world map.
 
-Two Meridian is a web-based geography mastery game at https://twomeridian.in. Players type country names to fill in an interactive world map. The game includes:
+Two Meridian is a web-based geography game and country guesser at https://twomeridian.in. Players guess and type country names to fill in an interactive world map. The game includes:
 
-- **Casual Mode**: Untimed study of all 196 sovereign nations across 6 continents
-- **Speed Run Mode**: Timed challenges with combo streaks and daily leaderboards
-- **Reverse Mode**: Identify highlighted countries by shape and geographic clues
+- **Casual Mode**: Untimed world countries guessing of all 196 sovereign nations across 6 continents
+- **Speed Run Mode**: Timed country guesser challenges with combo streaks and daily leaderboards
+- **Reverse Mode**: Guess the country by its highlighted shape and geographic telemetry clues
 - **Capitals Quiz**: Test knowledge of all 196 world capitals
 - **Flags Quiz**: Identify all 196 sovereign flags
 
-The game is completely free, ad-free, requires no signup, and works in any modern browser. It features an interactive map, fact cards for every country, and real-time leaderboards.
+The game is completely free, ad-free, requires no signup, and works in any modern browser. It features an interactive 3D map, fact cards for every country, and real-time leaderboards.
 
 ## Key Facts
 - 196 countries (193 UN members plus Kosovo, Taiwan, Vatican City)
