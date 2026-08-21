@@ -18,10 +18,6 @@ export class MapView {
 
     // Cache: country id → computed glow blur radius
     this._glowCache = new Map();
-
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      this._setupDevPreview();
-    }
   }
 
   // ════════════════════════════════════════════════════════════════════════
@@ -455,38 +451,6 @@ export class MapView {
     document.getElementById('btn-victory-inspect-reverse')?.addEventListener('click', () => {
       overlay.remove();
     });
-  }
-
-  _setupDevPreview() {
-    // Expose global console preview helpers for developer testing on localhost
-    window.__devPreviewVictory = (mode = 'reverse') => {
-      if (mode === 'casual') this.triggerCasualCelebration();
-      else if (mode === 'speed') this.triggerSpeedCelebration(142340); // 02:22.34
-      else this.triggerReverseCelebration({ elapsedMs: 1304530, reverseSkipped: 0 }); // 21:44.53
-    };
-
-    // Hotkey: Ctrl + Shift + V cycles previews
-    window.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'v') {
-        e.preventDefault();
-        window.__devPreviewVictory('reverse');
-      }
-    });
-
-    // Floating test pill in bottom-left
-    const devPill = document.createElement('div');
-    devPill.className = 'dev-victory-pill';
-    devPill.innerHTML = `
-      <span class="dev-lbl">DEV PREVIEW:</span>
-      <button type="button" id="dev-btn-casual">Casual</button>
-      <button type="button" id="dev-btn-speed">Speed</button>
-      <button type="button" id="dev-btn-reverse">Reverse 100%</button>
-    `;
-    document.body.appendChild(devPill);
-
-    devPill.querySelector('#dev-btn-casual')?.addEventListener('click', () => window.__devPreviewVictory('casual'));
-    devPill.querySelector('#dev-btn-speed')?.addEventListener('click', () => window.__devPreviewVictory('speed'));
-    devPill.querySelector('#dev-btn-reverse')?.addEventListener('click', () => window.__devPreviewVictory('reverse'));
   }
 
   triggerExpeditionDebrief(data = {}) {
