@@ -30,39 +30,46 @@ export class Navigation {
         this.app.router.navigate('world', true);
       }
 
+      const appEl = document.getElementById('app');
+      const landing = document.getElementById('page-landing');
+
       const anime = window.anime;
       if (anime) {
         anime({
           targets: '#app',
           opacity: [1, 0],
-          scale: [1, 0.98],
-          duration: 350,
+          duration: 300,
           easing: 'easeInCubic',
           complete: () => {
-            document.getElementById('app').classList.add('hidden');
-            document.getElementById('app').style.opacity = '';
+            appEl.classList.add('hidden');
+            appEl.style.opacity = '';
+            appEl.style.transform = '';
 
-            const landing = document.getElementById('page-landing');
             landing.classList.remove('hidden');
             landing.style.opacity = '0';
-            // Reset landing page scroll
             landing.scrollTo({ top: 0, behavior: 'instant' });
-            if (this.app.landingPage?._globe) {
-              this.app.landingPage._globe.resetToTop();
+
+            if (this.app.landingPage) {
+              if (this.app.landingPage._globe) {
+                this.app.landingPage._globe.resetToTop();
+              }
+              this.app.landingPage._initScrollAnimations();
             }
 
-            if (anime) {
-              anime({ targets: '#page-landing', opacity: [0, 1], duration: 400, easing: 'easeOutCubic' });
-            } else {
-              landing.style.opacity = '1';
-            }
+            anime({ targets: '#page-landing', opacity: [0, 1], duration: 350, easing: 'easeOutCubic' });
           }
         });
       } else {
-        document.getElementById('app').classList.add('hidden');
-        document.getElementById('page-landing').classList.remove('hidden');
-        if (this.app.landingPage?._globe) {
-          this.app.landingPage._globe.resetToTop();
+        appEl.classList.add('hidden');
+        appEl.style.opacity = '';
+        appEl.style.transform = '';
+        landing.classList.remove('hidden');
+        landing.scrollTo({ top: 0, behavior: 'instant' });
+        if (this.app.landingPage) {
+          if (this.app.landingPage._globe) {
+            this.app.landingPage._globe.resetToTop();
+          }
+          this.app.landingPage._initScrollAnimations();
         }
       }
     };
@@ -84,6 +91,18 @@ export class Navigation {
         }
       });
     });
+
+    // In-App Feedback modal trigger from top nav
+    const feedbackBtn = document.getElementById('nav-feedback-btn') || document.getElementById('nav-donate');
+    if (feedbackBtn) {
+      feedbackBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (this.app.feedbackModal) {
+          this.app.feedbackModal.open('General');
+        }
+      });
+    }
   }
 
   navigateTo(page) {

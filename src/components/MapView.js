@@ -18,6 +18,10 @@ export class MapView {
 
     // Cache: country id → computed glow blur radius
     this._glowCache = new Map();
+
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      this._setupDevPreview();
+    }
   }
 
   // ════════════════════════════════════════════════════════════════════════
@@ -235,20 +239,49 @@ export class MapView {
     const overlay = document.createElement('div');
     overlay.className = 'victory-overlay fade-in';
     overlay.innerHTML = `
-      <div class="victory-card casual-theme">
-        <span class="victory-badge">Atlas Completed · 196 / 196</span>
-        <span class="victory-icon">🏆</span>
-        <h1>You charted the whole world!</h1>
-        <div class="victory-quirky-text">
-          All 196 nations found and accounted for. That was nice and peaceful...
-          <br><br>
-          <strong>But do you actually have the guts to take on Speed Mode?</strong>
-          <br>
-          <span style="color: var(--paper-muted); font-size: 0.88rem;">The clock doesn't stop. Let's see how fast that brain really works.</span>
+      <div class="victory-card casual-theme debrief-style">
+        <span class="debrief-corner top-left" aria-hidden="true">◆</span>
+        <span class="debrief-corner top-right" aria-hidden="true">◆</span>
+        <span class="debrief-corner bottom-left" aria-hidden="true">◆</span>
+        <span class="debrief-corner bottom-right" aria-hidden="true">◆</span>
+
+        <div class="victory-header-group">
+          <div class="victory-badge">◈ CASUAL SURVEY · 196 TARGETS</div>
+          <h1 class="victory-title">Atlas Charting Complete</h1>
+          <div class="victory-subtitle">All 196 sovereign nations identified across 6 continents.</div>
         </div>
+
+        <div class="victory-distilled-telemetry">
+          <div class="distilled-hero-stat">
+            <span class="distilled-hero-val highlight">196 / 196</span>
+            <span class="distilled-hero-lbl">GLOBAL COVERAGE · 100%</span>
+          </div>
+          <div class="distilled-meta-row">
+            <div class="distilled-meta-cell">
+              <span class="distilled-meta-val">6 / 6</span>
+              <span class="distilled-meta-lbl">CONTINENTS</span>
+            </div>
+            <div class="distilled-meta-divider"></div>
+            <div class="distilled-meta-cell">
+              <span class="distilled-meta-val">Master</span>
+              <span class="distilled-meta-lbl">RANK</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="victory-creator-note">
+          <div class="creator-note-header">
+            <span class="note-glyph">◈</span>
+            <span>DISPATCH FROM NEO</span>
+          </div>
+          <p class="creator-note-body">
+            "ahh i see..i hope it was fun knowing new countries you werent aware of..you had your fun going through them but do you have the guts to spear through the speed mode? purely time based with no clicking countries to know their name..i guess you would need to rehearse quite more in casual mode haha...see you in speed mode soon."
+          </p>
+        </div>
+
         <div class="victory-actions">
-          <button class="victory-next-btn" id="btn-victory-try-speed">Take On Speed Mode ⚡</button>
-          <button class="victory-close-btn" id="btn-victory-close">Keep Admiring Map 🗺️</button>
+          <button class="victory-next-btn" id="btn-victory-try-speed">Take On Speed Mode →</button>
+          <button class="victory-close-btn" id="btn-victory-close">Keep Admiring Map</button>
         </div>
       </div>
     `;
@@ -272,24 +305,59 @@ export class MapView {
     const secs = Math.floor((timeMs % 60000) / 1000);
     const centis = Math.floor((timeMs % 1000) / 10);
     const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}.${String(centis).padStart(2, '0')}`;
+    const secPerCountry = timeMs > 0 ? (timeMs / 1000 / 196).toFixed(1) + 's' : '0.0s';
 
     const overlay = document.createElement('div');
     overlay.className = 'victory-overlay fade-in';
     overlay.innerHTML = `
-      <div class="victory-card speed-theme">
-        <span class="victory-badge">⚡ 196 Countries in ${timeStr}</span>
-        <span class="victory-icon">⏱️</span>
-        <h1>Fast hands! Not bad at all.</h1>
-        <div class="victory-quirky-text">
-          You blazed through all 196 nations in <strong>${timeStr}</strong>. That's serious typing speed!
-          <br><br>
-          <strong>...But can you even recognize countries just by their shapes? 😂</strong>
-          <br>
-          <span style="color: var(--paper-muted); font-size: 0.88rem;">Try Reverse Mode if you think you're actually a geography god. Most people can't even get past 10 without skipping half the map!</span>
+      <div class="victory-card speed-theme debrief-style">
+        <span class="debrief-corner top-left" aria-hidden="true">◆</span>
+        <span class="debrief-corner top-right" aria-hidden="true">◆</span>
+        <span class="debrief-corner bottom-left" aria-hidden="true">◆</span>
+        <span class="debrief-corner bottom-right" aria-hidden="true">◆</span>
+
+        <div class="victory-header-group">
+          <div class="victory-badge">◈ SPEED CHRONOMETER · 196 TARGETS</div>
+          <h1 class="victory-title">Speed Run Complete</h1>
+          <div class="victory-subtitle">All 196 sovereign nations charted under timed chronometer pressure.</div>
         </div>
+
+        <div class="victory-distilled-telemetry">
+          <div class="distilled-hero-stat">
+            <span class="distilled-hero-val highlight">${timeStr}</span>
+            <span class="distilled-hero-lbl">FINAL CHRONOMETER TIME</span>
+          </div>
+          <div class="distilled-meta-row">
+            <div class="distilled-meta-cell">
+              <span class="distilled-meta-val">196 / 196</span>
+              <span class="distilled-meta-lbl">TERRITORIES</span>
+            </div>
+            <div class="distilled-meta-divider"></div>
+            <div class="distilled-meta-cell">
+              <span class="distilled-meta-val">${secPerCountry}</span>
+              <span class="distilled-meta-lbl">AVG PACE</span>
+            </div>
+            <div class="distilled-meta-divider"></div>
+            <div class="distilled-meta-cell">
+              <span class="distilled-meta-val">Active</span>
+              <span class="distilled-meta-lbl">LEADERBOARD</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="victory-creator-note">
+          <div class="creator-note-header">
+            <span class="note-glyph">◈</span>
+            <span>DISPATCH FROM NEO</span>
+          </div>
+          <p class="creator-note-body">
+            "oh wow..great speed and accuracy....try maintaining your streak from next time....you are not ready to experience and go through this reverse mode..like it takes a lot of brain power to map down countries ...keep playing casual and speed and then we will see if you are really ready to take on reverse mode..HAHAHA.."
+          </p>
+        </div>
+
         <div class="victory-actions">
-          <button class="victory-next-btn" id="btn-victory-try-reverse">Dare Accepted: Try Reverse Mode 🎯</button>
-          <button class="victory-close-btn" id="btn-victory-close-speed">Beat My Time ⏱️</button>
+          <button class="victory-next-btn" id="btn-victory-try-reverse">Try Reverse Mode →</button>
+          <button class="victory-close-btn" id="btn-victory-close-speed">Inspect Map</button>
         </div>
       </div>
     `;
@@ -319,21 +387,60 @@ export class MapView {
     const secs = Math.floor((timeMs % 60000) / 1000);
     const centis = Math.floor((timeMs % 1000) / 10);
     const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}.${String(centis).padStart(2, '0')}`;
+    const paceStr = timeMs > 0 ? (timeMs / 1000 / total).toFixed(1) + 's' : '0.0s';
+    const streakStr = skipped === 0 ? '0 Skips' : `${skipped} Skips`;
 
     const overlay = document.createElement('div');
     overlay.className = 'victory-overlay fade-in';
     overlay.innerHTML = `
-      <div class="victory-card reverse-theme">
-        <span class="victory-badge">👑 Elite Geographer</span>
-        <span class="victory-icon">👑</span>
-        <h1>Okay, you're genuinely insane.</h1>
-        <div class="victory-quirky-text">
-          You just identified every random glowing country on Earth with <strong>${accuracy}% accuracy</strong> in <strong>${timeStr}</strong>!
-          <br><br>
-          You officially know this planet better than 99.9% of humans. Take a screenshot — you've earned ultimate bragging rights.
+      <div class="victory-card reverse-theme debrief-style">
+        <span class="debrief-corner top-left" aria-hidden="true">◆</span>
+        <span class="debrief-corner top-right" aria-hidden="true">◆</span>
+        <span class="debrief-corner bottom-left" aria-hidden="true">◆</span>
+        <span class="debrief-corner bottom-right" aria-hidden="true">◆</span>
+
+        <div class="victory-header-group">
+          <div class="victory-badge">◈ PLANETARY REVERSE DEDUCTION · 100% COGNITION</div>
+          <h1 class="victory-title">Planetary Cognition Complete</h1>
+          <div class="victory-subtitle">196 of 196 sovereign territories deduced from isolated spatial geometry.</div>
         </div>
+
+        <div class="victory-distilled-telemetry">
+          <div class="distilled-hero-stat">
+            <span class="distilled-hero-val highlight">${accuracy}%</span>
+            <span class="distilled-hero-lbl">DEDUCTION ACCURACY</span>
+          </div>
+          <div class="distilled-meta-row">
+            <div class="distilled-meta-cell">
+              <span class="distilled-meta-val">${timeStr}</span>
+              <span class="distilled-meta-lbl">CHRONOMETER</span>
+            </div>
+            <div class="distilled-meta-divider"></div>
+            <div class="distilled-meta-cell">
+              <span class="distilled-meta-val">${paceStr}</span>
+              <span class="distilled-meta-lbl">PACE / TARGET</span>
+            </div>
+            <div class="distilled-meta-divider"></div>
+            <div class="distilled-meta-cell">
+              <span class="distilled-meta-val">${streakStr}</span>
+              <span class="distilled-meta-lbl">STREAK LOG</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="victory-creator-note">
+          <div class="creator-note-header">
+            <span class="note-glyph">◈</span>
+            <span>DISPATCH FROM NEO</span>
+          </div>
+          <p class="creator-note-body">
+            "oh MY goodnesss..you really did it..i hope you didnt cheat into this...this is an extraordinary feat to perform and you should be proud of yourself..like i am proud of you..."
+          </p>
+        </div>
+
         <div class="victory-actions">
-          <button class="victory-next-btn" id="btn-victory-replay-reverse">Play Again 🏆</button>
+          <button class="victory-next-btn" id="btn-victory-replay-reverse">New Expedition</button>
+          <button class="victory-close-btn" id="btn-victory-inspect-reverse">Inspect Map</button>
         </div>
       </div>
     `;
@@ -344,6 +451,42 @@ export class MapView {
       overlay.remove();
       this.app.gameEngine.resetAllProgress();
     });
+
+    document.getElementById('btn-victory-inspect-reverse')?.addEventListener('click', () => {
+      overlay.remove();
+    });
+  }
+
+  _setupDevPreview() {
+    // Expose global console preview helpers for developer testing on localhost
+    window.__devPreviewVictory = (mode = 'reverse') => {
+      if (mode === 'casual') this.triggerCasualCelebration();
+      else if (mode === 'speed') this.triggerSpeedCelebration(142340); // 02:22.34
+      else this.triggerReverseCelebration({ elapsedMs: 1304530, reverseSkipped: 0 }); // 21:44.53
+    };
+
+    // Hotkey: Ctrl + Shift + V cycles previews
+    window.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'v') {
+        e.preventDefault();
+        window.__devPreviewVictory('reverse');
+      }
+    });
+
+    // Floating test pill in bottom-left
+    const devPill = document.createElement('div');
+    devPill.className = 'dev-victory-pill';
+    devPill.innerHTML = `
+      <span class="dev-lbl">DEV PREVIEW:</span>
+      <button type="button" id="dev-btn-casual">Casual</button>
+      <button type="button" id="dev-btn-speed">Speed</button>
+      <button type="button" id="dev-btn-reverse">Reverse 100%</button>
+    `;
+    document.body.appendChild(devPill);
+
+    devPill.querySelector('#dev-btn-casual')?.addEventListener('click', () => window.__devPreviewVictory('casual'));
+    devPill.querySelector('#dev-btn-speed')?.addEventListener('click', () => window.__devPreviewVictory('speed'));
+    devPill.querySelector('#dev-btn-reverse')?.addEventListener('click', () => window.__devPreviewVictory('reverse'));
   }
 
   triggerExpeditionDebrief(data = {}) {

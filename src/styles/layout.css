@@ -128,8 +128,10 @@
   background: var(--ink-800);
 }
 
-.nav-donate {
+.nav-donate,
+.nav-feedback-btn {
   color: var(--brass-500);
+  background: transparent;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 500;
@@ -139,11 +141,16 @@
   padding: 4px 10px;
   border: 1px solid var(--hairline);
   border-radius: var(--radius-sm);
+  cursor: pointer;
+  outline: none;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.nav-donate:hover {
+.nav-donate:hover,
+.nav-feedback-btn:hover {
   background: rgba(197, 155, 39, 0.1);
   color: var(--brass-500);
+  border-color: var(--brass-500);
 }
 
 .auth-btn {

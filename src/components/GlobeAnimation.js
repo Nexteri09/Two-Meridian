@@ -875,8 +875,21 @@ export class GlobeAnimation {
 
   _onScroll() {
     const landing = document.getElementById('page-landing');
-    const scrollY = landing ? landing.scrollTop : window.scrollY;
+    if (!landing || landing.classList.contains('hidden')) {
+      return;
+    }
+
+    const scrollY = landing.scrollTop;
     const heroH   = window.innerHeight;
+
+    if (scrollY <= 5) {
+      this.targetPanY = 0;
+      this.targetProgress = 0;
+      this.targetDossiersRevealed = false;
+      this.shiftTarget = 0;
+      this.scrollRotY = 0;
+      return;
+    }
 
     // Phase 1: Panning (first 60% of the screen height)
     const panEnd = heroH * 0.60;
@@ -896,27 +909,25 @@ export class GlobeAnimation {
 
     // Track scroll through the Pin Stage
     const pinStage = document.getElementById('dossiers-pin-stage');
-    if (pinStage) {
+    if (pinStage && isPastMorph) {
       const rect = pinStage.getBoundingClientRect();
       const scrollableDist = Math.max(pinStage.offsetHeight - heroH, 1);
       // pinProgress goes from 0.0 (top of stage at viewport) to 1.0 (end of stage)
       const pinProgress = Math.max(0, Math.min(-rect.top / scrollableDist, 1.0));
 
       // 1. Dossiers are revealed when past morph AND during first 65% of the pin stage
-      this.targetDossiersRevealed = isPastMorph && (pinProgress < 0.65);
+      this.targetDossiersRevealed = pinProgress < 0.65;
 
       // 2. Camera shifts right during the last 35% of the pin stage (0.65 -> 1.0)
       if (pinProgress > 0.65) {
         this.shiftTarget = Math.min((pinProgress - 0.65) / 0.35, 1.0);
+      } else if (rect.top < 0 && rect.bottom <= heroH) {
+        this.shiftTarget = 1.0;
       } else {
-        if (rect.bottom <= heroH) {
-          this.shiftTarget = 1.0;
-        } else {
-          this.shiftTarget = 0;
-        }
+        this.shiftTarget = 0;
       }
     } else {
-      this.targetDossiersRevealed = isPastMorph;
+      this.targetDossiersRevealed = false;
       this.shiftTarget = 0;
     }
 
@@ -1073,5 +1084,52 @@ export class GlobeAnimation {
     }
 
     this.renderer.render(this.scene, this.camera);
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  //  RESET TO TOP / FLAT HERO STATE
+  // ─────────────────────────────────────────────────────────────────────────
+
+  resetToTop() {
+    this.targetProgress = 0;
+    this.progress = 0;
+    this.targetPanY = 0;
+    this.panY = 0;
+    this.shiftTarget = 0;
+    this.shiftProgress = 0;
+    this.scrollRotY = 0;
+    this.targetDossiersRevealed = false;
+    this._dossiersRevealed = false;
+    this.isFocused = false;
+    this.focusRotY = null;
+    this.currentRotY = 0;
+    this.currentRotX = 0;
+    this.autoSpinY = 0;
+
+    if (this.uniforms) {
+      this.uniforms.uProgress.value = 0;
+      this.uniforms.uPanY.value = 0;
+    }
+
+    if (this.camera) {
+      this.camera.position.set(0, 0, 4.40);
+      this.camera.lookAt(0, 0, 0);
+    }
+
+    if (this.mesh) {
+      this.mesh.rotation.set(0, 0, 0);
+      this.mesh.position.set(0, 0, 0);
+    }
+
+    if (this.atmosMesh) {
+      this.atmosMesh.position.set(0, 0, 0);
+    }
+
+    if (!this._dossiersEl) {
+      this._dossiersEl = document.getElementById('landing-dossiers');
+    }
+    if (this._dossiersEl) {
+      this._dossiersEl.classList.remove('dossiers-revealed');
+    }
   }
 }

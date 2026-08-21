@@ -9,39 +9,39 @@ import { GlobeAnimation } from './GlobeAnimation.js';
 const FEATURED_DOSSIERS = [
   {
     num: '01', name: 'Vatican City', iso: 'VA', coords: '41°54′ N · 12°27′ E', lon: 12.45, lat: 41.90,
-    tagline: 'The Walled Sanctuary inside Rome',
-    desc: 'Smaller than a typical golf course, it mints its own euros, runs its own post office, and guards centuries of archival history behind stone walls.',
-    stats: [ { k: 'SIZE', v: '0.49 km²' }, { k: 'GUARD', v: 'Swiss Corps' }, { k: 'CITIZENS', v: '825' } ]
+    tagline: 'The Sovereign Enclave',
+    desc: 'Smaller than a golf course, it mints its own euros, runs its own post office, and guards centuries of archival history behind stone walls.',
+    curio: '0.49 km² · 825 Residents'
   },
   {
     num: '02', name: 'Tuvalu', iso: 'TV', coords: '8°31′ S · 179°11′ E', lon: 179.19, lat: -8.52,
-    tagline: 'The Coral Atolls Funded by the Web',
-    desc: 'Nine low-lying coral atolls in the South Pacific that generate much of their national revenue by licensing the lucrative .tv web domain.',
-    stats: [ { k: 'ISLANDS', v: '9 Atolls' }, { k: 'WEB ASSET', v: '.tv domain' }, { k: 'HIGH POINT', v: '4.6 m' } ]
+    tagline: 'The Coral Atoll Republic',
+    desc: 'Nine low-lying coral atolls in the South Pacific that fund much of their national infrastructure by licensing the lucrative .tv web domain.',
+    curio: '9 Coral Atolls · Max Elev. 4.6m'
   },
   {
     num: '03', name: 'Lesotho', iso: 'LS', coords: '29°35′ S · 28°14′ E', lon: 28.23, lat: -29.58,
-    tagline: 'The High Alpine Enclave',
-    desc: 'The only sovereign state situated entirely above 1,000 meters altitude. It is completely encircled by South Africa with snowy mountain passes.',
-    stats: [ { k: 'BASE FLOOR', v: '1,400 m' }, { k: 'BORDER', v: 'Enclave' }, { k: 'REGION', v: 'Maloti Mts' } ]
+    tagline: 'The Alpine Sky Kingdom',
+    desc: 'The only sovereign state on Earth situated entirely above 1,000 meters altitude, completely encircled by snowy South African mountain passes.',
+    curio: 'Enclave · 1,400m Base Altitude'
   },
   {
     num: '04', name: 'St. Vincent & Grenadines', iso: 'VC', coords: '13°15′ N · 61°12′ W', lon: -61.20, lat: 13.25,
     tagline: 'The Volcanic Windward Chain',
     desc: 'A dramatic Caribbean archipelago crowned by an active volcano, spanning 32 secluded islands, pirate coves, and black sand shorelines.',
-    stats: [ { k: 'ISLANDS', v: '32 Cays' }, { k: 'VOLCANO', v: 'Active peak' }, { k: 'CAPITAL', v: 'Kingstown' } ]
+    curio: '32 Islands · Active Volcano'
   },
   {
     num: '05', name: 'Nauru', iso: 'NR', coords: '0°32′ S · 166°55′ E', lon: 166.93, lat: -0.52,
     tagline: 'The Solitary Island Republic',
     desc: 'An isolated Pacific island with no official capital city. You can drive around the entire country along its coastal ring road in thirty minutes.',
-    stats: [ { k: 'RING ROAD', v: '19 km' }, { k: 'TERRITORY', v: '21 km²' }, { k: 'CAPITAL', v: 'None' } ]
+    curio: '21 km² · No Official Capital'
   },
   {
     num: '06', name: 'Bhutan', iso: 'BT', coords: '27°30′ N · 90°30′ E', lon: 90.50, lat: 27.50,
-    tagline: 'The Forested Himalayan Monarchy',
-    desc: 'Perched in the Himalayas with zero traffic lights in its capital, it legally mandates 60 percent forest cover and absorbs more carbon than it creates.',
-    stats: [ { k: 'CANOPY', v: '71% Trees' }, { k: 'MEASURE', v: 'Happiness' }, { k: 'STATUS', v: 'Carbon-neg' } ]
+    tagline: 'The Carbon-Negative Kingdom',
+    desc: 'Perched in the Himalayas with zero traffic lights, it legally mandates 60 percent forest cover and absorbs more carbon than it emits.',
+    curio: '71% Forest Cover · Carbon Negative'
   }
 ];
 
@@ -129,10 +129,9 @@ export class LandingPage {
             </svg>
           </button>
 
-          <!-- Auth Controls for Landing Page -->
-          <button id="landing-auth-btn" class="nav-link auth-btn">Sign In</button>
+          <!-- Auth Controls for Landing Page (Only shows when signed in) -->
           <div id="landing-auth-user" class="auth-user-menu hidden">
-            <span id="landing-auth-alias" class="auth-alias">Alias</span>
+            <span id="landing-auth-alias" class="auth-alias" title="Click to edit alias">Alias</span>
             <button id="landing-auth-logout" class="nav-icon-btn" title="Sign Out">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -149,8 +148,9 @@ export class LandingPage {
         <div class="hero-directory">
           <nav class="directory-nav">
             <a href="#landing-dossiers" class="dir-link">01 / Field Dossiers</a>
-            <a href="#landing-features" class="dir-link">02 / Disciplines</a>
-            <a href="#landing-about" class="dir-link">03 / About the Atlas</a>
+            <a href="#landing-features" class="dir-link">02 / Game Modes</a>
+            <a href="#landing-sync" class="dir-link">03 / Cloud Sync</a>
+            <a href="#landing-about" class="dir-link">04 / About the Atlas</a>
           </nav>
         </div>
 
@@ -223,64 +223,64 @@ export class LandingPage {
         </section>
       </div>
 
-      <!-- ── SECTION 3: CORE DISCIPLINES ────────────────────────── -->
+      <!-- ── SECTION 3: GAME MODES ────────────────────────────── -->
       <section class="landing-features" id="landing-features">
         <div class="section-header" id="features-header">
-          <h2 class="section-title"><span class="hero-highlight">Master</span> the World Your Way</h2>
+          <h2 class="section-title">Three Ways to <span class="hero-highlight">Play</span></h2>
           <p class="section-desc">
-            Three handcrafted disciplines tailored for relaxed discovery, lightning-fast typing streaks, or reverse deduction.
+            Whether you want a relaxed study session, a fast-paced typing challenge, or pure spatial deduction.
           </p>
         </div>
 
         <div class="features-grid">
-          <!-- Discipline 01: Casual -->
+          <!-- Mode 01: Casual -->
           <div class="feature-panel" data-mode="casual" role="button" tabindex="0">
             <div class="panel-top-rule"></div>
             <div class="panel-header">
-              <span class="panel-num">01 // UNTIMED</span>
-              <span class="panel-badge">CASUAL STUDY</span>
+              <span class="panel-num">01</span>
+              <span class="panel-badge">UNTIMED</span>
             </div>
             <h3 class="panel-title">Casual Mode</h3>
             <p class="panel-desc">
-              Explore every sovereign boundary at your own pace. Filter by continent, zoom seamlessly, and watch each territory illuminate as you type.
+              Explore every border at your own pace. Type country names from memory, learn interesting facts about each one, and watch the map light up as you go.
             </p>
-            <div class="panel-meta-mono">NO TIME LIMIT · 6 CONTINENTS · AMBER CHARTS</div>
+            <div class="panel-meta-mono">NO TIME LIMIT · 196 COUNTRIES · FACTS & TRIVIA</div>
             <div class="panel-footer">
-              <span class="panel-link">Launch Casual Map</span>
+              <span class="panel-link">Play Casual Mode</span>
               <span class="panel-arrow">→</span>
             </div>
           </div>
 
-          <!-- Discipline 02: Speed Run -->
+          <!-- Mode 02: Speed Run -->
           <div class="feature-panel" data-mode="speed" role="button" tabindex="0">
             <div class="panel-top-rule"></div>
             <div class="panel-header">
-              <span class="panel-num">02 // TIMED</span>
-              <span class="panel-badge">SPEED RUN</span>
+              <span class="panel-num">02</span>
+              <span class="panel-badge">TIMED CHALLENGE</span>
             </div>
             <h3 class="panel-title">Speed Run</h3>
             <p class="panel-desc">
-              Race against the horological countdown. Build combo streaks, rack up score multipliers, and see how many nations you can name before zero.
+              Race the clock to name as many countries as you can. Build streaks, keep your pace up, and see where your typing speed ranks on the daily leaderboard.
             </p>
-            <div class="panel-meta-mono">STOPWATCH READOUT · STREAK MULTIPLIERS · INSTRUMENT ACCENTS</div>
+            <div class="panel-meta-mono">STOPWATCH TIMER · STREAKS · DAILY LEADERBOARD</div>
             <div class="panel-footer">
               <span class="panel-link">Enter Speed Run</span>
               <span class="panel-arrow">→</span>
             </div>
           </div>
 
-          <!-- Discipline 03: Reverse Mode -->
+          <!-- Mode 03: Reverse Mode -->
           <div class="feature-panel" data-mode="reverse" role="button" tabindex="0">
             <div class="panel-top-rule"></div>
             <div class="panel-header">
-              <span class="panel-num">03 // INFERENCE</span>
-              <span class="panel-badge">REVERSE DEDUCTION</span>
+              <span class="panel-num">03</span>
+              <span class="panel-badge">SHAPE GUESSING</span>
             </div>
             <h3 class="panel-title">Reverse Mode</h3>
             <p class="panel-desc">
-              The map isolates a mystery border and provides geographic telemetry. Deduce the territory, enter the sovereign name, and test deep spatial recall.
+              A mystery country glows on the globe with no name. Deduce which nation it is purely from its coastline, borders, and position on Earth.
             </p>
-            <div class="panel-meta-mono">BORDER HIGHLIGHTS · GEOGRAPHIC CLUES · SPATIAL RECALL</div>
+            <div class="panel-meta-mono">RANDOM GLOWING TARGETS · SHAPE RECALL · PURE DEDUCTION</div>
             <div class="panel-footer">
               <span class="panel-link">Play Reverse Mode</span>
               <span class="panel-arrow">→</span>
@@ -290,7 +290,7 @@ export class LandingPage {
 
         <!-- Secondary Modes Ribbon -->
         <div class="secondary-modes-bar">
-          <span class="secondary-label">Additional Cartographic Trials:</span>
+          <span class="secondary-label">More Geography Challenges:</span>
           <button class="secondary-pill" data-page="capitals">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <rect x="2" y="20" width="20" height="2" rx="0.5"/>
@@ -299,75 +299,147 @@ export class LandingPage {
               <rect x="17" y="10" width="2" height="10"/>
               <path d="M1 10h22M12 3l10 7H2z"/>
             </svg>
-            <span>Administrative Capitals [196]</span>
+            <span>World Capitals [196]</span>
           </button>
           <button class="secondary-pill" data-page="flags">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/>
             </svg>
-            <span>Sovereign Standards & Flags [196]</span>
+            <span>Country Flags [196]</span>
           </button>
         </div>
       </section>
 
-      <!-- ── SECTION DIVIDER 1 ── -->
-      <div class="atlas-section-divider left-aligned-section">
-        <span class="divider-line"></span>
-      </div>
-
-      <!-- ── SECTION 4: LEADERBOARD (Expedition Ledger) [TEMPORARILY DISABLED] ──
-      <section class="landing-leaderboard left-aligned-section" id="landing-leaderboard">
-        <div class="ledger-manifest-container">
+      <!-- ── SECTION 4: CLOUD SYNC & LOCAL STORAGE ──────────────── -->
+      <section class="landing-sync left-aligned-section" id="landing-sync">
+        <div class="sync-container">
           <div class="corner-bracket bracket-tl"></div>
           <div class="corner-bracket bracket-tr"></div>
           <div class="corner-bracket bracket-bl"></div>
           <div class="corner-bracket bracket-br"></div>
 
-          <div class="manifest-header">
-            <div class="manifest-title-block">
-              <span class="manifest-eyebrow">GLOBAL STANDINGS // EXPEDITION RANKS</span>
-              <h2 class="manifest-title">Top Cartographers</h2>
+          <div class="sync-header">
+            <span class="sync-eyebrow">DATA STORAGE // CONTINUITY & BACKUP</span>
+            <h2 class="sync-title">Do you need an account to play? <span class="sync-title-sub">(Probably not)</span></h2>
+            <p class="sync-intro">
+              Two Meridian is built with zero barriers to entry. You never need to sign up, verify an email, or create a password to explore the atlas.
+            </p>
+          </div>
+
+          <div class="sync-grid">
+            <!-- Left Card: Default Local Storage -->
+            <div class="sync-card-block">
+              <div class="sync-card-header">
+                <span class="sync-pill-tag tag-default">DEFAULT · ON DEVICE</span>
+                <h3 class="sync-card-title">Browser Local Storage</h3>
+              </div>
+              <p class="sync-card-text">
+                Your mapped territories, personal chronometer times, and deduction accuracy are saved automatically into your browser persistent storage on this computer.
+              </p>
+              <ul class="sync-feature-list">
+                <li class="sync-feature-item">
+                  <span class="sync-glyph">◈</span>
+                  <div class="sync-item-content">
+                    <strong>Instant & Offline Capable</strong>
+                    <span>Works immediately with zero server latency or network delay.</span>
+                  </div>
+                </li>
+                <li class="sync-feature-item">
+                  <span class="sync-glyph">◈</span>
+                  <div class="sync-item-content">
+                    <strong>Completely Private</strong>
+                    <span>Your keystrokes and game telemetry never leave this device.</span>
+                  </div>
+                </li>
+                <li class="sync-feature-item">
+                  <span class="sync-glyph">◈</span>
+                  <div class="sync-item-content">
+                    <strong>Zero Friction</strong>
+                    <span>No registration, passwords, or email confirmation needed.</span>
+                  </div>
+                </li>
+              </ul>
             </div>
-            
-            <div class="leaderboard-timer-flip">
-              <span class="timer-label">CYCLE RESET:</span>
-              <div class="flip-clock" id="landing-timer">--:--:--</div>
+
+            <!-- Right Card: Optional Cloud Sync -->
+            <div class="sync-card-block">
+              <div class="sync-card-header">
+                <span class="sync-pill-tag tag-optional">OPTIONAL · MULTI-DEVICE</span>
+                <h3 class="sync-card-title">Google Cloud Sync</h3>
+              </div>
+              <p class="sync-card-text">
+                Only needed if you want your progress to carry over across different screens or want safeguard protection against browser cache and cookie resets.
+              </p>
+              <ul class="sync-feature-list">
+                <li class="sync-feature-item">
+                  <span class="sync-glyph glyph-brass">◈</span>
+                  <div class="sync-item-content">
+                    <strong>Multi-Device Continuity</strong>
+                    <span>Switch freely between your laptop, phone, and tablet without losing progress.</span>
+                  </div>
+                </li>
+                <li class="sync-feature-item">
+                  <span class="sync-glyph glyph-brass">◈</span>
+                  <div class="sync-item-content">
+                    <strong>Cache Reset Protection</strong>
+                    <span>Prevents accidental score loss when clearing browser history or site cookies.</span>
+                  </div>
+                </li>
+                <li class="sync-feature-item">
+                  <span class="sync-glyph glyph-brass">◈</span>
+                  <div class="sync-item-content">
+                    <strong>Permanent Record</strong>
+                    <span>Keeps your personal best records and Reverse Mode milestones permanently safe.</span>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
 
-          <div class="manifest-tabs-bar">
-            <div class="sliding-tabs-container">
-              <button class="lb-tab active" data-mode="speed">SPEED RUN</button>
-              <button class="lb-tab" data-mode="reverse">REVERSE DEDUCTION</button>
-              <div class="tab-slider-line" id="lb-tab-slider"></div>
-            </div>
-            <div class="manifest-live-tag">
-              <span class="pulse-dot"></span>
-              <span>LIVE TELEMETRY</span>
-            </div>
+          <!-- Advisory Footnote Bar -->
+          <div class="sync-advisory-bar">
+            <span class="sync-advisory-icon">◈</span>
+            <span class="sync-advisory-text"><strong>Local Storage Advisory:</strong> Progress saved locally can be erased if you clear browser cookies/site data, play in Incognito/Private tabs, or switch between different browsers.</span>
           </div>
 
-          <div class="leaderboard-table-container">
-            <table class="landing-lb-table">
-              <thead>
-                <tr>
-                  <th class="col-rank">RANK</th>
-                  <th class="col-alias">CARTOGRAPHER</th>
-                  <th class="col-acc">ACCURACY</th>
-                  <th class="col-time">TIME</th>
-                  <th class="col-score">SCORE</th>
-                </tr>
-              </thead>
-              <tbody id="landing-lb-body">
-                <tr><td colspan="5" class="lb-loading">Fetching telemetry...</td></tr>
-              </tbody>
-            </table>
+          <!-- Bottom Action & Trust Strip -->
+          <div class="sync-action-area">
+            <div id="sync-section-logged-out" class="sync-logged-out-box">
+              <button type="button" id="sync-section-login-btn" class="sync-login-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.761H12.545z"/>
+                </svg>
+                <span>Sign In with Google</span>
+                <span class="cta-arrow">→</span>
+              </button>
+              <p class="sync-privacy-sub">
+                Optional cloud backup. We never send marketing emails or share your profile. Your login is only used to sync your personal quiz achievements.
+              </p>
+            </div>
+
+            <div id="sync-section-logged-in" class="sync-logged-in-box hidden">
+              <div class="sync-user-status">
+                <span class="sync-badge-active">
+                  <span>◈ Cloud Sync Active</span>
+                  <span>·</span>
+                  <span id="sync-section-alias" class="sync-alias-name auth-alias" title="Click to edit alias">Explorer</span>
+                </span>
+                <button type="button" id="sync-section-logout-btn" class="sync-logout-btn">Sign Out</button>
+              </div>
+              <p class="sync-privacy-sub">
+                Your mapped countries, chronometer times, and accuracy are continuously syncing. Click your alias anytime to change your cartographer name.
+              </p>
+            </div>
           </div>
         </div>
       </section>
-      ── END OF DISABLED LEADERBOARD SECTION ── -->
 
-      <!-- ── SECTION 4: ABOUT & FAQ (Atlas Foreword) ──────────────────────── -->
+      <!-- ── SECTION DIVIDER 2 ── -->
+      <div class="atlas-section-divider left-aligned-section">
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- ── SECTION 5: ABOUT & FAQ (Atlas Foreword) ──────────────────────── -->
       <section class="landing-about left-aligned-section" id="landing-about">
         <div class="about-foreword-container">
           <div class="about-header">
@@ -416,14 +488,6 @@ export class LandingPage {
             <div class="faq-item">
               <button class="faq-question">
                 <span class="faq-num">05</span>
-                <span class="faq-text">Is it really free? What's the catch?</span>
-                <span class="faq-icon">+</span>
-              </button>
-              <div class="faq-answer"><p>Genuinely free. No ads, no tracking, no account required. Your progress saves locally in your browser. The project is maintained independently and supported entirely by optional coffee-tip donations from people who find it useful.</p></div>
-            </div>
-            <div class="faq-item">
-              <button class="faq-question">
-                <span class="faq-num">06</span>
                 <span class="faq-text">Does it work on mobile?</span>
                 <span class="faq-icon">+</span>
               </button>
@@ -444,13 +508,13 @@ export class LandingPage {
         <span class="divider-line"></span>
       </div>
 
-      <!-- ── SECTION 7: FINALE / EXPEDITION LAUNCH ──────────────── -->
+      <!-- ── SECTION 7: LAUNCH EXPEDITION ────────────────────────── -->
       <section class="landing-finale left-aligned-section" id="landing-finale">
         <div class="finale-header">
-          <span class="finale-mono">PRIME MERIDIAN // SYSTEM READY</span>
-          <h2 class="finale-title">Every Border, Coastline, and Territory.</h2>
+          <span class="finale-mono">START PLAYING</span>
+          <h2 class="finale-title">Ready to test what you know?</h2>
           <p class="finale-desc">
-            Select your discipline to launch the interactive map engine.
+            No tutorials or sign-up needed. Choose a mode below and jump straight into the map.
           </p>
         </div>
 
@@ -464,8 +528,8 @@ export class LandingPage {
                 </svg>
               </div>
               <div class="slab-titles">
-                <span class="slab-label">Casual Study</span>
-                <span class="slab-sub">UNTIMED EXPLORATION · 6 CONTINENTS</span>
+                <span class="slab-label">Casual Mode</span>
+                <span class="slab-sub">Untimed · Type all 196 countries at your own pace</span>
               </div>
             </div>
             <span class="slab-arrow">→</span>
@@ -482,7 +546,7 @@ export class LandingPage {
               </div>
               <div class="slab-titles">
                 <span class="slab-label">Speed Run</span>
-                <span class="slab-sub">TIMED COUNTDOWN · STREAK MULTIPLIERS</span>
+                <span class="slab-sub">Race against the clock · Test your typing speed</span>
               </div>
             </div>
             <span class="slab-arrow">→</span>
@@ -498,7 +562,7 @@ export class LandingPage {
               </div>
               <div class="slab-titles">
                 <span class="slab-label">Reverse Mode</span>
-                <span class="slab-sub">SPATIAL DEDUCTION · SHAPE RECOGNITION</span>
+                <span class="slab-sub">Guess glowing countries purely by shape and location</span>
               </div>
             </div>
             <span class="slab-arrow">→</span>
@@ -508,7 +572,7 @@ export class LandingPage {
 
       <!-- ── FOOTER ──────────────────────────────────────────────── -->
       <footer class="landing-page-footer left-aligned-section">
-        <div class="footer-meridian-coords">0° 0' 0" N · 0° 0' 0" E — GREENWICH PRIME MERIDIAN</div>
+        <div class="footer-meridian-coords">0° 0' 0" N · 0° 0' 0" E - GREENWICH PRIME MERIDIAN</div>
         <div class="footer-links-row">
           <span class="landing-footer-copy">&copy; 2026 Two Meridian</span>
           <span class="landing-footer-sep">·</span>
@@ -543,13 +607,9 @@ export class LandingPage {
           <p class="dossier-desc">${d.desc}</p>
         </div>
 
-        <div class="dossier-metrics">
-          ${d.stats.map(s => `
-            <div class="dossier-metric">
-              <span class="metric-k">${s.k}</span>
-              <span class="metric-v" title="${s.v}">${s.v}</span>
-            </div>
-          `).join('')}
+        <div class="dossier-curio-tag">
+          <span class="curio-glyph">◈</span>
+          <span class="curio-text">${d.curio}</span>
         </div>
 
       </article>

@@ -88,7 +88,8 @@
   --glass-border-hover: var(--hairline-light);
 
   /* Typography Families */
-  --font-display: 'Syne', sans-serif;
+  --font-editorial: 'Athelas', 'Fraunces', 'Newsreader', Georgia, serif;
+  --font-display: 'Vanguard', 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 

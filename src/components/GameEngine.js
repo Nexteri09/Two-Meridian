@@ -85,21 +85,11 @@ export class GameEngine {
     if (submitBtn) submitBtn.addEventListener('click', () => this.handleReverseSubmit());
     if (skipBtn) skipBtn.addEventListener('click', () => this.handleReverseSkip());
 
-    // Reverse input enter key & instant submit
+    // Reverse input enter key & focus management (No Auto-Submit in Reverse Mode)
     const revCountryInput = document.getElementById('reverse-country-input');
     if (revCountryInput) {
       revCountryInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') this.handleReverseSubmit();
-      });
-
-      revCountryInput.addEventListener('input', () => {
-        if (!this.instantSubmit) return;
-        const val = revCountryInput.value.trim();
-        if (!val) return;
-        const countryId = this.matcher.match(val);
-        if (countryId && this.reverseActive && this.reverseCurrentCountry && countryId === this.reverseCurrentCountry.id) {
-          this.handleReverseSubmit();
-        }
       });
 
       // Keep focus

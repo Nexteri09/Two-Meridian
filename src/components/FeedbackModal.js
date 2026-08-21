@@ -23,6 +23,16 @@ export class FeedbackModal {
     ];
 
     this._onKeyDown = this._onKeyDown.bind(this);
+
+    // Global delegated trigger for any feedback buttons in landing or game nav
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('#nav-feedback-btn, #landing-feedback-btn, .nav-feedback-btn, #nav-donate');
+      if (btn) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.open('General');
+      }
+    });
   }
 
   open(defaultCategory = 'General') {

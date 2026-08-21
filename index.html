@@ -251,12 +251,11 @@
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
         </button>
-        <a href="mailto:feedback@twomeridian.in?subject=Feedback%20for%20Two%20Meridian" class="nav-link nav-donate" id="nav-donate">Feedback</a>
+        <button type="button" class="nav-link nav-donate nav-feedback-btn" id="nav-feedback-btn" aria-label="Share Feedback">Feedback</button>
         
-        <!-- Auth Controls -->
-        <button id="auth-login-btn" class="nav-link auth-btn">Sign In</button>
+        <!-- User Profile (Visible when signed in) -->
         <div id="auth-user-menu" class="auth-user-menu hidden">
-          <span id="auth-user-alias" class="auth-alias">Alias</span>
+          <span id="auth-user-alias" class="auth-alias" title="Click to edit alias">Alias</span>
           <button id="auth-logout-btn" class="nav-icon-btn" title="Sign Out" aria-label="Sign Out">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>

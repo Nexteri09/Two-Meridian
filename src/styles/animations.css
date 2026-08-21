@@ -257,15 +257,21 @@
 /* ---- Victory Overlay & Themes ---- */
 .victory-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at center, rgba(14, 13, 11, 0.40) 0%, rgba(9, 8, 7, 0.72) 50%, rgba(5, 5, 8, 0.94) 100%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  inset: 0;
+  background: rgba(10, 13, 17, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-xl);
+}
+
+[data-theme="light"] .victory-overlay {
+  background: rgba(30, 24, 16, 0.35);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .victory-card {
@@ -279,43 +285,71 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.85);
-  animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   position: relative;
   overflow: hidden;
 }
 
 /* Theme: Casual Golden Illumination */
 .victory-card.casual-theme {
-  border-color: rgba(197, 155, 39, 0.4);
-  box-shadow: 0 0 60px rgba(197, 155, 39, 0.15), 0 24px 80px rgba(0, 0, 0, 0.9);
+  border-color: rgba(229, 182, 56, 0.35);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
 }
 .victory-card.casual-theme .victory-badge {
-  background: rgba(197, 155, 39, 0.15);
-  color: var(--brass-400, #DFB755);
-  border: 1px solid rgba(197, 155, 39, 0.4);
+  background: rgba(229, 182, 56, 0.15);
+  color: #E5B638;
+  border: 1px solid rgba(229, 182, 56, 0.35);
 }
 
 /* Theme: Speed Hyperdrive */
 .victory-card.speed-theme {
-  border-color: rgba(67, 118, 171, 0.4);
-  box-shadow: 0 0 60px rgba(67, 118, 171, 0.15), 0 24px 80px rgba(0, 0, 0, 0.9);
+  border-color: rgba(56, 184, 155, 0.35);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
 }
 .victory-card.speed-theme .victory-badge {
-  background: rgba(67, 118, 171, 0.15);
-  color: #7AD4B5;
-  border: 1px solid rgba(67, 118, 171, 0.4);
+  background: rgba(56, 184, 155, 0.15);
+  color: #38B89B;
+  border: 1px solid rgba(56, 184, 155, 0.35);
 }
 
 /* Theme: Reverse Tactical Mastermind */
 .victory-card.reverse-theme {
-  border-color: rgba(184, 58, 46, 0.4);
-  box-shadow: 0 0 60px rgba(184, 58, 46, 0.15), 0 24px 80px rgba(0, 0, 0, 0.9);
+  border-color: rgba(224, 93, 76, 0.35);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
 }
 .victory-card.reverse-theme .victory-badge {
-  background: rgba(184, 58, 46, 0.15);
-  color: #E87063;
-  border: 1px solid rgba(184, 58, 46, 0.4);
+  background: rgba(224, 93, 76, 0.15);
+  color: #E05D4C;
+  border: 1px solid rgba(224, 93, 76, 0.35);
+}
+
+/* Light Mode Overrides for Theme Badges */
+[data-theme="light"] .victory-card.casual-theme {
+  border-color: rgba(184, 136, 30, 0.35);
+}
+[data-theme="light"] .victory-card.casual-theme .victory-badge {
+  background: rgba(196, 149, 32, 0.14);
+  color: #A07310;
+  border-color: rgba(196, 149, 32, 0.35);
+}
+
+[data-theme="light"] .victory-card.speed-theme {
+  border-color: rgba(35, 148, 125, 0.35);
+}
+[data-theme="light"] .victory-card.speed-theme .victory-badge {
+  background: rgba(35, 148, 125, 0.14);
+  color: #1A7A66;
+  border-color: rgba(35, 148, 125, 0.35);
+}
+
+[data-theme="light"] .victory-card.reverse-theme {
+  border-color: rgba(196, 77, 61, 0.35);
+}
+[data-theme="light"] .victory-card.reverse-theme .victory-badge {
+  background: rgba(196, 77, 61, 0.14);
+  color: #B53E2E;
+  border-color: rgba(196, 77, 61, 0.35);
 }
 
 .victory-badge {

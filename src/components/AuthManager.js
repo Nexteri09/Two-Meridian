@@ -10,21 +10,21 @@ export class AuthManager {
   }
 
   _bindEvents() {
-    // Bind all login buttons across game and landing headers
+    // Bind all login buttons across game, landing, and sync section
     document.addEventListener('click', (e) => {
-      const target = e.target.closest('#auth-login-btn, #landing-auth-btn');
+      const target = e.target.closest('#auth-login-btn, #landing-auth-btn, #sync-section-login-btn, .auth-login-trigger');
       if (target) {
         e.preventDefault();
         this.signIn();
       }
 
-      const logoutTarget = e.target.closest('#auth-logout-btn, #landing-auth-logout');
+      const logoutTarget = e.target.closest('#auth-logout-btn, #landing-auth-logout, #sync-section-logout-btn');
       if (logoutTarget) {
         e.preventDefault();
         this.signOut();
       }
 
-      const aliasTarget = e.target.closest('#auth-user-alias, #landing-auth-alias, .auth-alias');
+      const aliasTarget = e.target.closest('#auth-user-alias, #landing-auth-alias, #sync-section-alias, .auth-alias');
       if (aliasTarget && this.user) {
         e.preventDefault();
         this._promptEditAlias();
@@ -155,12 +155,12 @@ export class AuthManager {
   }
 
   _updateUI(isLoggedIn) {
-    const loginBtns = document.querySelectorAll('#auth-login-btn, #landing-auth-btn');
     const userMenus = document.querySelectorAll('#auth-user-menu, #landing-auth-user');
-    const aliasSpans = document.querySelectorAll('#auth-user-alias, #landing-auth-alias, .auth-alias');
+    const aliasSpans = document.querySelectorAll('#auth-user-alias, #landing-auth-alias, #sync-section-alias, .auth-alias');
+    const syncLoggedOut = document.getElementById('sync-section-logged-out');
+    const syncLoggedIn = document.getElementById('sync-section-logged-in');
 
     if (isLoggedIn) {
-      loginBtns.forEach(btn => btn.classList.add('hidden'));
       userMenus.forEach(menu => menu.classList.remove('hidden'));
       
       const displayAlias = this.profile?.alias ? this._sanitizeAlias(this.profile.alias) : 'Explorer';
@@ -169,12 +169,17 @@ export class AuthManager {
         span.title = 'Click to edit alias';
         span.style.cursor = 'pointer';
       });
+
+      if (syncLoggedOut) syncLoggedOut.classList.add('hidden');
+      if (syncLoggedIn) syncLoggedIn.classList.remove('hidden');
     } else {
-      loginBtns.forEach(btn => btn.classList.remove('hidden'));
       userMenus.forEach(menu => menu.classList.add('hidden'));
       aliasSpans.forEach(span => {
         span.textContent = '';
       });
+
+      if (syncLoggedOut) syncLoggedOut.classList.remove('hidden');
+      if (syncLoggedIn) syncLoggedIn.classList.add('hidden');
     }
   }
 }
